@@ -10,7 +10,7 @@ export default function RightSection() {
         <Button
           borderRadius={"8.93px"}
           fontWeight={500}
-          bg={"#344234"}
+          bg={"#518a3e"}
           color={"white"}
         >
           Iniciar Sesion
