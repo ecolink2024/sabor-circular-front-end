@@ -36,7 +36,7 @@ export default function RightSection() {
             icon={<FaHouseUser />}
             aria-label="iniciar-sesion-button"
             borderRadius={"8.93px"}
-            bg={"#344234"}
+            bg={"#518a3e"}
             color={"white"}
           />
         </Tooltip>
