@@ -11,6 +11,7 @@ export default function RightSection() {
           borderRadius={"8.93px"}
           fontWeight={500}
           bg={"#518a3e"}
+          _hover={{ bg: "gray.300" }}
           color={"white"}
         >
           Iniciar Sesion
@@ -21,6 +22,7 @@ export default function RightSection() {
           borderRadius={"8.93px"}
           fontWeight={500}
           bg={"#ea9b42"}
+          _hover={{ bg: "gray.300" }}
           color={"white"}
           leftIcon={<FaUserPlus />}
         >
@@ -37,6 +39,7 @@ export default function RightSection() {
             aria-label="iniciar-sesion-button"
             borderRadius={"8.93px"}
             bg={"#518a3e"}
+            _hover={{ bg: "gray.300" }}
             color={"white"}
           />
         </Tooltip>
@@ -49,6 +52,7 @@ export default function RightSection() {
             borderRadius={"8.93px"}
             fontWeight={500}
             bg={"#ea9b42"}
+            _hover={{ bg: "gray.300" }}
             color={"white"}
           />
         </Tooltip>

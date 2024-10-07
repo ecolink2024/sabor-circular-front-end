@@ -19,8 +19,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} antialiased`}
         style={{
-          background: "rgba(254, 187, 94, 0.8)",
-          height: "100vh",
+          background: "#febb5e",
         }}
       >
         <Providers>

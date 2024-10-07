@@ -7,14 +7,17 @@ import {
   IconButton,
   Box,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { FaBoxArchive, FaUtensils } from "react-icons/fa6";
-import { GoArrowUpRight, GoChevronRight } from "react-icons/go";
+import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
 
 export default function MobileCards() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const cardSize = useBreakpointValue({ base: 350, lg: 380 });
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const scrollRight = () => {
@@ -29,16 +32,28 @@ export default function MobileCards() {
         setCurrentIndex(0);
       } else {
         scrollRef.current.scrollBy({
-          left: 380,
+          left: cardSize,
           behavior: "smooth",
         });
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % cardsWorks.length);
+        setCurrentIndex((prevIndex) =>
+          Math.min(prevIndex + 1, cardsWorks.length - 1)
+        );
       }
     }
   };
 
+  const scrollLeft = () => {
+    if (scrollRef.current && cardSize) {
+      scrollRef?.current?.scrollBy({
+        left: -cardSize,
+        behavior: "smooth",
+      });
+      setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    }
+  };
+
   return (
-    <VStack w="100%" spacing={4} align="flex-start">
+    <VStack w="100%" spacing={4} align="flex-start" border={"1px"}>
       <Box position="relative" w="100%">
         <HStack
           ref={scrollRef}
@@ -53,7 +68,7 @@ export default function MobileCards() {
           {cardsWorks.map((card, ix) => (
             <Box flexShrink={0} key={ix}>
               <Box
-                w="350px"
+                w={{ base: "320px", lg: "350px" }}
                 h={{
                   base: ix === currentIndex ? "400px" : "370px",
                   md: "400px",
@@ -107,21 +122,40 @@ export default function MobileCards() {
           ))}
         </HStack>
 
-        {/* Botón para desplazar tarjetas en móvil/tablet */}
-        <IconButton
-          display={{ base: "flex", lg: "none" }}
-          aria-label="scroll right"
-          onClick={scrollRight}
-          icon={<GoChevronRight />}
-          bg={"#518a3e"}
-          color={"white"}
-          borderRadius={"8.93px"}
-          position="absolute"
-          right="20px"
-          top="50%"
-          transform="translateY(-50%)"
-          zIndex={1}
-        />
+        {/* Conditional rendering of buttons */}
+        {currentIndex > 0 && (
+          <IconButton
+            display={{ base: "flex", lg: "none" }}
+            aria-label="scroll left"
+            onClick={scrollLeft}
+            icon={<GoChevronLeft />}
+            bg={"#518a3e"}
+            color={"white"}
+            borderRadius={"8.93px"}
+            position="absolute"
+            left="0px"
+            top="50%"
+            transform="translateY(-50%)"
+            zIndex={1}
+          />
+        )}
+
+        {currentIndex < cardsWorks.length - 1 && (
+          <IconButton
+            display={{ base: "flex", lg: "none" }}
+            aria-label="scroll right"
+            onClick={scrollRight}
+            icon={<GoChevronRight />}
+            bg={"#518a3e"}
+            color={"white"}
+            borderRadius={"8.93px"}
+            position="absolute"
+            right="0px"
+            top="50%"
+            transform="translateY(-50%)"
+            zIndex={1}
+          />
+        )}
       </Box>
     </VStack>
   );

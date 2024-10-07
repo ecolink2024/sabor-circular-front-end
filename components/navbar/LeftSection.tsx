@@ -1,11 +1,12 @@
 import {
+  Box,
   IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Stack,
-  Text,
+  Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaBasketShopping } from "react-icons/fa6";
@@ -16,14 +17,18 @@ export default function LeftSection() {
   return (
     <Stack>
       {/* Logo  */}
-      <Text
-        fontSize={"lg"}
-        fontWeight={900}
-        color={"#344234"}
+      <Box
+        w={"100%"}
+        h={"100%"}
+        maxW={"140px"}
+        maxH={"40px"}
         display={{ base: "none", lg: "block" }}
       >
-        SABOR CIRCULAR
-      </Text>
+        <Image
+          src="/svg/logo-sabor-circular-nav.svg"
+          alt="logo-sabor-circular"
+        />
+      </Box>
 
       {/* Menu mobile  */}
       <Menu>
@@ -44,20 +49,20 @@ export default function LeftSection() {
           borderTopLeftRadius={"none"}
           display={{ base: "block", md: "none" }}
         >
-          {/* Ordena tu comida */}
+          {/* Empeza a usar #Tapercito */}
           <MenuItem
             icon={<FaBasketShopping color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
           >
-            <Link href={"/"}>Ordena tu comida</Link>
+            <Link href={"/"}>Empeza a usar #Tapercito</Link>
           </MenuItem>
 
-          {/* Retorna tu envase */}
+          {/* Puntos de Recepción */}
           <MenuItem
             icon={<RiRecycleFill color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
           >
-            <Link href={"/"}>Retorna tu envase</Link>
+            <Link href={"/"}>Puntos de Recepción</Link>
           </MenuItem>
 
           {/* Cómo funciona */}

@@ -6,13 +6,12 @@ import RightSection from "./RightSection";
 export default function Navbar() {
   return (
     <HStack
-      bg={"#FEBB5E"}
       w={"100%"}
       justify={"space-between"}
-      h={"80px"}
-      px={4}
+      h={{ base: "70px", lg: "90px" }}
+      px={6}
+      bg={"white"}
       shadow={"md"}
-      // position={'fixed'}
     >
       {/* left section  */}
       <LeftSection />

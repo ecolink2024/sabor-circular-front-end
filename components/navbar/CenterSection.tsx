@@ -1,56 +1,57 @@
-import { Link, Stack, Text } from "@chakra-ui/react";
+import { Box, Link, Stack, Image } from "@chakra-ui/react";
 
 export default function CenterSection() {
   return (
     <Stack>
       {/* Logo  */}
-      <Text
-        fontSize="xl"
-        fontWeight={900}
-        color={"#344234"}
-        display={{ base: "flex", lg: "none" }}
-        textAlign={"center"}
-        position={"relative"}
-        left={4}
+      <Box
+        w={"100%"}
+        h={"100%"}
+        maxW={"140px"}
+        maxH={"40px"}
+        display={{ base: "block", lg: "none" }}
       >
-        SABOR CIRCULAR
-      </Text>
+        <Image
+          src="/svg/logo-sabor-circular-nav.svg"
+          alt="logo-sabor-circular"
+        />
+      </Box>
 
       {/* Menu Links en desktop */}
       <Stack direction="row" spacing={6} display={{ base: "none", lg: "flex" }}>
         <Link
           fontSize="sm"
-          color="white"
+          color="#757575"
           textDecoration="none"
           fontWeight={500}
-          _hover={{ color: "#ea9b42", textDecoration: "none" }}
+          _hover={{ color: "#383838", textDecoration: "none" }}
         >
-          Ordena tu comida
+          Empeza a usar #Tapercito
         </Link>
         <Link
           fontSize="sm"
-          color="white"
+          color="#757575"
           textDecoration="none"
           fontWeight={500}
-          _hover={{ color: "#ea9b42", textDecoration: "none" }}
+          _hover={{ color: "#383838", textDecoration: "none" }}
         >
-          Retorna tu envase
+          Puntos de Recepción
         </Link>
         <Link
           fontSize="sm"
-          color="white"
+          color="#757575"
           textDecoration="none"
           fontWeight={500}
-          _hover={{ color: "#ea9b42", textDecoration: "none" }}
+          _hover={{ color: "#383838", textDecoration: "none" }}
         >
           Como funciona
         </Link>
         <Link
           fontSize="sm"
-          color="white"
+          color="#757575"
           textDecoration="none"
           fontWeight={500}
-          _hover={{ color: "#ea9b42", textDecoration: "none" }}
+          _hover={{ color: "#383838", textDecoration: "none" }}
         >
           Quiero ser local adherido
         </Link>
