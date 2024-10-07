@@ -53,7 +53,7 @@ export default function MobileCards() {
   };
 
   return (
-    <VStack w="100%" spacing={4} align="flex-start" border={"1px"}>
+    <VStack w="100%" spacing={4} align="flex-start">
       <Box position="relative" w="100%">
         <HStack
           ref={scrollRef}
