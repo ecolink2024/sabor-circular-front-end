@@ -17,18 +17,20 @@ export default function LeftSection() {
   return (
     <Stack>
       {/* Logo  */}
-      <Box
-        w={"100%"}
-        h={"100%"}
-        maxW={"140px"}
-        maxH={"40px"}
-        display={{ base: "none", lg: "block" }}
-      >
-        <Image
-          src="/svg/logo-sabor-circular-nav.svg"
-          alt="logo-sabor-circular"
-        />
-      </Box>
+      <Link href={"/"} passHref>
+        <Box
+          w={"100%"}
+          h={"100%"}
+          maxW={"140px"}
+          maxH={"40px"}
+          display={{ base: "none", lg: "block" }}
+        >
+          <Image
+            src="/svg/logo-sabor-circular-nav.svg"
+            alt="logo-sabor-circular"
+          />
+        </Box>
+      </Link>
 
       {/* Menu mobile  */}
       <Menu>

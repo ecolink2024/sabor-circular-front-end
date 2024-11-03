@@ -8,3 +8,8 @@ export const scrollAnimation = keyframes`
   transform: translateX(-100%);
 }
 `;
+
+export const getTokenFromPathname = (pathname: string): string | null => {
+  const match = pathname.match(/\/login\/recovery-password\/(.+)/);
+  return match ? match[1] : null;
+};

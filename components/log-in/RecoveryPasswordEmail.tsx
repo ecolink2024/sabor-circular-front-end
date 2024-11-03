@@ -1,59 +1,53 @@
 "use client";
-import { loginUser } from "@/lib/actions/actions";
-import { useAuth } from "@/providers/AuthProvider";
+
 import {
   Box,
   Button,
-  Center,
   FormControl,
   FormLabel,
   Heading,
   Image,
   Input,
-  Link,
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
+import { resetPasswordEmail } from "@/lib/actions/actions";
 
-export default function Login() {
+export default function RecoveryPasswordEmail() {
   const toast = useToast();
-  const router = useRouter();
-  const { login } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const response = await loginUser({ email, password });
-
-    if (response.success && response.token) {
-      login(response.token);
+    try {
+      const response = await resetPasswordEmail(email);
+      if (response.success) {
+        toast({
+          title: "Correo enviado.",
+          description:
+            "Revisa tu bandeja de entrada para recuperar tu contraseña.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setEmail("");
+      }
+    } catch (error) {
       toast({
-        title: "Inicio de sesión exitoso.",
-        description: "Te has autenticado correctamente.",
-        status: "success",
-        duration: 500,
-        isClosable: true,
-      });
-      router.push("/");
-    } else {
-      toast({
-        title: "Error en el inicio de sesión.",
-        description: response.message,
+        title: "Error.",
+        description:
+          "No se pudo enviar el correo de recuperación. Inténtalo de nuevo.",
         status: "error",
         duration: 5000,
         isClosable: true,
       });
+    } finally {
+      setIsLoading(false);
     }
-
-    setEmail("");
-    setPassword("");
-    setIsLoading(false);
   };
 
   return (
@@ -82,7 +76,7 @@ export default function Login() {
         padding={{ base: 8, lg: 10 }}
       >
         <Heading mb={6} textAlign="center" fontSize="2xl">
-          Iniciar Sesión
+          Recuperar Contraseña
         </Heading>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
@@ -95,15 +89,6 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
-            <FormControl id="password" isRequired>
-              <FormLabel>Contraseña</FormLabel>
-              <Input
-                type="password"
-                placeholder="Ingrese su contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormControl>
             <Button
               type="submit"
               bg={"rgba(81, 138, 62, 0.7)"}
@@ -114,27 +99,10 @@ export default function Login() {
               width="full"
               isLoading={isLoading}
             >
-              Iniciar Sesión
+              Recuperar Contraseña
             </Button>
-            <Center mt={2}>
-              <Link
-                href="/login/recovery-password"
-                style={{ color: "rgba(81, 138, 62, 0.7)" }}
-                isExternal
-              >
-                ¿Olvidaste tu contraseña?
-              </Link>
-            </Center>
           </Stack>
         </form>
-        <Center mt={2}>
-          <Link
-            href="/signin"
-            style={{ textDecoration: "none", color: "rgba(81, 138, 62, 0.7)" }}
-          >
-            ¿No tienes cuenta? Regístrate aquí.
-          </Link>
-        </Center>
       </Box>
     </Box>
   );

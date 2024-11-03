@@ -1,78 +1,64 @@
-import { cardsWorks } from "@/lib/data/data";
+import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
 import {
-  VStack,
-  HStack,
-  Icon,
-  Button,
-  IconButton,
   Box,
+  Button,
+  Center,
+  Flex,
+  Icon,
+  IconButton,
   Text,
-  useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/pagination";
+import { cardsWorks } from "@/lib/data/data";
 import { CiUser } from "react-icons/ci";
 import { FaBoxArchive, FaUtensils } from "react-icons/fa6";
 import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
 
 export default function MobileCards() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const cardSize = useBreakpointValue({ base: 350, lg: 380 });
-
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth, scrollWidth } = scrollRef.current;
-
-      if (scrollLeft + clientWidth >= scrollWidth - 10) {
-        scrollRef.current.scrollTo({
-          left: 0,
-          behavior: "smooth",
-        });
-        setCurrentIndex(0);
-      } else {
-        scrollRef.current.scrollBy({
-          left: cardSize,
-          behavior: "smooth",
-        });
-        setCurrentIndex((prevIndex) =>
-          Math.min(prevIndex + 1, cardsWorks.length - 1)
-        );
-      }
-    }
-  };
-
-  const scrollLeft = () => {
-    if (scrollRef.current && cardSize) {
-      scrollRef?.current?.scrollBy({
-        left: -cardSize,
-        behavior: "smooth",
-      });
-      setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    }
-  };
+  // Ref for slider
+  const swiperRef = useRef<SwiperClass | null>(null);
 
   return (
-    <VStack w="100%" spacing={4} align="flex-start">
-      <Box position="relative" w="100%">
-        <HStack
-          ref={scrollRef}
-          w="100%"
-          gap={{ base: 6, md: 10 }}
-          p={6}
-          justify={{ base: "flex-start", md: "center" }}
-          align="flex-start"
-          mt="50px"
-          overflowX="hidden"
-        >
-          {cardsWorks.map((card, ix) => (
-            <Box flexShrink={0} key={ix}>
+    <Flex
+      as={Center}
+      w={"100%"}
+      maxW={"700px"}
+      position="relative"
+      overflow="hidden"
+      p={{ base: 4, sm: 10 }}
+    >
+      <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        pagination={false}
+        centeredSlides={true}
+        slidesPerView={1}
+        spaceBetween={10}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+        breakpoints={{
+          360: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+        }}
+      >
+        {cardsWorks.map((card, ix) => (
+          <SwiperSlide key={ix}>
+            <Flex w={"100%"} justify={"center"}>
               <Box
-                w={{ base: "320px", lg: "350px" }}
-                h={{
-                  base: ix === currentIndex ? "400px" : "370px",
-                  md: "400px",
-                }}
+                w={"380px"}
+                h={"400px"}
                 borderRadius="16px"
                 borderTop="2px solid #518a3e"
                 borderX="2px solid #518a3e"
@@ -83,6 +69,7 @@ export default function MobileCards() {
                 flexDirection="column"
                 alignItems="flex-start"
                 transition="height 0.6s ease"
+                bg="white"
               >
                 <Box
                   w="110px"
@@ -118,45 +105,39 @@ export default function MobileCards() {
                   {card.button}
                 </Button>
               </Box>
-            </Box>
-          ))}
-        </HStack>
+            </Flex>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-        {/* Conditional rendering of buttons */}
-        {currentIndex > 0 && (
-          <IconButton
-            display={{ base: "flex", lg: "none" }}
-            aria-label="scroll left"
-            onClick={scrollLeft}
-            icon={<GoChevronLeft />}
-            bg={"#518a3e"}
-            color={"white"}
-            borderRadius={"8.93px"}
-            position="absolute"
-            left="0px"
-            top="50%"
-            transform="translateY(-50%)"
-            zIndex={1}
-          />
-        )}
+      {/* Navigation Buttons */}
+      <IconButton
+        aria-label="Previous slide"
+        className="swiper-button-prev"
+        position="absolute"
+        left={{ base: "0px", sm: "50px" }}
+        top="50%"
+        transform="translateY(-50%)"
+        icon={<GoChevronLeft />}
+        zIndex={1}
+        bg={"#518a3e"}
+        color={"white"}
+        borderRadius={"8.93px"}
+      />
 
-        {currentIndex < cardsWorks.length - 1 && (
-          <IconButton
-            display={{ base: "flex", lg: "none" }}
-            aria-label="scroll right"
-            onClick={scrollRight}
-            icon={<GoChevronRight />}
-            bg={"#518a3e"}
-            color={"white"}
-            borderRadius={"8.93px"}
-            position="absolute"
-            right="0px"
-            top="50%"
-            transform="translateY(-50%)"
-            zIndex={1}
-          />
-        )}
-      </Box>
-    </VStack>
+      <IconButton
+        aria-label="Next slide"
+        className="swiper-button-next"
+        position="absolute"
+        right={{ base: "0px", sm: "50px" }}
+        top="50%"
+        transform="translateY(-50%)"
+        icon={<GoChevronRight />}
+        zIndex={1}
+        bg={"#518a3e"}
+        color={"white"}
+        borderRadius={"8.93px"}
+      />
+    </Flex>
   );
 }

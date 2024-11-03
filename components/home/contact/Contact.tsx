@@ -2,6 +2,7 @@ import { worksans } from "@/public/fonts/font";
 import { Button, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { GoArrowUpRight } from "react-icons/go";
 import Accompany from "../accompany/Accompany";
+import Link from "next/link";
 
 export default function Contact() {
   return (
@@ -34,16 +35,18 @@ export default function Contact() {
           <Text color={"white"} textAlign={"center"}>
             ¿Te gustaría que tu local se adhiera a Sabor Circular?
           </Text>
-          <Button
-            bg={"#ea9b42"}
-            color={"white"}
-            fontWeight={600}
-            borderRadius="10px"
-            leftIcon={<GoArrowUpRight />}
-            size={"lg"}
-          >
-            Dejanos tus datos
-          </Button>
+          <Link passHref href={"/contact"}>
+            <Button
+              bg={"#ea9b42"}
+              color={"white"}
+              fontWeight={600}
+              borderRadius="10px"
+              leftIcon={<GoArrowUpRight />}
+              size={"lg"}
+            >
+              Dejanos tus datos
+            </Button>
+          </Link>
         </VStack>
         {/* Section Accompany */}
         <Accompany />

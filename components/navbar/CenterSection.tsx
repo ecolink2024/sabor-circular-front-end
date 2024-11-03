@@ -1,21 +1,23 @@
-import { Box, Link, Stack, Image } from "@chakra-ui/react";
+import { Box, Stack, Image, Link } from "@chakra-ui/react";
 
 export default function CenterSection() {
   return (
     <Stack>
       {/* Logo  */}
-      <Box
-        w={"100%"}
-        h={"100%"}
-        maxW={"140px"}
-        maxH={"40px"}
-        display={{ base: "block", lg: "none" }}
-      >
-        <Image
-          src="/svg/logo-sabor-circular-nav.svg"
-          alt="logo-sabor-circular"
-        />
-      </Box>
+      <Link href={"/"}>
+        <Box
+          w={"100%"}
+          h={"100%"}
+          maxW={"140px"}
+          maxH={"40px"}
+          display={{ base: "block", lg: "none" }}
+        >
+          <Image
+            src="/svg/logo-sabor-circular-nav.svg"
+            alt="logo-sabor-circular"
+          />
+        </Box>
+      </Link>
 
       {/* Menu Links en desktop */}
       <Stack direction="row" spacing={6} display={{ base: "none", lg: "flex" }}>
