@@ -32,7 +32,7 @@ export default function Footer() {
           fontSize={"20px"}
           mt={{ base: "30px", lg: "70px" }}
         >
-          <Text>Suscribite y empezá a usar #Tapercito</Text>
+          <Text>Empezá a usar #Tapercito</Text>
           <Text>Puntos de Recepción</Text>
           <Text>Quiero ser local adherido</Text>
           <Text>Como funciona?</Text>

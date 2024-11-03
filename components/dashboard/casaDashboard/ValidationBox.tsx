@@ -1,4 +1,4 @@
-import { Box, Center, Text } from "@chakra-ui/react";
+import { Box, Center, Spinner, Text } from "@chakra-ui/react";
 import React from "react";
 
 export default function ValidationBox() {
@@ -26,6 +26,8 @@ export default function ValidationBox() {
       >
         ¡Muchas gracias por sumarte a la revolución de Sabor Circular!
       </Text>
+
+      <Center></Center>
       <Text
         fontWeight={"bold"}
         fontSize={{ base: "10px", lg: "13px" }}
@@ -34,6 +36,7 @@ export default function ValidationBox() {
         Estamos validando tu suscripción, te llegará un correo cuando se te
         habiliten los envases.
       </Text>
+      <Spinner size={"xl"} color={"#518a3e"} />
     </Box>
   );
 }

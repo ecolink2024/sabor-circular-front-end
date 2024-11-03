@@ -106,18 +106,6 @@ export const publicRoutes: string[] = [
   "/return-container",
   "/signin",
   "/login",
-  "/sigin/pg-admin",
-];
-
-export type Route =
-  | "/dashboard/admin/"
-  | "/dashboard/casa/"
-  | "/dashboard/gastronomico/"
-  | "/dashboard/punto/";
-
-export const roleBasedRoutes: Array<{ path: string; roles: string[] }> = [
-  { path: "/dashboard/admin/[id]", roles: ["admin"] },
-  { path: "/dashboard/casa/[id]", roles: ["casa"] },
-  { path: "/dashboard/gastronomico/[id]", roles: ["gastronomico"] },
-  { path: "/dashboard/punto/[id]", roles: ["punto"] },
+  "/sigin/pg",
+  "/sigin/admin",
 ];

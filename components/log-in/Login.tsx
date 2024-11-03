@@ -128,10 +128,7 @@ export default function Login() {
           </Stack>
         </form>
         <Center mt={2}>
-          <Link
-            href="/signin"
-            style={{ textDecoration: "none", color: "rgba(81, 138, 62, 0.7)" }}
-          >
+          <Link href="/signin" style={{ color: "rgba(81, 138, 62, 0.7)" }}>
             ¿No tienes cuenta? Regístrate aquí.
           </Link>
         </Center>

@@ -19,9 +19,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function SignIn({
-  registrationType = "casa", // 'admin', 'puntogastronomico' o 'casa'
+  registrationType = "casa",
 }: {
-  registrationType: "admin" | "puntogastronomico" | "casa";
+  registrationType: "admin" | "casa" | "pg";
 }) {
   const toast = useToast();
   const router = useRouter();
@@ -30,7 +30,12 @@ export default function SignIn({
     email: "",
     phone: "",
     address: "",
-    role: registrationType === "casa" ? "casa" : "",
+    role:
+      registrationType === "casa"
+        ? "casa"
+        : registrationType === "admin"
+        ? "admin"
+        : "",
     password: "",
   });
 
@@ -40,7 +45,14 @@ export default function SignIn({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [id]: value }));
+
+    // Si el registro es 'pg', el rol se puede cambiar
+    if (registrationType === "pg" && id === "role") {
+      setFormData((prevData) => ({ ...prevData, [id]: value }));
+    } else {
+      // Para 'admin' o 'casa', no se cambia el rol desde el input
+      setFormData((prevData) => ({ ...prevData, [id]: value }));
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -63,7 +75,12 @@ export default function SignIn({
         email: "",
         phone: "",
         address: "",
-        role: registrationType === "casa" ? "casa" : "",
+        role:
+          registrationType === "casa"
+            ? "casa"
+            : registrationType === "admin"
+            ? "admin"
+            : "",
         password: "",
       });
 
@@ -149,7 +166,7 @@ export default function SignIn({
             </FormControl>
 
             {/* Mostrar el desplegable según el tipo de registro */}
-            {registrationType !== "casa" && (
+            {registrationType === "pg" && (
               <FormControl id="role" isRequired>
                 <FormLabel>Rol</FormLabel>
                 <Select
@@ -157,12 +174,8 @@ export default function SignIn({
                   value={formData.role}
                   onChange={handleInputChange}
                 >
-                  {registrationType === "admin" && (
-                    <option value="admin">Admin</option>
-                  )}
-                  {registrationType === "puntogastronomico" && (
-                    <option value="gastronomico">Punto Gastronómico</option>
-                  )}
+                  <option value="punto">Punto</option>
+                  <option value="gastronomico">Gastronómico</option>
                 </Select>
               </FormControl>
             )}
