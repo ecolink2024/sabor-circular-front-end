@@ -15,15 +15,21 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Login() {
   const toast = useToast();
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    if (user) {
+      router.push(`/dashboard/${user.role}/${user._id}`);
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +59,6 @@ export default function Login() {
     setEmail("");
     setPassword("");
     setIsLoading(false);
-    router.push("/");
   };
 
   return (
