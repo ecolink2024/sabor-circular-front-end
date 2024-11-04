@@ -1,17 +1,10 @@
 import { cardsWorks } from "@/lib/data/data";
 import { HStack, Icon, VStack, Button, Box, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import React from "react";
 import { CiUser } from "react-icons/ci";
 import { FaBoxArchive, FaUtensils } from "react-icons/fa6";
 import { GoArrowUpRight } from "react-icons/go";
 
 export default function DesktopCards() {
-  const router = useRouter();
-
-  const handleRedirect = () => {
-    
-  }
   return (
     <HStack
       w="100%"
