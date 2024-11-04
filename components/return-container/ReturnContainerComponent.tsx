@@ -19,7 +19,8 @@ export default function ReturnContainerComponent() {
           textAlign={"center"}
           color={"#2E312F"}
         >
-          Buscá el Punto de Recepción más cercano para devolver tu #Tapercito
+          Buscá el Punto de Recepción más cercano <br /> para devolver tu
+          #Tapercito
         </Heading>
 
         {/* Description */}
@@ -35,7 +36,7 @@ export default function ReturnContainerComponent() {
         {/* Map takes remaining space */}
         <Box w="100%" h="100%" borderRadius="md" overflow="hidden">
           <iframe
-            src="https://www.google.com/maps/d/u/0/embed?mid=1YozxkMDTgOWy-fHA_zSZrM4Mrc3CIM0&ehbc=2E312F"
+            src="https://www.google.com/maps/d/embed?mid=1t_QK64rVM63_Ctpux-5vlLE4ZRXVmCM&ehbc=2E312F&noprof=1"
             width="100%"
             height="100%"
             style={{ border: 0 }}

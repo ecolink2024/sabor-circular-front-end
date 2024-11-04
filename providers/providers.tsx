@@ -8,7 +8,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider>
       <ChakraProvider>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {/* <ProtectedRouteWrapper> */}
+          {children}
+          {/* </ProtectedRouteWrapper> */}
+        </AuthProvider>
       </ChakraProvider>
     </CacheProvider>
   );

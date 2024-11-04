@@ -1,10 +1,13 @@
+"use client";
 import { worksans } from "@/public/fonts/font";
 import { Button, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { GoArrowUpRight } from "react-icons/go";
 import Accompany from "../accompany/Accompany";
 import Link from "next/link";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Contact() {
+  const { user } = useAuth();
   return (
     <Stack
       w={{ base: "100%", lg: "95%" }}
@@ -22,7 +25,17 @@ export default function Contact() {
         pt={{ base: "100px", lg: "150px" }}
         gap={{ base: "150px", lg: "300px" }}
       >
-        <VStack gap={10} px={10}>
+        <VStack
+          gap={10}
+          px={10}
+          display={
+            user?.role === "casa" ||
+            user?.role === "punto" ||
+            user?.role === "gastronomico"
+              ? "none"
+              : "flex"
+          }
+        >
           <Heading
             color={"white"}
             position={"relative"}

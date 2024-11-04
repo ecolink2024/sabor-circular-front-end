@@ -40,6 +40,7 @@ export default function HowItsWorks() {
         fontWeight={900}
         fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
         className={worksans.className}
+        id="how-its-work"
       >
         ¿Cómo funciona?
       </Heading>

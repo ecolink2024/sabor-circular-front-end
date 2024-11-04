@@ -1,9 +1,18 @@
 "use client";
-import { Flex, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/react";
+import { useAuth } from "@/providers/AuthProvider";
+import { Flex, HStack, Icon, Stack, Link, VStack } from "@chakra-ui/react";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { RiInstagramFill } from "react-icons/ri";
 
 export default function Footer() {
+  const { user } = useAuth();
+
+  const hrefTapercito = user
+    ? user.role === "casa"
+      ? `/dashboard/casa/${user._id}`
+      : `/dashboard/admin/${user._id}`
+    : "login";
+
   return (
     <Stack
       w={{ base: "100%", lg: "95%" }}
@@ -18,12 +27,16 @@ export default function Footer() {
           align={"flex-start"}
           direction={{ base: "row", lg: "column" }}
         >
-          <Text fontSize={"2xl"} fontWeight={900} color={"white"}>
+          <Link fontSize={"2xl"} fontWeight={900} color={"white"} href="/">
             SABOR CIRCULAR
-          </Text>
+          </Link>
           <HStack gap={4}>
-            <Icon as={RiInstagramFill} fontSize={50} color="white" />
-            <Icon as={IoLogoWhatsapp} fontSize={50} color="white" />
+            <Link href="https://instagram.com" isExternal>
+              <Icon as={RiInstagramFill} fontSize={50} color="white" />
+            </Link>
+            <Link href="https://wa.me/" isExternal>
+              <Icon as={IoLogoWhatsapp} fontSize={50} color="white" />
+            </Link>
           </HStack>
         </Flex>
         <VStack
@@ -31,11 +44,32 @@ export default function Footer() {
           align={"flex-start"}
           fontSize={"20px"}
           mt={{ base: "30px", lg: "70px" }}
+          spacing={2}
         >
-          <Text>Empezá a usar #Tapercito</Text>
-          <Text>Puntos de Recepción</Text>
-          <Text>Quiero ser local adherido</Text>
-          <Text>Como funciona?</Text>
+          <Link
+            href={hrefTapercito}
+            display={
+              user?.role === "punto" || user?.role === "gastronomico"
+                ? "none"
+                : "block"
+            }
+          >
+            Empezá a usar #Tapercito
+          </Link>
+          <Link href="/return-container">Puntos de Recepción</Link>
+          <Link href="#how-its-work">Como funciona?</Link>
+          <Link
+            display={
+              user?.role === "casa" ||
+              user?.role === "punto" ||
+              user?.role === "gastronomico"
+                ? "none"
+                : "block"
+            }
+            href="/contact"
+          >
+            Quiero ser local adherido
+          </Link>
         </VStack>
       </Flex>
     </Stack>

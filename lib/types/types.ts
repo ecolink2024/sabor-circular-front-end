@@ -106,6 +106,14 @@ export const publicRoutes: string[] = [
   "/return-container",
   "/signin",
   "/login",
-  "/sigin/pg",
-  "/sigin/admin",
+  "/login/recovery-password",
+  "/signin/pg",
+  "/signin/admin",
 ];
+
+export const dashboardUsersRoutes: Record<string, string[]> = {
+  admin: ["/dashboard/admin/[id]"],
+  casa: ["/dashboard/casa/[id]"],
+  punto: ["/dashboard/punto/[id]"],
+  gastronomico: ["/dashboard/gastronomico/[id]"],
+};

@@ -1,22 +1,27 @@
-import React from "react";
-import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { publicRoutes } from "@/lib/types/types";
+import { useAuth } from "./AuthProvider";
+import { isDashboardRouteAuthorized } from "@/lib/utils/utils";
 
 const ProtectedRouteWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user } = useAuth();
 
-  // Verificar si la ruta es pública
   const isPublicRoute = publicRoutes.includes(pathname);
+  const hasAccess = isPublicRoute || isDashboardRouteAuthorized(user, pathname);
 
-  // Si la ruta es pública, permite el acceso
-  if (isPublicRoute) {
-    return <>{children}</>;
-  }
+  useEffect(() => {
+    if (!hasAccess) {
+      alert("Acceso denegado");
+      router.push("/");
+    }
+  }, [hasAccess, router]);
 
-  // Si la ruta no es pública, puedes agregar la lógica para redirigir o mostrar un mensaje
-  return <>{children}</>;
+  return hasAccess ? <>{children}</> : null;
 };
 
 export default ProtectedRouteWrapper;

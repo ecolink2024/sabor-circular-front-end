@@ -1,8 +1,17 @@
+import { useAuth } from "@/providers/AuthProvider";
 import { Box, Stack, Image, Link } from "@chakra-ui/react";
 
 export default function CenterSection() {
+  const { user } = useAuth();
+
+  const hrefTapercito = user
+    ? user.role === "casa"
+      ? `/dashboard/casa/${user._id}`
+      : `/dashboard/admin/${user._id}`
+    : "login";
+
   return (
-    <Stack>
+    <Stack position={"relative"} right={user ? "60px" : "0px"}>
       {/* Logo  */}
       <Link href={"/"}>
         <Box
@@ -22,11 +31,17 @@ export default function CenterSection() {
       {/* Menu Links en desktop */}
       <Stack direction="row" spacing={6} display={{ base: "none", lg: "flex" }}>
         <Link
+          display={
+            user?.role === "punto" || user?.role === "gastronomico"
+              ? "none"
+              : "block"
+          }
           fontSize="sm"
           color="#757575"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
+          href={hrefTapercito}
         >
           Empeza a usar #Tapercito
         </Link>
@@ -36,24 +51,35 @@ export default function CenterSection() {
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
+          href="/return-container"
         >
           Puntos de Recepción
         </Link>
+
         <Link
           fontSize="sm"
           color="#757575"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
+          href="#how-its-work"
         >
           Como funciona
         </Link>
         <Link
+          display={
+            user?.role === "casa" ||
+            user?.role === "punto" ||
+            user?.role === "gastronomico"
+              ? "none"
+              : "block"
+          }
           fontSize="sm"
           color="#757575"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
+          href="/contact"
         >
           Quiero ser local adherido
         </Link>

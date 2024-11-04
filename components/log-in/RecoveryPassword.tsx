@@ -11,9 +11,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { resetPassword } from "@/lib/actions/actions";
+import { useRouter } from "next/navigation";
 
 export default function RecoveryPassword({ token }: { token: string | null }) {
   const toast = useToast();
+  const router = useRouter();
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -55,6 +57,7 @@ export default function RecoveryPassword({ token }: { token: string | null }) {
       setIsLoading(false);
       setNewPassword("");
       setConfirmPassword("");
+      router.push("/login");
     }
   };
 

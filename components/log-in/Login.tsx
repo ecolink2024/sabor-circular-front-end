@@ -40,7 +40,6 @@ export default function Login() {
         duration: 500,
         isClosable: true,
       });
-      router.push("/");
     } else {
       toast({
         title: "Error en el inicio de sesión.",
@@ -54,6 +53,7 @@ export default function Login() {
     setEmail("");
     setPassword("");
     setIsLoading(false);
+    router.push("/");
   };
 
   return (

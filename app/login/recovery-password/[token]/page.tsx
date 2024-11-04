@@ -6,5 +6,5 @@ export default function RecoveryPasswordPage({
 }: {
   params: { token: string };
 }) {
-  return <RecoveryPassword token={params.token} />;
+  return <RecoveryPassword token={params?.token} />;
 }

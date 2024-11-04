@@ -13,7 +13,13 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
   };
 
   return (
-    <Flex w={"100%"} justify={"space-evenly"}>
+    <Flex
+      w={"100%"}
+      justify={"space-evenly"}
+      align={"center"}
+      direction={{ base: "column", md: "row" }}
+      gap={10}
+    >
       <Box
         bg={"white"}
         w={"100%"}
