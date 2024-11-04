@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/providers/AuthProvider";
-import { Stack, Center, Flex, Skeleton, Heading } from "@chakra-ui/react";
+import { Stack, Center, Flex, Skeleton, Heading, Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 
 export default function Dashboard({ children }: { children: ReactNode }) {
@@ -13,12 +13,31 @@ export default function Dashboard({ children }: { children: ReactNode }) {
       p={10}
       gap={20}
     >
-      <Flex w={"100%"} justify={"center"}>
+      <Flex
+        w={"100%"}
+        justify={"center"}
+        direction={"column"}
+        align={"center"}
+        gap={6}
+      >
         <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
           <Heading color={"white"} size={"2xl"}>
             {`Hola ${user?.name.split(" ")[0]}!`}
           </Heading>
         </Skeleton>
+
+        <Text
+          display={
+            user?.role === "gastronomico" || user?.role === "casa"
+              ? "block"
+              : "none"
+          }
+          textAlign={"center"}
+          fontSize={"xl"}
+          fontWeight={600}
+        >
+          Registrá los ingresos/egresos de envases en tu establecimiento
+        </Text>
       </Flex>
       {children}
     </Stack>

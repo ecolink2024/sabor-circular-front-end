@@ -42,7 +42,7 @@ export default function AllUsersTable() {
         bg={"white"}
         shadow={"md"}
       >
-        <Heading size={"2xl"}>USUARIOS</Heading>
+        <Heading size={"xl"}>USUARIOS</Heading>
         {/* Input para filtrar por email */}
         <Input
           w={"100%"}

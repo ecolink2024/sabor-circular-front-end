@@ -5,7 +5,7 @@ export const cardsWorks = [
     title: "Suscribite a Sabor Circular",
     icon: "user",
     description:
-      "Registrate y adquirí tus envases reutilizables a través de la plataforma ¡Quiero sumarme!",
+      "Registrate y adquirí tus envases reutilizables a través de la plataforma",
     button: "¡Quiero sumarme!",
   },
   {
@@ -19,40 +19,48 @@ export const cardsWorks = [
     title: "Devolve tu #Tapercito y repetí",
     icon: "covered",
     description:
-      "Acerca tus envases a los Puntos de Recepción para la sanitización y recirculación al circuito gastronómico. Y listo! Nuevamente disfruta tu próximo pedido con Sabor Circula",
-    button: "Hace tu pedido",
+      "Devolve tus #tapercitos para que sean sanitizados y reintroducidos al circuito, y listo! Disfrutá nuevamente tu próximo pedido con Sabor Circular.",
+    button: "Ver Puntos",
   },
 ];
 
 export const attachedPremises: infiniteSlider[] = [
   {
-    svg: "/svg/logoipsum-219.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 219",
+
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/logoipsum-220.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 220",
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/logoipsum-286.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 286",
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/logoipsum-297.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 297",
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/logoipsum-311.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 311",
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/logoipsum-317.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 317",
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
 
   {
-    svg: "/svg/logoipsum-323.svg",
+    svg: "/svg/risata.svg",
     tooltip: "logo 323",
+    link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
 ];
 
@@ -60,21 +68,26 @@ export const accompany: infiniteSlider[] = [
   {
     svg: "/svg/logo1.svg",
     tooltip: "logo 1",
+    link: "",
   },
   {
     svg: "/svg/logo2.svg",
     tooltip: "logo 2",
+    link: "",
   },
   {
     svg: "/svg/logo3.svg",
     tooltip: "logo 3",
+    link: "",
   },
   {
     svg: "/svg/logo4.svg",
     tooltip: "logo 4",
+    link: "",
   },
   {
     svg: "/svg/logo5.svg",
     tooltip: "logo 5",
+    link: "",
   },
 ];

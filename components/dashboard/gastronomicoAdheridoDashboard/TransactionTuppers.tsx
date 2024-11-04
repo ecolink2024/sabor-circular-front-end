@@ -28,7 +28,6 @@ export default function TransactionTuppers({
   transactionType: "deposit" | "withdraw";
   url: string;
 }) {
-  
   const {
     userCode,
     setUserCode,
@@ -124,8 +123,10 @@ export default function TransactionTuppers({
         justifyContent={"space-evenly"}
         p={10}
       >
-        <Heading size={"lg"}>
-          {transactionType === "deposit" ? "Ingreso Tuppers" : "Egreso Tuppers"}
+        <Heading size={"lg"} textAlign={"center"}>
+          {transactionType === "deposit"
+            ? "Ingreso envases no aptos"
+            : "Egreso envases no aptos"}
         </Heading>
         <VStack w={"100%"} gap={4}>
           {!user ? (
@@ -190,7 +191,7 @@ export default function TransactionTuppers({
           <Input
             id="tupper-count"
             type="number"
-            placeholder="Cantidad"
+            placeholder="Cantidad de envases"
             borderRadius={"8.93px"}
             h={"40px"}
             value={tupperCount || ""}
@@ -209,7 +210,7 @@ export default function TransactionTuppers({
           size="md"
           width="full"
         >
-          Actualizar
+          Registrar
         </Button>
       </Box>
     </Skeleton>

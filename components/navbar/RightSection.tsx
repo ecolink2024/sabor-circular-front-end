@@ -120,7 +120,7 @@ export default function RightSection() {
               </Link>
               <Link href={`/dashboard/${user?.role}/${user?._id}`} passHref>
                 <MenuItem icon={<MdDashboardCustomize color="#ea9b42" />}>
-                  Dashboard
+                  Datos cuenta
                 </MenuItem>
               </Link>
             </MenuGroup>
@@ -130,7 +130,7 @@ export default function RightSection() {
                 icon={<BiSolidLogOutCircle color="#ea9b42" />}
                 onClick={handleLogout}
               >
-                Log out
+                Cerrar sesión
               </MenuItem>
             </MenuGroup>
           </MenuList>

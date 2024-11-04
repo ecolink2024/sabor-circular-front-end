@@ -23,12 +23,12 @@ export default function HowItsWorks() {
         left={"50%"}
         transform={"translateX(-50%)"}
         zIndex={1}
-        maxW={{ base: "400px", lg: "600px" }}
+        maxW={{ base: "400px", lg: "800px" }}
       >
         <Image
-          src={"/img/landing-page-image.png"}
-          width={600}
-          height={600}
+          src={"/img/tupper-sabor-circular.png"}
+          width={800}
+          height={800}
           alt="landing-page-image"
           priority
         />

@@ -19,15 +19,13 @@ export default function ReturnContainerComponent() {
           textAlign={"center"}
           color={"#2E312F"}
         >
-          Buscá el Punto de Recepción más cercano <br /> para devolver tu
-          #Tapercito
+          Buscá el Punto de Recepción más cercano
         </Heading>
 
         {/* Description */}
         <Text fontSize={["sm", "md", "lg"]}>
-          Devolvé tus envases para que puedan ser sanitizados y reintroducidos
-          al circuito gastronómico. Una vez entregados podrás disfrutar
-          nuevamente tu próximo pedido con Sabor Circular.
+          Acercá tus envases a los Puntos de Recepción para que sean sanitizados
+          y reintroducidos al circuito
         </Text>
       </VStack>
 

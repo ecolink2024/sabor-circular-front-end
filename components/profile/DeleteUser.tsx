@@ -76,7 +76,12 @@ export default function DeleteUser({
             <Text>¿Está seguro de que desea eliminar su cuenta?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button
+              bg={"rgba(81, 138, 62, 0.7)"}
+              color={"white"}
+              mr={3}
+              onClick={onClose}
+            >
               Cancelar
             </Button>
             <Button

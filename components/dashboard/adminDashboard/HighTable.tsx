@@ -74,7 +74,7 @@ export default function HighTable() {
         bg={"white"}
         shadow={"md"}
       >
-        <Heading size={"2xl"}>ALTAS</Heading>
+        <Heading size={"xl"}>SOLICITUD DE PACKS</Heading>
         {/* Input para filtrar por email */}
         <Input
           w={"100%"}

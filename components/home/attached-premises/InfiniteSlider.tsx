@@ -1,7 +1,7 @@
 "use client";
 import { infiniteSlider } from "@/lib/types/types";
 import { scrollAnimation } from "@/lib/utils/utils";
-import { HStack } from "@chakra-ui/react";
+import { HStack, Link } from "@chakra-ui/react";
 import Image from "next/image";
 interface InfiniteSliderProps {
   image: infiniteSlider[];
@@ -25,14 +25,16 @@ export default function InfiniteSlider({ image }: InfiniteSliderProps) {
         minW={"fit-content"}
       >
         {image.concat(image).map((logo, ix) => (
-          <Image
-            key={ix}
-            src={logo.svg}
-            width={200}
-            height={100}
-            alt={logo.tooltip}
-            style={{ flexShrink: 0 }}
-          />
+          <Link key={ix} isExternal href={logo.link} w={"200px"} h={"100px"}>
+            <Image
+              key={ix}
+              src={logo.svg}
+              width={200}
+              height={100}
+              alt={logo.tooltip}
+              style={{ flexShrink: 0 }}
+            />
+          </Link>
         ))}
       </HStack>
     </HStack>

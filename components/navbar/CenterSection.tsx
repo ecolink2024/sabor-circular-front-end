@@ -32,7 +32,9 @@ export default function CenterSection() {
       <Stack direction="row" spacing={6} display={{ base: "none", lg: "flex" }}>
         <Link
           display={
-            user?.role === "punto" || user?.role === "gastronomico"
+            user?.role === "punto" ||
+            user?.role === "gastronomico" ||
+            user?.role === "admin"
               ? "none"
               : "block"
           }
@@ -45,6 +47,7 @@ export default function CenterSection() {
         >
           Empeza a usar #Tapercito
         </Link>
+
         <Link
           fontSize="sm"
           color="#757575"
@@ -67,13 +70,6 @@ export default function CenterSection() {
           Como funciona
         </Link>
         <Link
-          display={
-            user?.role === "casa" ||
-            user?.role === "punto" ||
-            user?.role === "gastronomico"
-              ? "none"
-              : "block"
-          }
           fontSize="sm"
           color="#757575"
           textDecoration="none"

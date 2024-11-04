@@ -22,7 +22,7 @@ export default function TitleAndDescription() {
         maxW={{ base: "400px", md: "500px", lg: "600px" }}
       >
         Ahora take away y delivery de tu comida preferida en envases
-        reutilizables que devolvés en diferentes puntos de la ciudad
+        reutilizables zero waste
       </Text>
     </VStack>
   );
