@@ -20,15 +20,15 @@ export default function PuntoCircularDashboard() {
         {/* Ingreso Tuppers */}
         <TransactionTuppers
           token={token}
-          transactionType="deposit"
+          transactionType="withdraw"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
         />
 
-        {/* Egreso Tuppers */}
+        {/* Egreso Tuppers  */}
         <TransactionTuppers
           token={token}
-          transactionType="withdraw"
+          transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
         />

@@ -1,5 +1,6 @@
 import { createTransaction } from "@/lib/actions/actions";
 import useSearchUserByCode from "@/lib/hooks/useSearchUserByCode";
+import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
   Button,
@@ -37,6 +38,7 @@ export default function TransactionTuppers({
   } = useSearchUserByCode("", token);
 
   const toast = useToast();
+  const { user: userType } = useAuth();
 
   // State for the selected user
   const [user, setUser] = useState<{ code: string; name: string } | null>(null);
@@ -124,7 +126,11 @@ export default function TransactionTuppers({
         p={10}
       >
         <Heading size={"lg"} textAlign={"center"}>
-          {transactionType === "deposit"
+          {userType?.role === "gastronomico"
+            ? transactionType === "withdraw"
+              ? "Ingreso envases aptos"
+              : "Egreso envases aptos"
+            : transactionType === "withdraw"
             ? "Ingreso envases no aptos"
             : "Egreso envases no aptos"}
         </Heading>

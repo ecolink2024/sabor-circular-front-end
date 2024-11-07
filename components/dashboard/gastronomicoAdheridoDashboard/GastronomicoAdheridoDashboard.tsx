@@ -20,7 +20,7 @@ export default function GastronomicoAdheridoDashboard() {
         {/* Ingreso Tuppers */}
         <TransactionTuppers
           token={token}
-          transactionType="deposit"
+          transactionType="withdraw"
           isLoadingUser={isLoadingUser}
           url={"gastronomicoCreateTransaction"}
         />
@@ -28,7 +28,7 @@ export default function GastronomicoAdheridoDashboard() {
         {/* Egreso Tuppers */}
         <TransactionTuppers
           token={token}
-          transactionType="withdraw"
+          transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"gastronomicoCreateTransaction"}
         />
