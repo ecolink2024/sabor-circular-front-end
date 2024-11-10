@@ -12,6 +12,7 @@ export default function AttachedPremises() {
       display={"flex"}
       align={"center"}
       overflow={"hidden"}
+      id="locales-adheridos"
     >
       <Heading
         color={"#344234"}

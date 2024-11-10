@@ -1,5 +1,5 @@
 import { keyframes } from "@emotion/react";
-import { User, dashboardUsersRoutes } from "../types/types";
+import { User, ValidationError, dashboardUsersRoutes } from "../types/types";
 
 export const scrollAnimation = keyframes`
 0% {
@@ -27,4 +27,13 @@ export const isDashboardRouteAuthorized = (
       return pathname === expectedPath;
     }) ?? false
   );
+};
+
+// Función para obtener el mensaje de error de un campo específico
+export const getErrorMessage = (
+  field: string,
+  errors: ValidationError[] | undefined
+) => {
+  const error = errors?.find((e) => e.path === field);
+  return error?.message;
 };

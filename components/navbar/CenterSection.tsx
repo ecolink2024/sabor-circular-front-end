@@ -1,18 +1,33 @@
 import { useAuth } from "@/providers/AuthProvider";
-import { Box, Stack, Image, Link } from "@chakra-ui/react";
+import { Box, Stack, Image, Link as ChakraLink } from "@chakra-ui/react";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function CenterSection() {
   const { user } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const hrefTapercito = user
     ? user.role === "casa"
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
-    : "login";
+    : "/login";
+
+  const redirectHowItsWorks = () => {
+    if (pathname === "/") {
+      document
+        .getElementById("how-its-work")
+        ?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      sessionStorage.setItem("scrollToSection", "how-its-work");
+      router.push("/");
+    }
+  };
 
   return (
     <Stack position={"relative"} right={user ? "60px" : "0px"}>
-      {/* Logo  */}
+      {/* Logo */}
       <Link href={"/"}>
         <Box
           w={"100%"}
@@ -30,7 +45,7 @@ export default function CenterSection() {
 
       {/* Menu Links en desktop */}
       <Stack direction="row" spacing={6} display={{ base: "none", lg: "flex" }}>
-        <Link
+        <ChakraLink
           display={
             user?.role === "punto" ||
             user?.role === "gastronomico" ||
@@ -46,9 +61,9 @@ export default function CenterSection() {
           href={hrefTapercito}
         >
           Empeza a usar #Tapercito
-        </Link>
+        </ChakraLink>
 
-        <Link
+        <ChakraLink
           fontSize="sm"
           color="#757575"
           textDecoration="none"
@@ -57,19 +72,21 @@ export default function CenterSection() {
           href="/return-container"
         >
           Puntos de Recepción
-        </Link>
+        </ChakraLink>
 
-        <Link
+        <ChakraLink
           fontSize="sm"
           color="#757575"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
-          href="#how-its-work"
+          onClick={redirectHowItsWorks}
+          cursor="pointer"
         >
-          Como funciona
-        </Link>
-        <Link
+          Cómo funciona
+        </ChakraLink>
+
+        <ChakraLink
           fontSize="sm"
           color="#757575"
           textDecoration="none"
@@ -78,7 +95,7 @@ export default function CenterSection() {
           href="/contact"
         >
           Quiero ser local adherido
-        </Link>
+        </ChakraLink>
       </Stack>
     </Stack>
   );

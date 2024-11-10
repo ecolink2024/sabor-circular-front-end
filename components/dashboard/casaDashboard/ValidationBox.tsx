@@ -1,5 +1,13 @@
-import { Box, Center, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Text, keyframes } from "@chakra-ui/react";
+import { FiMail } from "react-icons/fi";
 import React from "react";
+
+// Animación de pulso suave
+const pulse = keyframes`
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+`;
 
 export default function ValidationBox() {
   return (
@@ -26,17 +34,21 @@ export default function ValidationBox() {
       >
         ¡Muchas gracias por sumarte a la revolución de Sabor Circular!
       </Text>
-
-      <Center></Center>
       <Text
         fontWeight={"bold"}
         fontSize={{ base: "10px", lg: "13px" }}
         textAlign={"center"}
+        color={"gray.600"}
       >
-        Estamos validando tu suscripción, te llegará un correo cuando se te
+        Estamos validando tu suscripción. Recibirás un correo cuando se te
         habiliten los envases.
       </Text>
-      <Spinner size={"xl"} color={"#518a3e"} />
+      <Center
+        as={FiMail}
+        size="56px"
+        color="#518a3e"
+        animation={`${pulse} 1.5s infinite`}
+      />
     </Box>
   );
 }

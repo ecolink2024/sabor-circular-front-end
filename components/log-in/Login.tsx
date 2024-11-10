@@ -8,14 +8,19 @@ import {
   FormControl,
   FormLabel,
   Heading,
+  IconButton,
   Image,
   Input,
   Link,
   Stack,
   useToast,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const toast = useToast();
@@ -24,6 +29,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false); 
 
   useEffect(() => {
     if (user) {
@@ -70,7 +76,23 @@ export default function Login() {
       flexDirection={"column"}
       gap={10}
       py={10}
+      position={"relative"}
     >
+      {/* Button Redirect Index */}
+      <IconButton
+        as={Link}
+        bg={"rgba(81, 138, 62, 0.7)"}
+        _hover={{ bg: "gray.300" }}
+        borderRadius={"8.93px"}
+        color={"white"}
+        aria-label="redirect-index"
+        icon={<FaArrowLeftLong />}
+        href="/"
+        position={"absolute"}
+        top={4}
+        left={4}
+      />
+
       <Image
         src={"/svg/logo-sabor-circular-register.svg"}
         alt="logo"
@@ -102,12 +124,26 @@ export default function Login() {
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Contraseña</FormLabel>
-              <Input
-                type="password"
-                placeholder="Ingrese su contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <InputGroup>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Ingrese su contraseña"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <InputRightElement>
+                  <IconButton
+                    display={password ? "flex" : "none"}
+                    aria-label={
+                      showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                    }
+                    icon={showPassword ? <FaEyeSlash /> : <FaEye />}
+                    onClick={() => setShowPassword(!showPassword)}
+                    variant="link"
+                    color="gray.500"
+                  />
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
             <Button
               type="submit"
@@ -125,7 +161,9 @@ export default function Login() {
               <Link
                 href="/login/recovery-password"
                 style={{ color: "rgba(81, 138, 62, 0.7)" }}
+                textAlign={"center"}
                 isExternal
+                fontSize={{ base: "12px", md: "15px" }}
               >
                 ¿Olvidaste tu contraseña?
               </Link>
@@ -133,7 +171,12 @@ export default function Login() {
           </Stack>
         </form>
         <Center mt={2}>
-          <Link href="/signin" style={{ color: "rgba(81, 138, 62, 0.7)" }}>
+          <Link
+            href="/signin"
+            style={{ color: "rgba(81, 138, 62, 0.7)" }}
+            textAlign={"center"}
+            fontSize={{ base: "12px", md: "15px" }}
+          >
             ¿No tienes cuenta? Regístrate aquí.
           </Link>
         </Center>

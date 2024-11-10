@@ -1,16 +1,13 @@
 import {
-  Button,
   Icon,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
   Center,
   Spinner,
+  ModalBody,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ImAttachment } from "react-icons/im";
@@ -32,27 +29,43 @@ export default function ButtonViewImage({ fileUrl }: { fileUrl: string }) {
         cursor={"pointer"}
         fontSize={20}
       />
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size="full" isCentered>
         <ModalOverlay />
-        <ModalContent borderRadius={"15px"}>
-          <ModalHeader>Comprobante</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody p={0} as={Center} position="relative" minH="250px">
+        <ModalContent
+          borderRadius={0}
+          p={0}
+          maxWidth="100%"
+          maxHeight="100vh"
+          bg="transparent"
+          boxShadow="none"
+        >
+          {/* Botón de Cerrar */}
+          <ModalCloseButton
+            position="absolute"
+            top={4}
+            right={4}
+            color="white"
+            bg={"black"}
+            borderRadius={"8.93px"}
+            zIndex={1}
+          />
+
+          <ModalBody as={Center} position="relative">
             {isLoading && (
               <Spinner size="xl" position="absolute" color="#344234" />
             )}
             <CldImage
               src={fileUrl}
               alt="comprobante"
-              width={400}
-              height={250}
-              style={{ maxHeight: "400px" }}
+              width={1200}
+              height={1200}
+              style={{
+                maxHeight: "90vh",
+                objectFit: "contain",
+              }}
               onLoad={handleImageLoad}
             />
           </ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>Cerrar</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

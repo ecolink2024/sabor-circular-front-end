@@ -1,3 +1,5 @@
+"use client";
+import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
   IconButton,
@@ -9,11 +11,37 @@ import {
   Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { FaBasketShopping } from "react-icons/fa6";
 import { MdGroups, MdInfo, MdOutlineMenu } from "react-icons/md";
 import { RiRecycleFill } from "react-icons/ri";
 
 export default function LeftSection() {
+  const { user } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const hrefTapercito = user
+    ? user.role === "casa"
+      ? `/dashboard/casa/${user._id}`
+      : `/dashboard/admin/${user._id}`
+    : "/login";
+
+  const handleRedirect = (href: string) => {
+    router.push(href);
+  };
+
+  const redirectHowItsWorks = () => {
+    if (pathname === "/") {
+      document
+        .getElementById("how-its-work")
+        ?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      sessionStorage.setItem("scrollToSection", "how-its-work");
+      router.push("/");
+    }
+  };
+
   return (
     <Stack>
       {/* Logo  */}
@@ -55,22 +83,32 @@ export default function LeftSection() {
           <MenuItem
             icon={<FaBasketShopping color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
+            display={
+              user?.role === "punto" ||
+              user?.role === "gastronomico" ||
+              user?.role === "admin"
+                ? "none"
+                : "block"
+            }
+            onClick={() => handleRedirect(hrefTapercito)}
           >
-            <Link href={"/"}>Empeza a usar #Tapercito</Link>
+            Empeza a usar #Tapercito
           </MenuItem>
 
           {/* Puntos de Recepción */}
           <MenuItem
             icon={<RiRecycleFill color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
+            onClick={() => handleRedirect("/return-container")}
           >
-            <Link href={"/"}>Puntos de Recepción</Link>
+            Puntos de Recepción
           </MenuItem>
 
           {/* Cómo funciona */}
           <MenuItem
             icon={<MdInfo color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
+            onClick={redirectHowItsWorks}
           >
             <Link href={"/"}>Cómo funciona</Link>
           </MenuItem>
@@ -79,6 +117,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<MdGroups color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
+            onClick={() => handleRedirect("/contact")}
           >
             <Link href={"/"}>Quiero ser local adherido</Link>
           </MenuItem>

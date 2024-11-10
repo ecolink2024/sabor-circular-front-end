@@ -9,9 +9,13 @@ import {
   Input,
   Stack,
   useToast,
+  IconButton,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { resetPassword } from "@/lib/actions/actions";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa6"; // Importa los íconos
 
 export default function RecoveryPassword({ token }: { token: string | null }) {
   const toast = useToast();
@@ -19,6 +23,7 @@ export default function RecoveryPassword({ token }: { token: string | null }) {
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false); // Estado para controlar la visibilidad de la contraseña
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -87,22 +92,52 @@ export default function RecoveryPassword({ token }: { token: string | null }) {
           <Stack spacing={4}>
             <FormControl id="newPassword" isRequired>
               <FormLabel>Nueva Contraseña</FormLabel>
-              <Input
-                type="password"
-                placeholder="Ingrese su nueva contraseña"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
+              <InputGroup>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Ingrese su nueva contraseña"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <InputRightElement>
+                  <IconButton
+                    display={newPassword ? "flex" : "none"}
+                    aria-label={
+                      showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                    }
+                    icon={showPassword ? <FaEyeSlash /> : <FaEye />}
+                    onClick={() => setShowPassword(!showPassword)}
+                    variant="link"
+                    color="gray.500"
+                  />
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
+
             <FormControl id="confirmPassword" isRequired>
               <FormLabel>Confirmar Contraseña</FormLabel>
-              <Input
-                type="password"
-                placeholder="Confirme su nueva contraseña"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+              <InputGroup>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Confirme su nueva contraseña"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <InputRightElement>
+                  <IconButton
+                    display={newPassword ? "flex" : "none"}
+                    aria-label={
+                      showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                    }
+                    icon={showPassword ? <FaEyeSlash /> : <FaEye />}
+                    onClick={() => setShowPassword(!showPassword)}
+                    variant="link"
+                    color="gray.500"
+                  />
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
+
             <Button
               type="submit"
               bg={"rgba(81, 138, 62, 0.7)"}

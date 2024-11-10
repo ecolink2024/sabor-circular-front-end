@@ -1,9 +1,21 @@
+"use client";
 import { worksans } from "@/public/fonts/font";
-import { Box, Heading, Stack } from "@chakra-ui/react";
+import { Box, Center, Heading, Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import CardsWorks from "./cards-works/CardsWorks";
+import { useEffect } from "react";
 
 export default function HowItsWorks() {
+  useEffect(() => {
+    const section = sessionStorage.getItem("scrollToSection");
+    if (section === "how-its-work") {
+      document
+        .getElementById("how-its-work")
+        ?.scrollIntoView({ behavior: "smooth" });
+      sessionStorage.removeItem("scrollToSection");
+    }
+  }, []);
+
   return (
     <Stack
       w={{ base: "100%", lg: "95%" }}
@@ -17,6 +29,7 @@ export default function HowItsWorks() {
     >
       {/* Landing Page Image */}
       <Box
+        as={Center}
         w={"100%"}
         position={"absolute"}
         top={{ base: "-200px", lg: "-300px" }}
@@ -27,8 +40,8 @@ export default function HowItsWorks() {
       >
         <Image
           src={"/img/tupper-sabor-circular.png"}
-          width={800}
-          height={800}
+          width={500}
+          height={500}
           alt="landing-page-image"
           priority
         />

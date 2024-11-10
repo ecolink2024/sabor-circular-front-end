@@ -58,6 +58,7 @@ export default function AllUsersTable() {
               style={{ tableLayout: "fixed" }}
               display={"table"}
               w={"100%"}
+              minW={"1300px"}
             >
               <Tr>
                 <Th>Nombre</Th>
@@ -76,6 +77,7 @@ export default function AllUsersTable() {
             <Tbody
               display={"block"}
               w={"100%"}
+              minW={"1300px"}
               h={"calc(450px - 40px)"}
               overflowY={"scroll"}
             >

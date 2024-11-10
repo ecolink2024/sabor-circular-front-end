@@ -84,13 +84,14 @@ export default function HighTable() {
         />
 
         {/* Table High */}
-        <TableContainer w={"100%"} h={"450px"} overflowY={"hidden"}>
+        <TableContainer w={"100vw"} h={"450px"}>
           <Table display={"block"} variant={"simple"}>
             {/* Head Table  */}
             <Thead
               style={{ tableLayout: "fixed" }}
               display={"table"}
               w={"100%"}
+              minW={"900px"}
             >
               <Tr>
                 <Th>Nombre</Th>
@@ -104,6 +105,7 @@ export default function HighTable() {
             <Tbody
               display={"block"}
               w={"100%"}
+              minW={"900px"}
               h={"calc(450px - 40px)"}
               overflowY={"scroll"}
             >

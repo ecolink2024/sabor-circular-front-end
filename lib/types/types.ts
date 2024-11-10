@@ -24,10 +24,16 @@ export type RegisterData = {
   password: string;
 };
 
-export type Response = {
+export interface ValidationError {
+  path: string;
+  message: string;
+}
+
+export type RegisterResponse = {
   success: boolean;
   token?: string;
   message?: string;
+  errors?: ValidationError[];
 };
 
 export interface LoginData {
@@ -50,7 +56,6 @@ export type User = {
 
 export type UpdateUser = {
   name: string | undefined;
-  email: string | undefined;
   phone: string | undefined;
   address: string | undefined;
   currentPassword?: string;
@@ -117,4 +122,14 @@ export const dashboardUsersRoutes: Record<string, string[]> = {
   casa: ["/dashboard/casa/[id]"],
   punto: ["/dashboard/punto/[id]"],
   gastronomico: ["/dashboard/gastronomico/[id]"],
+};
+
+export type PasswordField =
+  | "currentPassword"
+  | "newPassword"
+  | "confirmPassword";
+
+export type Issue = {
+  path: string[];
+  message: string;
 };

@@ -1,23 +1,46 @@
 "use client";
-import { UpdateUser } from "@/lib/types/types";
+import { PasswordField, UpdateUser, ValidationError } from "@/lib/types/types";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
   Button,
   Center,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
+  IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
+  Skeleton,
   Stack,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { SkeletonUserUpdate } from "../skeletons/Skeletons";
 import { updateUser } from "@/lib/actions/actions";
 import DeleteUser from "./DeleteUser";
+import { FaEyeSlash, FaEye } from "react-icons/fa6";
+import { getErrorMessage } from "@/lib/utils/utils";
 
 export default function Profile() {
+  // useToast hook from Chakra UI to show toast notifications
+  const toast = useToast();
+
+  // State to manage the loading state during the update process
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState<boolean>(false);
+
+  // State to store validation errors for the form fields (e.g., password, phone, etc.)
+  const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
+
+  // State to manage the visibility of the password fields (current, new, and confirm passwords)
+  const [passwordVisibility, setPasswordVisibility] = useState({
+    currentPassword: false,
+    newPassword: false,
+    confirmPassword: false,
+  });
+
+  // Custom hook to access user authentication data (e.g., user info, token, etc.)
   const {
     user,
     isLoading: isLoadingUser,
@@ -25,12 +48,10 @@ export default function Profile() {
     token,
     logout,
   } = useAuth();
-  const [isLoadingUpdate, setIsLoadingUpdate] = useState<boolean>(false);
-  const toast = useToast();
 
+  // State to hold the form data being submitted for the user update (e.g., name, phone, passwords, etc.)
   const [formData, setFormData] = useState<UpdateUser>({
     name: "",
-    email: "",
     phone: "",
     address: "",
     currentPassword: "",
@@ -38,13 +59,13 @@ export default function Profile() {
     confirmPassword: "",
   });
 
+  // useEffect hook to update formData whenever the `user` state changes
   useEffect(() => {
     if (user) {
       setFormData({
         name: user.name || "",
-        email: user.email || "",
-        phone: user.phone || "",
         address: user.address || "",
+        phone: user.phone || "",
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
@@ -52,6 +73,7 @@ export default function Profile() {
     }
   }, [user]);
 
+  // Function to handle form input changes and update the respective form field in `formData`
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -60,27 +82,48 @@ export default function Profile() {
     }));
   };
 
+  // Function to handle form submission (e.g., updating user profile)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoadingUpdate(true);
 
     try {
-      await updateUser(formData, token);
+      const response = await updateUser(formData, token);
 
-      await refetchUserData();
+      if (response.success) {
+        await refetchUserData();
 
-      toast({
-        title: "Perfil actualizado.",
-        description: "La información de tu perfil ha sido actualizada.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
+        toast({
+          title: "Perfil actualizado.",
+          description: "La información de tu perfil ha sido actualizada.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        // If there was an error (response.success is false), check for a validation error message
+        if (response.message && response.message !== "Errores de validación") {
+          toast({
+            title: "Error al actualizar perfil",
+            description: response.message,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+
+        // Handle validation errors (if any)
+        if (response.errors && response.errors.length > 0) {
+          setErrors(response.errors);
+        } else {
+          setErrors([]);
+        }
+      }
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
       toast({
-        title: "Error.",
-        description: "Hubo un problema al actualizar tu perfil.",
+        title: "Error de red.",
+        description:
+          "No se pudo conectar al servidor. Por favor, inténtalo de nuevo.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -88,6 +131,14 @@ export default function Profile() {
     } finally {
       setIsLoadingUpdate(false);
     }
+  };
+
+  // Function to toggle the visibility of the password fields (current, new, confirm)
+  const togglePasswordVisibility = (field: PasswordField) => {
+    setPasswordVisibility((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
   };
 
   return (
@@ -99,9 +150,12 @@ export default function Profile() {
       gap={10}
     >
       <Heading>Datos cuenta</Heading>
-      {isLoadingUser ? (
-        <SkeletonUserUpdate />
-      ) : (
+      <Skeleton
+        isLoaded={!isLoadingUser}
+        rounded={"20px"}
+        w={"100%"}
+        maxWidth={{ base: "300px", lg: "450px" }}
+      >
         <Box
           bg="white"
           p={6}
@@ -117,7 +171,11 @@ export default function Profile() {
 
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
-              <FormControl id="name" isRequired>
+              {/* Input Name */}
+              <FormControl
+                id="name"
+                isInvalid={!!getErrorMessage("name", errors)}
+              >
                 <FormLabel>Nombre Completo</FormLabel>
                 <Input
                   type="text"
@@ -125,17 +183,16 @@ export default function Profile() {
                   value={formData.name}
                   onChange={handleInputChange}
                 />
+                <FormErrorMessage>
+                  {getErrorMessage("name", errors)}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl id="email" isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  type="email"
-                  placeholder="Ingresa tu email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </FormControl>
-              <FormControl id="phone" isRequired>
+
+              {/* Input Phone */}
+              <FormControl
+                id="phone"
+                isInvalid={!!getErrorMessage("phone", errors)}
+              >
                 <FormLabel>Teléfono</FormLabel>
                 <Input
                   type="tel"
@@ -143,8 +200,16 @@ export default function Profile() {
                   value={formData.phone}
                   onChange={handleInputChange}
                 />
+                <FormErrorMessage>
+                  {getErrorMessage("phone", errors)}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl id="address" isRequired>
+
+              {/* Input Address */}
+              <FormControl
+                id="address"
+                isInvalid={!!getErrorMessage("address", errors)}
+              >
                 <FormLabel>Dirección</FormLabel>
                 <Input
                   type="text"
@@ -152,33 +217,128 @@ export default function Profile() {
                   value={formData.address}
                   onChange={handleInputChange}
                 />
+                <FormErrorMessage>
+                  {getErrorMessage("address", errors)}
+                </FormErrorMessage>
               </FormControl>
+
+              {/* Input Current Password */}
               <FormControl id="currentPassword">
                 <FormLabel>Contraseña Actual</FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Ingresa tu contraseña actual"
-                  value={formData.currentPassword}
-                  onChange={handleInputChange}
-                />
+                <InputGroup>
+                  <Input
+                    type={
+                      passwordVisibility.currentPassword ? "text" : "password"
+                    }
+                    placeholder="Ingresa tu contraseña actual"
+                    value={formData.currentPassword}
+                    onChange={handleInputChange}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      display={formData.currentPassword ? "flex" : "none"}
+                      aria-label={
+                        passwordVisibility.currentPassword
+                          ? "Ocultar contraseña"
+                          : "Mostrar contraseña"
+                      }
+                      icon={
+                        passwordVisibility.currentPassword ? (
+                          <FaEyeSlash />
+                        ) : (
+                          <FaEye />
+                        )
+                      }
+                      onClick={() =>
+                        togglePasswordVisibility("currentPassword")
+                      }
+                      variant="link"
+                      color="gray.500"
+                    />
+                  </InputRightElement>
+                </InputGroup>
               </FormControl>
-              <FormControl id="newPassword">
+
+              {/* Input New Password */}
+              <FormControl
+                id="newPassword"
+                isInvalid={!!getErrorMessage("newPassword", errors)}
+              >
                 <FormLabel>Nueva Contraseña</FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Ingresa tu nueva contraseña"
-                  value={formData.newPassword}
-                  onChange={handleInputChange}
-                />
+                <InputGroup>
+                  <Input
+                    type={passwordVisibility.newPassword ? "text" : "password"}
+                    placeholder="Ingresa tu nueva contraseña"
+                    value={formData.newPassword}
+                    onChange={handleInputChange}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      display={formData.newPassword ? "flex" : "none"}
+                      aria-label={
+                        passwordVisibility.newPassword
+                          ? "Ocultar contraseña"
+                          : "Mostrar contraseña"
+                      }
+                      icon={
+                        passwordVisibility.newPassword ? (
+                          <FaEyeSlash />
+                        ) : (
+                          <FaEye />
+                        )
+                      }
+                      onClick={() => togglePasswordVisibility("newPassword")}
+                      variant="link"
+                      color="gray.500"
+                    />
+                  </InputRightElement>
+                </InputGroup>
+                <FormErrorMessage>
+                  {getErrorMessage("newPassword", errors)}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl id="confirmPassword">
+
+              {/* Input Confirm Password */}
+              <FormControl
+                id="confirmPassword"
+                isInvalid={!!getErrorMessage("newPassword", errors)}
+              >
                 <FormLabel>Confirmar Contraseña</FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Confirma tu nueva contraseña"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                />
+                <InputGroup>
+                  <Input
+                    type={
+                      passwordVisibility.confirmPassword ? "text" : "password"
+                    }
+                    placeholder="Confirma tu nueva contraseña"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      display={formData.confirmPassword ? "flex" : "none"}
+                      aria-label={
+                        passwordVisibility.confirmPassword
+                          ? "Ocultar contraseña"
+                          : "Mostrar contraseña"
+                      }
+                      icon={
+                        passwordVisibility.confirmPassword ? (
+                          <FaEyeSlash />
+                        ) : (
+                          <FaEye />
+                        )
+                      }
+                      onClick={() =>
+                        togglePasswordVisibility("confirmPassword")
+                      }
+                      variant="link"
+                      color="gray.500"
+                    />
+                  </InputRightElement>
+                </InputGroup>
+                <FormErrorMessage>
+                  {getErrorMessage("newPassword", errors)}
+                </FormErrorMessage>
               </FormControl>
 
               {/* Submit Button  */}
@@ -200,7 +360,7 @@ export default function Profile() {
             </Stack>
           </form>
         </Box>
-      )}
+      </Skeleton>
     </Stack>
   );
 }

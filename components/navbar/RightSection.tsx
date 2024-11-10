@@ -113,12 +113,12 @@ export default function RightSection() {
 
           <MenuList>
             <MenuGroup title="Perfil">
-              <Link href={`/perfil`} passHref>
+              <Link href={`/dashboard/${user?.role}/${user?._id}`} passHref>
                 <MenuItem icon={<FaUserCog color="#ea9b42" />}>
                   Mi cuenta
                 </MenuItem>
               </Link>
-              <Link href={`/dashboard/${user?.role}/${user?._id}`} passHref>
+              <Link href={`/perfil`} passHref>
                 <MenuItem icon={<MdDashboardCustomize color="#ea9b42" />}>
                   Datos cuenta
                 </MenuItem>

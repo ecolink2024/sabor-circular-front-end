@@ -1,8 +1,9 @@
 import {
   FormUserDataInfo,
+  Issue,
   LoginData,
   RegisterData,
-  Response,
+  RegisterResponse,
   TransactionData,
   UnauthorizedPack,
   UpdateUser,
@@ -13,7 +14,9 @@ import {
 
 const BASE_URL = "http://localhost:3000";
 
-export const registerUser = async (data: RegisterData): Promise<Response> => {
+export const registerUser = async (
+  data: RegisterData
+): Promise<RegisterResponse> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
@@ -24,10 +27,11 @@ export const registerUser = async (data: RegisterData): Promise<Response> => {
     });
 
     if (!response.ok) {
-      const errorMessage = await response.json();
+      const errorResponse = await response.json();
       return {
         success: false,
-        message: errorMessage.message || "Error en el registro",
+        message: errorResponse.message || "Error en la solicitud.",
+        errors: errorResponse.errors || [],
       };
     }
 
@@ -41,7 +45,7 @@ export const registerUser = async (data: RegisterData): Promise<Response> => {
   }
 };
 
-export const loginUser = async (data: LoginData): Promise<Response> => {
+export const loginUser = async (data: LoginData): Promise<RegisterResponse> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
@@ -170,23 +174,58 @@ export const submitPack = async (
 
 export const updateUser = async (
   data: UpdateUser,
-  usertToken: string | null
-) => {
-  const response = await fetch(`${BASE_URL}/auth/update`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${usertToken}`,
-    },
-    body: JSON.stringify(data),
-  });
+  userToken: string | null
+): Promise<RegisterResponse> => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    throw new Error(errorResponse.message || "Error al actualizar el perfil");
+    if (!response.ok) {
+      const errorResponse = await response.json();
+
+      // Si el error tiene una propiedad "issues", procesamos esos errores
+      if (errorResponse.error && errorResponse.error.issues) {
+        const formattedErrors = errorResponse.error.issues.map(
+          (issue: Issue) => ({
+            path: issue.path.join("."),
+            message: issue.message,
+          })
+        );
+
+        return {
+          success: false,
+          message: "Errores de validación",
+          errors: formattedErrors,
+        };
+      }
+
+      // Si no tiene "issues", se asume que es un error genérico
+      return {
+        success: false,
+        message: errorResponse.message,
+        errors: [],
+      };
+    }
+
+    const result = await response.json();
+    return {
+      success: true,
+      message: "Perfil actualizado con éxito.",
+      ...result,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error de solicitud: " + (error as Error).message,
+      errors: [],
+    };
   }
-
-  return response.json();
 };
 
 export const searchUserByCodeAPI = async (

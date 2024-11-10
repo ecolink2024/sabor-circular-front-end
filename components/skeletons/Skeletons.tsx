@@ -15,16 +15,3 @@ export function SkeletonBox() {
     />
   );
 }
-
-export function SkeletonUserUpdate() {
-  return (
-    <Skeleton
-      rounded="20px"
-      boxShadow="lg"
-      maxWidth={{ base: "300px", lg: "450px" }}
-      width="100%"
-      h={"100%"}
-      minH={"600px"}
-    />
-  );
-}
