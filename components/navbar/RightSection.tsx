@@ -10,16 +10,15 @@ import {
   MenuGroup,
   MenuItem,
   MenuList,
-  Tooltip,
+  Skeleton,
 } from "@chakra-ui/react";
 import { FaHouseUser, FaUserPlus } from "react-icons/fa6";
 import Link from "next/link";
 import { useAuth } from "@/providers/AuthProvider";
-import { AiOutlineUser } from "react-icons/ai";
 import { FaUserCog } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
 import { BiSolidLogOutCircle } from "react-icons/bi";
-import { SkeletonUser } from "../skeletons/Skeletons";
+import { PiUserList } from "react-icons/pi";
 
 export default function RightSection() {
   const { token, logout, user, isLoading } = useAuth();
@@ -28,69 +27,73 @@ export default function RightSection() {
     logout();
   };
 
-  if (isLoading) {
-    return <SkeletonUser />;
-  }
-
   return (
-    <HStack>
+    <HStack flex={1} justify={"flex-end"}>
       {/* Si el usuario no está autenticado */}
       <HStack display={token ? "none" : { base: "none", lg: "flex" }}>
         {/* Iniciar Sesión */}
         <Link href="/login" passHref>
-          <Button
-            borderRadius={"8.93px"}
-            fontWeight={500}
-            bg={"#518a3e"}
-            _hover={{ bg: "gray.300" }}
-            color={"white"}
-          >
-            Iniciar Sesión
-          </Button>
+          <Skeleton isLoaded={!isLoading} borderRadius={"12px"}>
+            <Button
+              borderRadius={"12px"}
+              fontWeight={500}
+              bg={"#518a3e"}
+              _hover={{ bg: "gray.300" }}
+              color={"white"}
+              h={"37px"}
+              fontSize={"13px"}
+            >
+              Iniciar Sesión
+            </Button>
+          </Skeleton>
         </Link>
 
         {/* Registrarse */}
         <Link href="/signin" passHref>
-          <Button
-            borderRadius={"8.93px"}
-            fontWeight={500}
-            bg={"#ea9b42"}
-            _hover={{ bg: "gray.300" }}
-            color={"white"}
-            leftIcon={<FaUserPlus />}
-          >
-            Registrarse
-          </Button>
+          <Skeleton isLoaded={!isLoading} borderRadius={"12px"}>
+            <Button
+              borderRadius={"12px"}
+              fontWeight={500}
+              bg={"#ea9b42"}
+              _hover={{ bg: "gray.300" }}
+              color={"white"}
+              leftIcon={<FaUserPlus />}
+              h={"37px"}
+              fontSize={"13px"}
+            >
+              Registrarse
+            </Button>
+          </Skeleton>
         </Link>
       </HStack>
 
       {/* Versión móvil si no está autenticado */}
       <HStack display={token ? "none" : { base: "flex", lg: "none" }}>
         <Link href="/login" passHref>
-          <Tooltip label="Iniciar Sesión" hasArrow borderRadius={"4px"}>
+          <Skeleton isLoaded={!isLoading} borderRadius={"10px"}>
             <IconButton
               icon={<FaHouseUser />}
               aria-label="iniciar-sesion-button"
-              borderRadius={"8.93px"}
+              borderRadius={"10px"}
               bg={"#518a3e"}
               _hover={{ bg: "gray.300" }}
               color={"white"}
             />
-          </Tooltip>
+          </Skeleton>
         </Link>
 
         <Link href="/signin" passHref>
-          <Tooltip label="Registrarse" hasArrow>
+          <Skeleton isLoaded={!isLoading} borderRadius={"10px"}>
             <IconButton
               icon={<FaUserPlus />}
               aria-label="registrarse-button"
-              borderRadius={"8.93px"}
+              borderRadius={"10px"}
               fontWeight={500}
               bg={"#ea9b42"}
               _hover={{ bg: "gray.300" }}
               color={"white"}
             />
-          </Tooltip>
+          </Skeleton>
         </Link>
       </HStack>
 
@@ -104,22 +107,20 @@ export default function RightSection() {
             cursor="pointer"
             minW={0}
           >
-            <Avatar
-              size="md"
-              bg="#febb5e"
-              icon={<AiOutlineUser fontSize="1.5rem" />}
-            />
+            <Skeleton isLoaded={!isLoading} borderRadius={"full"}>
+              <Avatar bg="#febb5e" icon={<PiUserList fontSize="1.5rem" />} />
+            </Skeleton>
           </MenuButton>
 
-          <MenuList>
+          <MenuList position={"relative"} bottom={1}>
             <MenuGroup title="Perfil">
               <Link href={`/dashboard/${user?.role}/${user?._id}`} passHref>
-                <MenuItem icon={<FaUserCog color="#ea9b42" />}>
+                <MenuItem icon={<MdDashboardCustomize color="#ea9b42" />}>
                   Mi cuenta
                 </MenuItem>
               </Link>
               <Link href={`/perfil`} passHref>
-                <MenuItem icon={<MdDashboardCustomize color="#ea9b42" />}>
+                <MenuItem icon={<FaUserCog color="#ea9b42" />}>
                   Datos cuenta
                 </MenuItem>
               </Link>

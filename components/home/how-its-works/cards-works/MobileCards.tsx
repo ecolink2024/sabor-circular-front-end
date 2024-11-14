@@ -17,11 +17,11 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/pagination";
 import { cardsWorks } from "@/lib/data/data";
-import { CiUser } from "react-icons/ci";
-import { FaBoxArchive, FaUtensils } from "react-icons/fa6";
+import { FaToolbox, FaUtensils } from "react-icons/fa6";
 import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import { RiUserAddFill } from "react-icons/ri";
 
 export default function MobileCards() {
   // Ref for slider
@@ -93,17 +93,16 @@ export default function MobileCards() {
               <Box
                 w={"380px"}
                 h={"400px"}
-                borderRadius="16px"
-                borderTop="2px solid #518a3e"
-                borderX="2px solid #518a3e"
-                borderBottom="6px solid #518a3e"
+                bg="linear-gradient(90deg, rgb(250, 250, 243) 0%, rgba(250, 250, 243, 0) 100%)"
+                borderRadius={"20px"}
+                border={"1.5px solid"}
+                borderColor={"gray.100"}
                 p={6}
                 display="flex"
                 justifyContent="space-between"
                 flexDirection="column"
                 alignItems="flex-start"
                 transition="height 0.6s ease"
-                bg="white"
               >
                 <Box
                   w="110px"
@@ -115,11 +114,11 @@ export default function MobileCards() {
                   justifyContent="center"
                 >
                   {card.icon === "user" ? (
-                    <Icon as={CiUser} fontSize={30} color="#518a3e" />
+                    <Icon as={RiUserAddFill} fontSize={30} color="#344234" />
                   ) : card.icon === "tupper" ? (
-                    <Icon as={FaBoxArchive} fontSize={30} color="#518a3e" />
+                    <Icon as={FaToolbox} fontSize={30} color="#344234" />
                   ) : (
-                    <Icon as={FaUtensils} fontSize={30} color="#518a3e" />
+                    <Icon as={FaUtensils} fontSize={30} color="#344234" />
                   )}
                 </Box>
                 <VStack align="flex-start">
@@ -129,9 +128,9 @@ export default function MobileCards() {
                   <Text fontSize="sm">{card.description}</Text>
                 </VStack>
                 <Button
-                  border="1.5px solid #518a3e"
-                  variant="outline"
-                  color="#518a3e"
+                  bg="rgba(81, 138, 62, 0.45)"
+                  _hover={{ bg: "rgba(81, 138, 62, 0.45)" }}
+                  color={"white"}
                   fontWeight={600}
                   borderRadius="8.93px"
                   leftIcon={<GoArrowUpRight />}

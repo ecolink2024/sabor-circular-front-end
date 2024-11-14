@@ -10,9 +10,9 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { CiUser } from "react-icons/ci";
-import { FaBoxArchive, FaUtensils } from "react-icons/fa6";
+import { FaToolbox, FaUtensils } from "react-icons/fa6";
 import { GoArrowUpRight } from "react-icons/go";
+import { RiUserAddFill } from "react-icons/ri";
 
 export default function DesktopCards() {
   const { user } = useAuth();
@@ -61,31 +61,31 @@ export default function DesktopCards() {
           key={ix}
           w="350px"
           h="400px"
-          borderRadius="16px"
-          borderTop="2px solid #518a3e"
-          borderX="2px solid #518a3e"
-          borderBottom="6px solid #518a3e"
           p={6}
           display="flex"
           justifyContent="space-between"
           flexDirection="column"
           alignItems="flex-start"
+          bg="linear-gradient(90deg, rgb(250, 250, 243) 0%, rgba(250, 250, 243, 0) 100%)"
+          borderRadius={"20px"}
+          border={"1.5px solid"}
+          borderColor={"gray.100"}
         >
           <Box
             w="110px"
             h="110px"
             borderRadius="full"
-            bg="rgba(81, 138, 62, 0.5)"
+            bg="rgba(81, 138, 62, 0.45)"
             display="flex"
             alignItems="center"
             justifyContent="center"
           >
             {card.icon === "user" ? (
-              <Icon as={CiUser} fontSize={30} color="#518a3e" />
+              <Icon as={RiUserAddFill} fontSize={30} color="#344234" />
             ) : card.icon === "tupper" ? (
-              <Icon as={FaBoxArchive} fontSize={30} color="#518a3e" />
+              <Icon as={FaToolbox} fontSize={30} color="#344234" />
             ) : (
-              <Icon as={FaUtensils} fontSize={30} color="#518a3e" />
+              <Icon as={FaUtensils} fontSize={30} color="#344234" />
             )}
           </Box>
           <VStack align="flex-start">
@@ -96,9 +96,9 @@ export default function DesktopCards() {
           </VStack>
           <Button
             as={Link}
-            border="1.5px solid #518a3e"
-            variant="outline"
-            color="#518a3e"
+            bg="rgba(81, 138, 62, 0.45)"
+            _hover={{ bg: "rgba(81, 138, 62, 0.45)" }}
+            color={"white"}
             fontWeight={600}
             borderRadius="8.93px"
             leftIcon={<GoArrowUpRight />}

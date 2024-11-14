@@ -26,7 +26,7 @@ export default function CenterSection() {
   };
 
   return (
-    <Stack position={"relative"} right={user ? "60px" : "0px"}>
+    <Stack display={"flex"} align={"center"} flex={2} position={"relative"}>
       {/* Logo */}
       <Link href={"/"}>
         <Box
@@ -44,7 +44,13 @@ export default function CenterSection() {
       </Link>
 
       {/* Menu Links en desktop */}
-      <Stack direction="row" spacing={6} display={{ base: "none", lg: "flex" }}>
+      <Stack
+        direction="row"
+        spacing={6}
+        display={{ base: "none", lg: "flex" }}
+        position={"relative"}
+        bottom={1}
+      >
         <ChakraLink
           display={
             user?.role === "punto" ||
@@ -53,8 +59,8 @@ export default function CenterSection() {
               ? "none"
               : "block"
           }
-          fontSize="sm"
-          color="#757575"
+          fontSize="13px"
+          color="#171E30"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
@@ -64,8 +70,8 @@ export default function CenterSection() {
         </ChakraLink>
 
         <ChakraLink
-          fontSize="sm"
-          color="#757575"
+          fontSize="13px"
+          color="#171E30"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
@@ -75,8 +81,8 @@ export default function CenterSection() {
         </ChakraLink>
 
         <ChakraLink
-          fontSize="sm"
-          color="#757575"
+          fontSize="13px"
+          color="#171E30"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
@@ -87,8 +93,8 @@ export default function CenterSection() {
         </ChakraLink>
 
         <ChakraLink
-          fontSize="sm"
-          color="#757575"
+          fontSize="13px"
+          color="#171E30"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}

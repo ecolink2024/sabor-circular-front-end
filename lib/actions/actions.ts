@@ -12,7 +12,7 @@ import {
   UserResponse,
 } from "../types/types";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const registerUser = async (
   data: RegisterData

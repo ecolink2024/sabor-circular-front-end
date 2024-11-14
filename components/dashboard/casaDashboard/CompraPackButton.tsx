@@ -37,7 +37,7 @@ export default function CompraPackButton({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSendPack = async () => {
-    const tupperAmount = 2;
+    const tupperAmount = 1;
 
     if (!user?._id) {
       toast({

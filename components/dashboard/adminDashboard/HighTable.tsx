@@ -1,3 +1,4 @@
+"use client";
 import { useUnauthorizedPacks } from "@/lib/hooks/useUnauthorizedPacks";
 import { UnauthorizedPack } from "@/lib/types/types";
 import { useAuth } from "@/providers/AuthProvider";

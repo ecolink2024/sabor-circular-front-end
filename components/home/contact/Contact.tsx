@@ -1,56 +1,54 @@
 "use client";
+
 import { worksans } from "@/public/fonts/font";
-import { Button, Heading, Stack, Text, VStack } from "@chakra-ui/react";
-import { GoArrowUpRight } from "react-icons/go";
-import Accompany from "../accompany/Accompany";
+import { Button, Heading, Image, Stack, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
+import { GoArrowUpRight } from "react-icons/go";
 
 export default function Contact() {
   return (
     <Stack
-      w={{ base: "100%", lg: "95%" }}
-      bg={"white"}
+      w={"100%"}
+      bg={"#344234"}
       display={"flex"}
       direction={"column"}
+      justify={"center"}
+      py={"100px"}
+      align={"center"}
     >
       {/* Button Contact  */}
-      <VStack
-        w={"100%"}
-        h={"100%"}
-        mt={"100px"}
-        bg={"#344234"}
-        borderTopRadius={"40px"}
-        pt={{ base: "100px", lg: "150px" }}
-        gap={{ base: "150px", lg: "300px" }}
-      >
-        <VStack gap={10} px={10}>
+      <VStack w={"70%"} h={"100%"} bg={"#344234"} gap={20}>
+        <Image src="/img/fondo-contact.png" w={"120px"} h={"auto"} />
+        <VStack gap={3}>
+          <Text fontWeight={600} color={"#ea9b42"} textTransform="uppercase" >
+            Contáctanos
+          </Text>
           <Heading
             color={"white"}
             position={"relative"}
+            maxW={"900px"}
             fontWeight={900}
-            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+            fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
             className={worksans.className}
+            id="how-its-work"
+            textAlign={"center"}
           >
-            Contáctanos
-          </Heading>
-          <Text color={"white"} textAlign={"center"}>
             ¿Te gustaría adherir tu local a la red de Sabor Circular?
-          </Text>
-          <Link passHref href={"/contact"}>
-            <Button
-              bg={"#ea9b42"}
-              color={"white"}
-              fontWeight={600}
-              borderRadius="10px"
-              leftIcon={<GoArrowUpRight />}
-              size={"lg"}
-            >
-              Dejanos tus datos
-            </Button>
-          </Link>
+          </Heading>
         </VStack>
-        {/* Section Accompany */}
-        <Accompany />
+        <Link passHref href={"/contact"}>
+          <Button
+            bg={"#ea9b42"}
+            _hover={{ bg: "#EEBE88" }}
+            color={"white"}
+            fontWeight={500}
+            borderRadius="15px"
+            leftIcon={<GoArrowUpRight />}
+            size={"lg"}
+          >
+            Dejanos tus datos
+          </Button>
+        </Link>
       </VStack>
     </Stack>
   );
