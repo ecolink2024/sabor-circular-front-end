@@ -43,7 +43,12 @@ export default function LeftSection() {
   };
 
   return (
-    <Stack>
+    <Stack
+      display={"flex"}
+      direction={"column"}
+      flex={1}
+      justify={"flex-start"}
+    >
       {/* Logo  */}
       <Link href={"/"} passHref>
         <Box
@@ -56,6 +61,7 @@ export default function LeftSection() {
           <Image
             src="/svg/logo-sabor-circular-nav.svg"
             alt="logo-sabor-circular"
+            w={180}
           />
         </Box>
       </Link>
@@ -64,6 +70,7 @@ export default function LeftSection() {
       <Menu>
         <MenuButton
           as={IconButton}
+          w={"40px"}
           icon={<MdOutlineMenu fontSize={28} color={"#344234"} />}
           aria-label="-menu-icon-button"
           display={{ base: "flex", lg: "none" }}
@@ -71,13 +78,18 @@ export default function LeftSection() {
           _hover={{ bg: "transparent" }}
           borderRadius={"8.93px"}
           variant={"unstyled"}
+          position={"relative"}
+          top={-1}
         >
           Actions
         </MenuButton>
         <MenuList
           borderRadius={"14px"}
           borderTopLeftRadius={"none"}
-          display={{ base: "block", md: "none" }}
+          display={{ base: "block", lg: "none" }}
+          position={"relative"}
+          left={2}
+          bottom={3}
         >
           {/* Empeza a usar #Tapercito */}
           <MenuItem

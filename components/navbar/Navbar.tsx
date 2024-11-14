@@ -1,5 +1,5 @@
 "use client";
-import { HStack } from "@chakra-ui/react";
+import { Center, HStack, Stack } from "@chakra-ui/react";
 import LeftSection from "./LeftSection";
 import CenterSection from "./CenterSection";
 import RightSection from "./RightSection";
@@ -10,31 +10,47 @@ export default function Navbar() {
   const pathname = usePathname();
   const token = getTokenFromPathname(pathname);
 
+  const display = [
+    "/signin",
+    "/signin/pg",
+    "/signin/admin",
+    "/login/recovery-password",
+    `/login/recovery-password/${token}`,
+    "/login",
+  ].includes(pathname)
+    ? "none"
+    : "flex";
+
   return (
-    <HStack
+    <Stack
+      as={Center}
       w={"100%"}
-      justify={"space-between"}
-      h={{ base: "70px", lg: "90px" }}
-      px={6}
-      bg={"white"}
-      shadow={"md"}
-      display={
-        pathname === "/signin" ||
-        pathname === "/signin/pg" ||
-        pathname === "/signin/admin" ||
-        pathname === "/login/recovery-password" ||
-        pathname === `/login/recovery-password/${token}` ||
-        pathname === "/login"
-          ? "none"
-          : "flex"
-      }
+      display={display}
+      px={{ base: 1, lg: 4 }}
+      mt={pathname !== "/" ? "10px" : "0px"}
+      position={pathname !== "/" ? "static" : "sticky"}
+      top={"10px"}
+      zIndex={"1999"}
     >
-      {/* Left section  */}
-      <LeftSection />
-      {/* Center section */}
-      <CenterSection />
-      {/* Right section  */}
-      <RightSection />
-    </HStack>
+      <HStack
+        w={"100%"}
+        h={"70px"}
+        bg={"white"}
+        borderRadius={"20px"}
+        justify={"space-between"}
+        pl={4}
+        pr={3}
+        shadow={"sm"}
+      >
+        {/* Left Section */}
+        <LeftSection />
+
+        {/* Center Section */}
+        <CenterSection />
+
+        {/* Right section  */}
+        <RightSection />
+      </HStack>
+    </Stack>
   );
 }

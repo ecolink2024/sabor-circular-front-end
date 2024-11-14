@@ -1,12 +1,12 @@
 import { worksans } from "@/public/fonts/font";
-import { Heading, Stack, VStack } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/react";
 import InfiniteSlider from "./InfiniteSlider";
 import { attachedPremises } from "@/lib/data/data";
 
 export default function AttachedPremises() {
   return (
     <Stack
-      w={{ base: "100%", lg: "95%" }}
+      w={"100%"}
       bg={"white"}
       pt={"100px"}
       display={"flex"}
@@ -18,16 +18,18 @@ export default function AttachedPremises() {
         color={"#344234"}
         position={"relative"}
         fontWeight={900}
-        fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+        fontSize={{ base: "2xl", md: "4xl", lg: "4xl" }}
         className={worksans.className}
       >
         Locales Adheridos
       </Heading>
 
-      <VStack gap={20} my={"100px"}>
-        <InfiniteSlider image={attachedPremises} />
-        <InfiniteSlider image={attachedPremises} />
-      </VStack>
+      <InfiniteSlider isBorder image={attachedPremises} />
+
+      {/* Divider  */}
+      <Stack w={"100%"} h={"100px"} bg={"#344234"}>
+        <Box h={"70%"} borderBottomRadius={"50px"} bg={"white"} />
+      </Stack>
     </Stack>
   );
 }

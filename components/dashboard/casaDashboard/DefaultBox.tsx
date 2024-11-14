@@ -10,15 +10,14 @@ export default function DefaultBox({
   return (
     <Box
       as={Center}
-      bg={"white"}
       w={"100%"}
       maxW={"390px"}
       h={"100%"}
       minH={"400px"}
-      borderRadius="16px"
-      borderTop="2px solid #518a3e"
-      borderX="2px solid #518a3e"
-      borderBottom="6px solid #518a3e"
+      bg="linear-gradient(90deg, rgb(250, 250, 243) 0%, rgba(250, 250, 243, 0) 100%)"
+      borderRadius={"20px"}
+      border={"1.5px solid"}
+      borderColor={"gray.100"}
       p={10}
       flexDirection={"column"}
       justifyContent={"space-evenly"}

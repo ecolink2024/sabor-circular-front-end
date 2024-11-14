@@ -115,6 +115,7 @@ export const publicRoutes: string[] = [
   "/login/recovery-password",
   "/signin/pg",
   "/signin/admin",
+  "/perfil",
 ];
 
 export const dashboardUsersRoutes: Record<string, string[]> = {

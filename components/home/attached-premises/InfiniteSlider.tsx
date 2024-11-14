@@ -1,41 +1,63 @@
 "use client";
 import { infiniteSlider } from "@/lib/types/types";
 import { scrollAnimation } from "@/lib/utils/utils";
-import { HStack, Link } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, HStack, Link, Image } from "@chakra-ui/react";
 interface InfiniteSliderProps {
   image: infiniteSlider[];
+  isBorder?: boolean;
 }
 
-export default function InfiniteSlider({ image }: InfiniteSliderProps) {
+export default function InfiniteSlider({
+  image,
+  isBorder,
+}: InfiniteSliderProps) {
   return (
     <HStack
       justify={"flex-start"}
       align={"center"}
       w={"100%"}
-      maxW={"1100px"}
+      maxW={"1350px"}
       position={"relative"}
       overflow={"hidden"}
+      mt={"100px"}
     >
       <HStack
         as="div"
         spacing={10}
-        animation={`${scrollAnimation} 30s linear infinite`}
+        animation={`${scrollAnimation} 300s linear infinite`}
         display={"inline-flex"}
         minW={"fit-content"}
       >
-        {image.concat(image).map((logo, ix) => (
-          <Link key={ix} isExternal href={logo.link} w={"200px"} h={"100px"}>
-            <Image
+        {new Array(10)
+          .fill(image)
+          .flat()
+          .map((logo, ix) => (
+            <Box
               key={ix}
-              src={logo.svg}
-              width={200}
-              height={100}
-              alt={logo.tooltip}
-              style={{ flexShrink: 0 }}
-            />
-          </Link>
-        ))}
+              border={isBorder ? "1px solid" : "none"}
+              borderColor={"gray.100"}
+              borderRadius={"20px"}
+              px={8}
+              py={3}
+            >
+              <Link
+                isExternal
+                href={logo.link}
+                w={"200px"}
+                h={"100px"}
+                display="inline-block"
+              >
+                <Image
+                  src={logo.svg}
+                  width={200}
+                  height={100}
+                  alt={logo.tooltip}
+                  style={{ flexShrink: 0 }}
+                  borderRadius={"20px"}
+                />
+              </Link>
+            </Box>
+          ))}
       </HStack>
     </HStack>
   );
