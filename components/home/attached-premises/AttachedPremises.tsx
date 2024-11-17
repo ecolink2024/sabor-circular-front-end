@@ -1,9 +1,21 @@
+"use client";
 import { worksans } from "@/public/fonts/font";
 import { Box, Heading, Stack } from "@chakra-ui/react";
 import InfiniteSlider from "./InfiniteSlider";
 import { attachedPremises } from "@/lib/data/data";
+import { useEffect } from "react";
 
 export default function AttachedPremises() {
+  useEffect(() => {
+    const section = sessionStorage.getItem("scrollToSection");
+    if (section === "locales-adheridos") {
+      document
+        .getElementById("locales-adheridos")
+        ?.scrollIntoView({ behavior: "smooth" });
+      sessionStorage.removeItem("scrollToSection");
+    }
+  }, []);
+
   return (
     <Stack
       w={"100%"}

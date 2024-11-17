@@ -8,14 +8,16 @@ import { getTokenFromPathname } from "@/lib/utils/utils";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const token = getTokenFromPathname(pathname);
+  const recoveryToken = getTokenFromPathname(pathname, "recovery-password");
+  const verifyEmailToken = getTokenFromPathname(pathname, "verify-email");
 
   const display = [
     "/signin",
+    `/signin/verify-email/${verifyEmailToken}`,
     "/signin/pg",
     "/signin/admin",
     "/login/recovery-password",
-    `/login/recovery-password/${token}`,
+    `/login/recovery-password/${recoveryToken}`,
     "/login",
   ].includes(pathname)
     ? "none"

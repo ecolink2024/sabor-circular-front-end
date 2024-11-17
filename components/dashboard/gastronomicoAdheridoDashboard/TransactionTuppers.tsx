@@ -1,5 +1,7 @@
 import { createTransaction } from "@/lib/actions/actions";
 import useSearchUserByCode from "@/lib/hooks/useSearchUserByCode";
+import { TransactionResponse, ValidationError } from "@/lib/types/types";
+import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
@@ -14,6 +16,8 @@ import {
   IconButton,
   useToast,
   Skeleton,
+  FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
@@ -46,6 +50,9 @@ export default function TransactionTuppers({
   // State for the tupper count
   const [tupperCount, setTupperCount] = useState<number | undefined>(undefined);
 
+  // State to store validation errors for the form
+  const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
+
   // Loading state
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,41 +64,44 @@ export default function TransactionTuppers({
 
   // Handle transaction submission
   const handleSubmit = async () => {
-    if (!user || !tupperCount || tupperCount <= 0) {
-      toast({
-        title: "Error",
-        description: "Por favor selecciona un usuario y una cantidad válida.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
-
     setIsLoading(true);
 
     try {
-      await createTransaction(
+      const response: TransactionResponse = await createTransaction(
         {
-          code: user.code,
-          tupperCount: tupperCount,
+          code: user?.code || "",
+          tupperCount: tupperCount!,
           type: transactionType,
         },
         token,
         url
       );
 
-      toast({
-        title: "Éxito",
-        description: "Transacción creada con éxito.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
+      if (response.success) {
+        toast({
+          title: "Éxito",
+          description: "Transacción creada con éxito.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
 
-      setUser(null);
-      setUserCode("");
-      setTupperCount(undefined);
+        setErrors([]);
+        setUser(null);
+        setUserCode("");
+        setTupperCount(undefined);
+      } else {
+        // if (response.message) {
+        //   toast({
+        //     title: "Error",
+        //     description: response.message,
+        //     status: "error",
+        //     duration: 5000,
+        //     isClosable: true,
+        //   });
+        // }
+        setErrors(response.errors);
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -138,14 +148,26 @@ export default function TransactionTuppers({
           {!user ? (
             <>
               {/* Input for searching user code */}
-              <Input
-                borderRadius={"8.93px"}
-                h={"40px"}
-                id="user-code"
-                placeholder="Codigo Usuario"
-                value={userCode}
-                onChange={(e) => setUserCode(e.target.value)}
-              />
+              <FormControl
+                id="code"
+                isInvalid={!!getErrorMessage("code", errors)}
+              >
+                <Input
+                  id="code"
+                  focusBorderColor="#518a3e"
+                  borderRadius={"8.93px"}
+                  h={"40px"}
+                  placeholder="Codigo Usuario"
+                  value={userCode}
+                  onChange={(e) => {
+                    setUserCode(e.target.value);
+                    clearFieldError("code", setErrors);
+                  }}
+                />
+                <FormErrorMessage>
+                  {getErrorMessage("code", errors)}
+                </FormErrorMessage>
+              </FormControl>
               {isSearching && <Spinner color="rgba(81, 138, 62, 0.7)" />}
 
               {/* Show search results */}
@@ -194,22 +216,35 @@ export default function TransactionTuppers({
               />
             </Box>
           )}
-          <Input
-            id="tupper-count"
-            type="number"
-            placeholder="Cantidad de envases"
-            borderRadius={"8.93px"}
-            h={"40px"}
-            value={tupperCount || ""}
-            onChange={(e) => setTupperCount(Number(e.target.value))}
-            required
-          />
+          <FormControl
+            id="tupperCount"
+            isInvalid={!!getErrorMessage("tupperCount", errors)}
+          >
+            <Input
+              id="tupperCount"
+              focusBorderColor="#518a3e"
+              type="number"
+              placeholder="Cantidad de envases"
+              borderRadius={"8.93px"}
+              h={"40px"}
+              value={tupperCount || ""}
+              onChange={(e) => {
+                setTupperCount(Number(e.target.value));
+                clearFieldError("tupperCount", setErrors);
+              }}
+              required
+            />
+
+            <FormErrorMessage>
+              {getErrorMessage("tupperCount", errors)}
+            </FormErrorMessage>
+          </FormControl>
         </VStack>
         <Button
           type="submit"
           isLoading={isLoading}
           onClick={handleSubmit}
-          bg={"rgba(81, 138, 62, 0.7)"}
+          bg={"#518a3e"}
           _hover={{ bg: "gray.300" }}
           borderRadius={"8.93px"}
           color={"white"}

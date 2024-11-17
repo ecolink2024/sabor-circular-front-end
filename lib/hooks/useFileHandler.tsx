@@ -37,7 +37,8 @@ export default function useFileHandler() {
     if (
       !fileType.includes("jpg") &&
       !fileType.includes("jpeg") &&
-      !fileType.includes("pdf")
+      !fileType.includes("pdf") && 
+      !fileType.includes("png")
     ) {
       toast({
         title: "Invalid file type",

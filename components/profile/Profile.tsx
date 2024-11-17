@@ -21,10 +21,9 @@ import React, { useState, useEffect } from "react";
 import { updateUser } from "@/lib/actions/actions";
 import DeleteUser from "./DeleteUser";
 import { FaEyeSlash, FaEye } from "react-icons/fa6";
-import { getErrorMessage } from "@/lib/utils/utils";
+import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 
 export default function Profile() {
-  // useToast hook from Chakra UI to show toast notifications
   const toast = useToast();
 
   // State to manage the loading state during the update process
@@ -175,13 +174,17 @@ export default function Profile() {
               <FormControl
                 id="name"
                 isInvalid={!!getErrorMessage("name", errors)}
+                isRequired
               >
                 <FormLabel>Nombre Completo</FormLabel>
                 <Input
                   type="text"
                   placeholder="Ingresa tu nombre"
                   value={formData.name}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    clearFieldError("name", setErrors);
+                  }}
                 />
                 <FormErrorMessage>
                   {getErrorMessage("name", errors)}
@@ -192,13 +195,17 @@ export default function Profile() {
               <FormControl
                 id="phone"
                 isInvalid={!!getErrorMessage("phone", errors)}
+                isRequired
               >
                 <FormLabel>Teléfono</FormLabel>
                 <Input
                   type="tel"
                   placeholder="Ingresa tu número de teléfono"
                   value={formData.phone}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    clearFieldError("phone", setErrors);
+                  }}
                 />
                 <FormErrorMessage>
                   {getErrorMessage("phone", errors)}
@@ -209,13 +216,17 @@ export default function Profile() {
               <FormControl
                 id="address"
                 isInvalid={!!getErrorMessage("address", errors)}
+                isRequired
               >
                 <FormLabel>Dirección</FormLabel>
                 <Input
                   type="text"
                   placeholder="Ingresa tu dirección"
                   value={formData.address}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    clearFieldError("address", setErrors);
+                  }}
                 />
                 <FormErrorMessage>
                   {getErrorMessage("address", errors)}
@@ -260,10 +271,7 @@ export default function Profile() {
               </FormControl>
 
               {/* Input New Password */}
-              <FormControl
-                id="newPassword"
-                isInvalid={!!getErrorMessage("newPassword", errors)}
-              >
+              <FormControl id="newPassword">
                 <FormLabel>Nueva Contraseña</FormLabel>
                 <InputGroup>
                   <Input
@@ -293,9 +301,6 @@ export default function Profile() {
                     />
                   </InputRightElement>
                 </InputGroup>
-                <FormErrorMessage>
-                  {getErrorMessage("newPassword", errors)}
-                </FormErrorMessage>
               </FormControl>
 
               {/* Input Confirm Password */}
@@ -311,7 +316,10 @@ export default function Profile() {
                     }
                     placeholder="Confirma tu nueva contraseña"
                     value={formData.confirmPassword}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      handleInputChange(e);
+                      clearFieldError("newPassword", setErrors);
+                    }}
                   />
                   <InputRightElement>
                     <IconButton

@@ -25,8 +25,19 @@ export default function CenterSection() {
     }
   };
 
+  const redirectAttachedPremises = () => {
+    if (pathname === "/") {
+      document
+        .getElementById("locales-adheridos")
+        ?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      sessionStorage.setItem("scrollToSection", "locales-adheridos");
+      router.push("/");
+    }
+  };
+
   return (
-    <Stack display={"flex"} align={"center"} flex={2} position={"relative"}>
+    <Stack display={"flex"} align={"center"} flex={3} position={"relative"}>
       {/* Logo */}
       <Link href={"/"}>
         <Box
@@ -66,7 +77,7 @@ export default function CenterSection() {
           _hover={{ color: "#383838", textDecoration: "none" }}
           href={hrefTapercito}
         >
-          Empeza a usar #Tapercito
+          ¡Quiero sumarme!
         </ChakraLink>
 
         <ChakraLink
@@ -77,7 +88,7 @@ export default function CenterSection() {
           _hover={{ color: "#383838", textDecoration: "none" }}
           href="/return-container"
         >
-          Puntos de Recepción
+          Puntos de retorno
         </ChakraLink>
 
         <ChakraLink
@@ -89,7 +100,18 @@ export default function CenterSection() {
           onClick={redirectHowItsWorks}
           cursor="pointer"
         >
-          Cómo funciona
+          ¿Cómo funciona?
+        </ChakraLink>
+
+        <ChakraLink
+          fontSize="13px"
+          color="#171E30"
+          textDecoration="none"
+          fontWeight={500}
+          _hover={{ color: "#383838", textDecoration: "none" }}
+          onClick={redirectAttachedPremises}
+        >
+          Locales adheridos
         </ChakraLink>
 
         <ChakraLink
@@ -100,7 +122,7 @@ export default function CenterSection() {
           _hover={{ color: "#383838", textDecoration: "none" }}
           href="/contact"
         >
-          Quiero ser local adherido
+          Quiero ser local Adherido
         </ChakraLink>
       </Stack>
     </Stack>

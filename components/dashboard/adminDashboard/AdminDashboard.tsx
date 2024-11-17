@@ -1,5 +1,4 @@
-'use client'
-import React from "react";
+"use client";
 import Dashboard from "../Dashboard";
 import HighTable from "./HighTable";
 import { Stack } from "@chakra-ui/react";

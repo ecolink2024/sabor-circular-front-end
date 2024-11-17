@@ -87,29 +87,17 @@ export default function CompraPackButton({
     }
   };
 
-  const { onCopy: onCopyCBU } = useClipboard("34534543543534543");
-  const { onCopy: onCopyAlias } = useClipboard("PEPITO123");
+  const { onCopy: onCopyAlias } = useClipboard("saborcircular.mp");
 
-  const handleCopy = (type: string) => {
-    if (type === "CBU") {
-      onCopyCBU();
-      toast({
-        title: "Copiado",
-        description: "CBU copiado al portapapeles",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-    } else if (type === "ALIAS") {
-      onCopyAlias();
-      toast({
-        title: "Copiado",
-        description: "Alias copiado al portapapeles",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
+  const handleCopy = () => {
+    onCopyAlias();
+    toast({
+      title: "Copiado",
+      description: "Alias copiado al portapapeles",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -165,7 +153,7 @@ export default function CompraPackButton({
                 type="file"
                 hidden
                 onChange={onChangeFile}
-                accept=".jpg,.jpeg,.pdf"
+                accept=".jpg,.jpeg,.pdf,.png"
               />
               <IconButton
                 borderRadius={"8.93px"}
@@ -187,28 +175,17 @@ export default function CompraPackButton({
               </Text>
               <HStack>
                 <Text fontSize={"14px"} color={"#B3B3B3"}>
-                  CBU: 34534543543534543
-                </Text>
-                <IconButton
-                  aria-label="Copiar CBU"
-                  icon={<MdContentCopy />}
-                  size="xs"
-                  onClick={() => handleCopy("CBU")}
-                />
-              </HStack>
-              <HStack>
-                <Text fontSize={"14px"} color={"#B3B3B3"}>
-                  ALIAS: PEPITO123
+                  ALIAS: saborcircular.mp
                 </Text>
                 <IconButton
                   aria-label="Copiar Alias"
                   icon={<MdContentCopy />}
                   size="xs"
-                  onClick={() => handleCopy("ALIAS")}
+                  onClick={() => handleCopy()}
                 />
               </HStack>
               <Text fontSize={"14px"} color={"#B3B3B3"}>
-                NOMBRE: PEPITO MARTINEZ
+                NOMBRE: EcoLink SAS
               </Text>
             </VStack>
             <Button

@@ -2,24 +2,24 @@ import { infiniteSlider } from "../types/types";
 
 export const cardsWorks = [
   {
-    title: "Suscribite a Sabor Circular",
+    title: "Registrate en la plataforma",
     icon: "user",
     description:
-      "Registrate y adquirí tus envases reutilizables a través de la plataforma",
+      "Creá un usuario y suscribite a la comunidad para empezar a usar el servicio",
     button: "¡Quiero sumarme!",
   },
   {
-    title: "Pedí tu comida en Locales Adheridos con tu código único de usuario",
+    title: "Hacé tu pedido en Locales Adheridos",
     icon: "tupper",
     description:
-      "Recibí el pedido en tu #Tapercito y disfrutá sin generar desperdicios",
+      "Encargá con tu código único de usuario y recibí el pedido en un envase retornable",
     button: "Ver Locales adheridos",
   },
   {
-    title: "Devolve tu #Tapercito y repetí",
+    title: "Devolvé el envase y repetí",
     icon: "covered",
     description:
-      "Devolve tus #tapercitos para que sean sanitizados y reintroducidos al circuito, y listo! Disfrutá nuevamente tu próximo pedido con Sabor Circular.",
+      "Acercá el envase a un Punto de Retorno para su sanitización y reintroducción al circuito. ¡ Repetí!",
     button: "Ver Puntos",
   },
 ];
@@ -66,28 +66,43 @@ export const attachedPremises: infiniteSlider[] = [
 
 export const accompany: infiniteSlider[] = [
   {
-    svg: "/svg/logo1.svg",
+    svg: "/img/ecolink-logo.png",
     tooltip: "logo 1",
     link: "",
   },
   {
-    svg: "/svg/logo2.svg",
+    svg: "/img/las-omas-logo.png",
     tooltip: "logo 2",
     link: "",
   },
   {
-    svg: "/svg/logo3.svg",
+    svg: "/img/bp-icon.png",
     tooltip: "logo 3",
     link: "",
   },
   {
-    svg: "/svg/logo4.svg",
+    svg: "/img/bloomberg-logo.png",
     tooltip: "logo 4",
     link: "",
   },
   {
-    svg: "/svg/logo5.svg",
+    svg: "/img/corlab-logo.png",
     tooltip: "logo 5",
+    link: "",
+  },
+  {
+    svg: "/img/secre-logo.png",
+    tooltip: "logo 6",
+    link: "",
+  },
+  {
+    svg: "/img/secre-ambiente-logo.png",
+    tooltip: "logo 7",
+    link: "",
+  },
+  {
+    svg: "/img/muni-logo.png",
+    tooltip: "logo 8",
     link: "",
   },
 ];

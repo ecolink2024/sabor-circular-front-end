@@ -10,9 +10,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { FaToolbox, FaUtensils } from "react-icons/fa6";
+import { FaRecycle, FaShop, FaUserPlus } from "react-icons/fa6";
 import { GoArrowUpRight } from "react-icons/go";
-import { RiUserAddFill } from "react-icons/ri";
 
 export default function DesktopCards() {
   const { user } = useAuth();
@@ -75,17 +74,18 @@ export default function DesktopCards() {
             w="110px"
             h="110px"
             borderRadius="full"
-            bg="rgba(81, 138, 62, 0.45)"
+            border={"2px solid #518a3e"}
+            bg="transparent"
             display="flex"
             alignItems="center"
             justifyContent="center"
           >
             {card.icon === "user" ? (
-              <Icon as={RiUserAddFill} fontSize={30} color="#344234" />
+              <Icon as={FaUserPlus} fontSize={30} color="#518a3e" />
             ) : card.icon === "tupper" ? (
-              <Icon as={FaToolbox} fontSize={30} color="#344234" />
+              <Icon as={FaShop} fontSize={30} color="#518a3e" />
             ) : (
-              <Icon as={FaUtensils} fontSize={30} color="#344234" />
+              <Icon as={FaRecycle} fontSize={30} color="#518a3e" />
             )}
           </Box>
           <VStack align="flex-start">
@@ -96,7 +96,7 @@ export default function DesktopCards() {
           </VStack>
           <Button
             as={Link}
-            bg="rgba(81, 138, 62, 0.45)"
+            bg="#518a3e"
             _hover={{ bg: "rgba(81, 138, 62, 0.45)" }}
             color={"white"}
             fontWeight={600}

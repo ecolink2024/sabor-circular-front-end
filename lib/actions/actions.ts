@@ -5,6 +5,7 @@ import {
   RegisterData,
   RegisterResponse,
   TransactionData,
+  TransactionResponse,
   UnauthorizedPack,
   UpdateUser,
   User,
@@ -28,15 +29,65 @@ export const registerUser = async (
 
     if (!response.ok) {
       const errorResponse = await response.json();
+
+      if (errorResponse.error && errorResponse.error.issues) {
+        const formattedErrors = errorResponse.error.issues.map(
+          (issue: Issue) => ({
+            path: issue.path.join("."),
+            message: issue.message,
+          })
+        );
+
+        return {
+          success: false,
+          message: "Errores de validación",
+          errors: formattedErrors,
+        };
+      }
+
       return {
         success: false,
-        message: errorResponse.message || "Error en la solicitud.",
-        errors: errorResponse.errors || [],
+        message: errorResponse.message,
+        errors: [],
       };
     }
 
     const result = await response.json();
     return { success: true, token: result.token };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error en la solicitud: " + (error as Error).message,
+    };
+  }
+};
+
+export const verifyEmail = async (
+  token: string
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/verify-email/${token}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+
+      return {
+        success: false,
+        message:
+          errorResponse.message || "Hubo un problema al verificar el email.",
+      };
+    }
+
+    const result = await response.json();
+    return {
+      success: true,
+      message: result.message || "Correo verificado exitosamente.",
+    };
   } catch (error) {
     return {
       success: false,
@@ -255,7 +306,7 @@ export const createTransaction = async (
   transactionData: TransactionData,
   token: string | null,
   url: string
-): Promise<void> => {
+): Promise<TransactionResponse> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/${url}`, {
       method: "POST",
@@ -267,10 +318,43 @@ export const createTransaction = async (
     });
 
     if (!response.ok) {
-      throw new Error("Error en la creación de la transacción");
+      const errorResponse = await response.json();
+
+      if (errorResponse.errors) {
+        const formattedErrors = errorResponse.errors.map(
+          (error: { path: string[]; message: string }) => ({
+            path: error.path.join("."),
+            message: error.message,
+          })
+        );
+
+        return {
+          success: false,
+          message: "Error de validación",
+          errors: formattedErrors,
+        };
+      }
+
+      // Si hay algún otro tipo de error, retornamos el mensaje de error general
+      return {
+        success: false,
+        message: errorResponse.message || "Error desconocido",
+        errors: [],
+      };
     }
+
+    // Si la transacción se creó correctamente
+    return {
+      success: true,
+      message: "Transacción creada correctamente",
+    };
   } catch (error) {
-    throw error;
+    // En caso de error durante el proceso de la solicitud
+    return {
+      success: false,
+      message:
+        "Error en la creación de la transacción: " + (error as Error).message,
+    };
   }
 };
 
