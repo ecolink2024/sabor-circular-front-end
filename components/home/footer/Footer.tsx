@@ -57,10 +57,10 @@ export default function Footer() {
             />
           </Link>
           <HStack gap={4} position={"relative"} top={"5px"}>
-            <Link href="https://instagram.com" isExternal>
+            <Link href="https://www.instagram.com/saborcircular" isExternal>
               <Icon as={RiInstagramFill} fontSize={30} color="#344234" />
             </Link>
-            <Link href="https://wa.me/" isExternal>
+            <Link href="https://wa.me/" isExternal display={"none"}>
               <Icon as={IoLogoWhatsapp} fontSize={30} color="#344234" />
             </Link>
           </HStack>
@@ -102,27 +102,4 @@ export default function Footer() {
       </Center>
     </Stack>
   );
-}
-
-{
-  /* <Flex gap={16} direction={{ base: "column", lg: "row" }}>
-<Flex
-  gap={10}
-  align={"flex-start"}
-  direction={{ base: "row", lg: "column" }}
->
-  <Link fontSize={"2xl"} fontWeight={900} color={"white"} href="/">
-    SABOR CIRCULAR
-  </Link>
-  <HStack gap={4}>
-    <Link href="https://instagram.com" isExternal>
-      <Icon as={RiInstagramFill} fontSize={50} color="white" />
-    </Link>
-    <Link href="https://wa.me/" isExternal>
-      <Icon as={IoLogoWhatsapp} fontSize={50} color="white" />
-    </Link>
-  </HStack>
-</Flex>
-
-</Flex> */
 }

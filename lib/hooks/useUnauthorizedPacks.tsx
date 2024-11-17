@@ -31,5 +31,5 @@ export const useUnauthorizedPacks = (token: string | null) => {
     fetchData();
   };
 
-  return { packs, isLoading, error, refetch };
+  return { packs, setPacks, isLoading, error, refetch };
 };

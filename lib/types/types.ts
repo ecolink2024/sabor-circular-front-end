@@ -8,6 +8,7 @@ export interface AuthContextType {
   token: string | null;
   user: User | null;
   isLoading: boolean;
+  isLoggingOut: boolean;
   login: (token: string) => void;
   logout: () => void;
   refetchUserData: () => Promise<void>;
@@ -22,6 +23,7 @@ export type RegisterData = {
   code?: string;
   tupperCount?: number;
   password: string;
+  confirmPassword: string;
 };
 
 export interface ValidationError {
@@ -32,6 +34,12 @@ export interface ValidationError {
 export type RegisterResponse = {
   success: boolean;
   token?: string;
+  message?: string;
+  errors?: ValidationError[];
+};
+
+export type TransactionResponse = {
+  success: boolean;
   message?: string;
   errors?: ValidationError[];
 };
@@ -112,10 +120,8 @@ export const publicRoutes: string[] = [
   "/return-container",
   "/signin",
   "/login",
-  "/login/recovery-password",
   "/signin/pg",
   "/signin/admin",
-  "/perfil",
 ];
 
 export const dashboardUsersRoutes: Record<string, string[]> = {
@@ -134,3 +140,5 @@ export type Issue = {
   path: string[];
   message: string;
 };
+
+export type PasswordFieldRegister = "newPassword" | "confirmPassword";

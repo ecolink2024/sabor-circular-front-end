@@ -19,13 +19,14 @@ export default function ReturnContainerComponent() {
           textAlign={"center"}
           color={"#2E312F"}
         >
-          Buscá el Punto de Recepción más cercano
+          Encontrá tu Punto de Retorno más cercano
         </Heading>
 
         {/* Description */}
         <Text fontSize={["sm", "md", "lg"]}>
-          Acercá tus envases a los Puntos de Recepción para que sean sanitizados
-          y reintroducidos al circuito
+          Devolvé el Envase Retornable en cualquiera de los puntos para que
+          pueda seguir su proceso de sanitización y regresar al circuito
+          ¡Gracias por sumarte a cambiar la cultura del descarte!
         </Text>
       </VStack>
 

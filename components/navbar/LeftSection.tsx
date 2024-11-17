@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FaBasketShopping } from "react-icons/fa6";
+import { FaBasketShopping, FaShop } from "react-icons/fa6";
 import { MdGroups, MdInfo, MdOutlineMenu } from "react-icons/md";
 import { RiRecycleFill } from "react-icons/ri";
 
@@ -38,6 +38,17 @@ export default function LeftSection() {
         ?.scrollIntoView({ behavior: "smooth" });
     } else {
       sessionStorage.setItem("scrollToSection", "how-its-work");
+      router.push("/");
+    }
+  };
+
+  const redirectAttachedPremises = () => {
+    if (pathname === "/") {
+      document
+        .getElementById("locales-adheridos")
+        ?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      sessionStorage.setItem("scrollToSection", "locales-adheridos");
       router.push("/");
     }
   };
@@ -91,7 +102,7 @@ export default function LeftSection() {
           left={2}
           bottom={3}
         >
-          {/* Empeza a usar #Tapercito */}
+          {/* ¡Quiero sumarme! */}
           <MenuItem
             icon={<FaBasketShopping color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
@@ -104,25 +115,34 @@ export default function LeftSection() {
             }
             onClick={() => handleRedirect(hrefTapercito)}
           >
-            Empeza a usar #Tapercito
+            ¡Quiero sumarme!
           </MenuItem>
 
-          {/* Puntos de Recepción */}
+          {/* Puntos de retorno */}
           <MenuItem
             icon={<RiRecycleFill color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
             onClick={() => handleRedirect("/return-container")}
           >
-            Puntos de Recepción
+            Puntos de retorno
           </MenuItem>
 
-          {/* Cómo funciona */}
+          {/* ¿Cómo funciona?  */}
           <MenuItem
             icon={<MdInfo color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
             onClick={redirectHowItsWorks}
           >
-            <Link href={"/"}>Cómo funciona</Link>
+            <Link href={"/"}>¿Cómo funciona? </Link>
+          </MenuItem>
+
+          {/* Locales adheridos */}
+          <MenuItem
+            icon={<FaShop color="#ea9b42" fontSize={18} />}
+            _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
+            onClick={redirectAttachedPremises}
+          >
+            <Link href={"/"}>Locales adheridos</Link>
           </MenuItem>
 
           {/* Quiero ser local adherido */}

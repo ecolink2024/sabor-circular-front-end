@@ -1,6 +1,7 @@
 "use client";
 import { registerUser } from "@/lib/actions/actions";
 import {
+  PasswordFieldRegister,
   RegisterData,
   RegisterResponse,
   ValidationError,
@@ -24,9 +25,8 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import React, { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import { FaArrowLeftLong, FaEye, FaEyeSlash } from "react-icons/fa6";
-import { getErrorMessage } from "@/lib/utils/utils";
+import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 
 export default function SignIn({
   registrationType = "casa",
@@ -35,9 +35,6 @@ export default function SignIn({
 }) {
   // Chakra UI toast for displaying success or error messages
   const toast = useToast();
-
-  // Next.js router for navigating between pages
-  const router = useRouter();
 
   // State to store the registration form data
   const [formData, setFormData] = useState<RegisterData>({
@@ -52,13 +49,17 @@ export default function SignIn({
         ? "admin"
         : "",
     password: "",
+    confirmPassword: "",
   });
 
   // Boolean state to control the visibility of the loading spinner
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Boolean state to toggle password visibility in the input field
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  // State to manage the visibility of the password fields (current, new, and confirm passwords)
+  const [passwordVisibility, setPasswordVisibility] = useState({
+    newPassword: false,
+    confirmPassword: false,
+  });
 
   // State to store validation errors for the form
   const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
@@ -98,28 +99,23 @@ export default function SignIn({
 
       if (response.success) {
         toast({
-          title: "Registration successful.",
-          description: "You have registered successfully.",
+          title: "Registro exitoso.",
+          description:
+            "Te has registrado correctamente. Por favor, revisa tu correo para verificar tu cuenta.",
           status: "success",
-          duration: 5000,
+          duration: null,
           isClosable: true,
         });
-
-        router.push("/login");
+        setFormData((prevData) => ({
+          ...prevData,
+          name: "",
+          email: "",
+          phone: "",
+          address: "",
+          password: "",
+          confirmPassword: "",
+        }));
       } else {
-        // If there was an error in registration, check if a specific message was returned
-        if (response.message === "El correo o telf ya está registrado.") {
-          // Display specific error message in a toast if present
-          toast({
-            title: "Registration Error",
-            description: response.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        }
-
-        // Set validation errors to be displayed alongside form fields, if any
         setErrors(response.errors);
       }
     } catch (error) {
@@ -133,6 +129,14 @@ export default function SignIn({
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Function to toggle the visibility of the password fields (current, new, confirm)
+  const togglePasswordVisibility = (field: PasswordFieldRegister) => {
+    setPasswordVisibility((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
   };
 
   return (
@@ -175,7 +179,7 @@ export default function SignIn({
         padding={{ base: 8, lg: 10 }}
       >
         <Heading mb={6} textAlign="center" fontSize="xl" fontWeight={900}>
-          Regístrate
+          Registrate
         </Heading>
 
         <form onSubmit={handleSubmit}>
@@ -198,7 +202,10 @@ export default function SignIn({
                     : `Ingresa tu nombre`
                 }
                 value={formData.name}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  clearFieldError("name", setErrors);
+                }}
               />
               <FormErrorMessage>
                 {getErrorMessage("name", errors)}
@@ -215,7 +222,10 @@ export default function SignIn({
                 type="email"
                 placeholder="Ingresa tu email"
                 value={formData.email}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  clearFieldError("email", setErrors);
+                }}
               />
               <FormErrorMessage>
                 {getErrorMessage("email", errors)}
@@ -232,7 +242,10 @@ export default function SignIn({
                 type="tel"
                 placeholder="Ingresa tu número de teléfono"
                 value={formData.phone}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  clearFieldError("phone", setErrors);
+                }}
               />
               <FormErrorMessage>
                 {getErrorMessage("phone", errors)}
@@ -249,7 +262,10 @@ export default function SignIn({
                 type="text"
                 placeholder="Ingresa tu dirección"
                 value={formData.address}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  clearFieldError("address", setErrors);
+                }}
               />
               <FormErrorMessage>
                 {getErrorMessage("address", errors)}
@@ -267,7 +283,10 @@ export default function SignIn({
                 <Select
                   placeholder="Selecciona un rol"
                   value={formData.role}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    clearFieldError("role", setErrors);
+                  }}
                 >
                   <option value="punto">Punto</option>
                   <option value="gastronomico">Gastronómico</option>
@@ -286,24 +305,33 @@ export default function SignIn({
               <FormLabel>Contraseña</FormLabel>
               <InputGroup>
                 <Input
-                  type={showPassword ? "text" : "password"}
+                  type={passwordVisibility.newPassword ? "text" : "password"}
                   placeholder="Ingrese su contraseña"
                   value={formData.password}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormData((prevData) => ({
                       ...prevData,
                       password: e.target.value,
-                    }))
-                  }
+                    }));
+                    clearFieldError("password", setErrors);
+                  }}
                 />
                 <InputRightElement>
                   <IconButton
                     display={formData.password ? "flex" : "none"}
                     aria-label={
-                      showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                      passwordVisibility.newPassword
+                        ? "Ocultar contraseña"
+                        : "Mostrar contraseña"
                     }
-                    icon={showPassword ? <FaEyeSlash /> : <FaEye />}
-                    onClick={() => setShowPassword(!showPassword)}
+                    icon={
+                      passwordVisibility.newPassword ? (
+                        <FaEyeSlash />
+                      ) : (
+                        <FaEye />
+                      )
+                    }
+                    onClick={() => togglePasswordVisibility("newPassword")}
                     variant="link"
                     color="gray.500"
                   />
@@ -311,6 +339,53 @@ export default function SignIn({
               </InputGroup>
               <FormErrorMessage>
                 {getErrorMessage("password", errors)}
+              </FormErrorMessage>
+            </FormControl>
+
+            {/* Input Confirm Password  */}
+            <FormControl
+              id="confirmPassword"
+              isInvalid={!!getErrorMessage("confirmPassword", errors)}
+            >
+              <FormLabel>Confirmar Contraseña</FormLabel>
+              <InputGroup>
+                <Input
+                  type={
+                    passwordVisibility.confirmPassword ? "text" : "password"
+                  }
+                  placeholder="Confirme su contraseña"
+                  value={formData.confirmPassword}
+                  onChange={(e) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      confirmPassword: e.target.value,
+                    }));
+                    clearFieldError("confirmPassword", setErrors);
+                  }}
+                />
+                <InputRightElement>
+                  <IconButton
+                    display={formData.confirmPassword ? "flex" : "none"}
+                    aria-label={
+                      passwordVisibility.confirmPassword
+                        ? "Ocultar contraseña"
+                        : "Mostrar contraseña"
+                    }
+                    icon={
+                      passwordVisibility.confirmPassword ? (
+                        <FaEyeSlash />
+                      ) : (
+                        <FaEye />
+                      )
+                    }
+                    onClick={() => togglePasswordVisibility("confirmPassword")}
+                    variant="link"
+                    color="gray.500"
+                  />
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage>
+                {getErrorMessage("confirmPassword", errors)}
               </FormErrorMessage>
             </FormControl>
 
@@ -325,7 +400,7 @@ export default function SignIn({
               width="full"
               isLoading={isLoading}
             >
-              Regístrate
+              Registrarse
             </Button>
           </Stack>
         </form>

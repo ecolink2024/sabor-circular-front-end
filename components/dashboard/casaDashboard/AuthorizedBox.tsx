@@ -1,12 +1,26 @@
 import { UserPacks } from "@/lib/types/types";
-import { Box, Center, Flex, HStack, Icon, Text } from "@chakra-ui/react";
-import { FaEyeSlash, FaEye } from "react-icons/fa6"; // Importamos ambos íconos
+import {
+  Box,
+  Center,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+  Tooltip,
+  useClipboard,
+} from "@chakra-ui/react";
+import { FaEyeSlash, FaEye } from "react-icons/fa6";
 import { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
+import { MdContentCopy } from "react-icons/md";
 
 export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
   const { user } = useAuth();
   const [isCodeVisible, setIsCodeVisible] = useState(false);
+
+  // Usamos useClipboard para manejar la copia
+  const { onCopy } = useClipboard(data && data[0]?.code ? data[0].code : "");
 
   const toggleCodeVisibility = () => {
     setIsCodeVisible(!isCodeVisible);
@@ -36,7 +50,6 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
         >
           <HStack
             borderBottom={"2px solid #518a3e"}
-            onClick={toggleCodeVisibility}
             cursor="pointer"
             py={3}
             px={2}
@@ -44,6 +57,17 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
             align={"center"}
             gap={3}
           >
+            <Tooltip label={"Copiar Codigo"}>
+              <IconButton
+                display={isCodeVisible ? "flex" : "none"}
+                size={"xs"}
+                onClick={onCopy}
+                aria-label="Copiar código"
+                isDisabled={!data || !data[0]?.code}
+                icon={<MdContentCopy color="#518a3e" />}
+                borderRadius={"6px"}
+              />
+            </Tooltip>
             <Text fontSize={"2xl"} color={"#518a3e"}>
               {isCodeVisible ? data && data[0].code : "* * * * * * * * *"}
             </Text>
@@ -51,6 +75,7 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
               as={isCodeVisible ? FaEye : FaEyeSlash}
               fontSize={20}
               color={"#518a3e"}
+              onClick={toggleCodeVisibility}
             />
           </HStack>
 
@@ -60,9 +85,10 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight={900}
               color={"#518a3e"}
-            >{`Compraste un pack de ${
-              data && data[0].tupperAmount
-            } envases`}</Text>
+            >
+              Tu código único de <br />
+              usuario
+            </Text>
           </Flex>
         </Box>
 
@@ -100,7 +126,7 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
         fontWeight={600}
         fontSize={{ base: "lg", md: "xl" }}
       >
-        Próximamente más envases disponibles por usuario
+        Disponible hasta febrero 2025
       </Text>
     </>
   );

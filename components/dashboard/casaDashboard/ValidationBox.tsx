@@ -19,9 +19,7 @@ export default function ValidationBox() {
       h={"100%"}
       minH={"400px"}
       borderRadius="16px"
-      borderTop="2px solid #518a3e"
-      borderX="2px solid #518a3e"
-      borderBottom="6px solid #518a3e"
+      shadow={"md"}
       p={{ base: 6, lg: 10 }}
       flexDirection={"column"}
       justifyContent={"space-evenly"}

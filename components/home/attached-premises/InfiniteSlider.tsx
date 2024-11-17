@@ -44,15 +44,19 @@ export default function InfiniteSlider({
                 isExternal
                 href={logo.link}
                 w={"200px"}
-                h={"100px"}
                 display="inline-block"
+                py={4}
               >
                 <Image
                   src={logo.svg}
                   width={200}
-                  height={100}
+                  height={"auto"}
+                  maxH={"150px"}
                   alt={logo.tooltip}
-                  style={{ flexShrink: 0 }}
+                  style={{
+                    flexShrink: 0,
+                    objectFit: "contain",
+                  }}
                   borderRadius={"20px"}
                 />
               </Link>

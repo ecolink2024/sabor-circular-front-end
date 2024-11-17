@@ -24,6 +24,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // State to manage loading
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // Flag to detect if logout was triggered
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
+
   // Effect to load user data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
@@ -90,15 +93,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Function to log out
   const logout = () => {
+    setIsLoggingOut(true);
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
-    router.push("/"); // Redirigir a la página de inicio de sesión
+    router.push("/");
   };
 
   return (
     <AuthContext.Provider
-      value={{ token, user, login, logout, refetchUserData, isLoading }}
+      value={{
+        token,
+        user,
+        login,
+        logout,
+        refetchUserData,
+        isLoading,
+        isLoggingOut,
+      }}
     >
       {children}
     </AuthContext.Provider>

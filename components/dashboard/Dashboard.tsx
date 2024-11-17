@@ -26,18 +26,20 @@ export default function Dashboard({ children }: { children: ReactNode }) {
           </Heading>
         </Skeleton>
 
-        <Text
-          display={
-            user?.role === "gastronomico" || user?.role === "casa"
-              ? "block"
-              : "none"
-          }
-          textAlign={"center"}
-          fontSize={"xl"}
-          fontWeight={600}
-        >
-          Registrá los ingresos/egresos de envases en tu establecimiento
-        </Text>
+        <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
+          <Text
+            display={
+              user?.role === "gastronomico" || user?.role === "casa"
+                ? "none"
+                : "block"
+            }
+            textAlign={"center"}
+            fontSize={"xl"}
+            fontWeight={600}
+          >
+            Registrá los ingresos/egresos de envases en tu establecimiento
+          </Text>
+        </Skeleton>
       </Flex>
       {children}
     </Stack>

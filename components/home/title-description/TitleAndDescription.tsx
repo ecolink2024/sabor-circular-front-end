@@ -22,7 +22,12 @@ export default function TitleAndDescription() {
     : "/login";
 
   return (
-    <Flex w={"100%"} height="calc(100vh - 80px)" gap={0} direction={"column"}>
+    <Flex
+      w={"100%"}
+      height={{ base: "auto", lg: "calc(100vh - 80px)" }}
+      gap={0}
+      direction={"column"}
+    >
       <Flex direction={{ base: "column", lg: "row" }} h={"100%"}>
         {/* Heading and Description */}
         <Flex
@@ -31,6 +36,7 @@ export default function TitleAndDescription() {
           direction={"column"}
           gap={6}
           pl={{ base: 0, lg: 28 }}
+          pt={{ base: 10, lg: 0 }}
           justify={"center"}
           align={{ base: "center", lg: "flex-start" }}
         >
@@ -41,16 +47,17 @@ export default function TitleAndDescription() {
             textAlign={{ base: "center", lg: "start" }}
             lineHeight={"80px"}
           >
-            Disfrutá
-            <br /> devolvé y repetí
+            Disfrutá,
+            <br />
+            Devolvé, Repetí
           </Heading>
           <Text
-            fontSize={{ base: "md", lg: "lg" }}
+            fontSize={{ base: "md", lg: "xl" }}
             textAlign={{ base: "center", lg: "start" }}
             mx={{ base: 10, lg: 0 }}
           >
-            Ahora take away y delivery de tu comida preferida en envases
-            reutilizables zero waste
+            Revolucionando el take away y delivery ahora, recibí tu comida en
+            envases retornables
           </Text>
           <Button
             display={
@@ -70,15 +77,17 @@ export default function TitleAndDescription() {
             fontSize={"13px"}
             onClick={() => router.push(hrefTapercito)}
           >
-            Empeza a usar #Tapercito
+            Sumate por $9000
           </Button>
         </Flex>
 
+        {/* Landing Image  */}
         <Flex flex={1} h={"100%"} justify={"center"} align={"center"}>
           <Box
             bg={"white"}
-            w={{ base: "350px", lg: "450px" }}
-            h={{ base: "350px", lg: "450px" }}
+            w={{ base: "320px", lg: "450px" }}
+            h={{ base: "320px", lg: "450px" }}
+            mt={{ base: "100px", lg: "auto" }}
             borderRadius={"full"}
             shadow={"md"}
           >

@@ -17,11 +17,10 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/pagination";
 import { cardsWorks } from "@/lib/data/data";
-import { FaToolbox, FaUtensils } from "react-icons/fa6";
+import { FaRecycle, FaShop, FaUserPlus } from "react-icons/fa6";
 import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import { RiUserAddFill } from "react-icons/ri";
 
 export default function MobileCards() {
   // Ref for slider
@@ -108,17 +107,18 @@ export default function MobileCards() {
                   w="110px"
                   h="110px"
                   borderRadius="full"
-                  bg="rgba(81, 138, 62, 0.5)"
+                  border={"2px solid #518a3e"}
+                  bg="transparent"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
                 >
                   {card.icon === "user" ? (
-                    <Icon as={RiUserAddFill} fontSize={30} color="#344234" />
+                    <Icon as={FaUserPlus} fontSize={30} color="#518a3e" />
                   ) : card.icon === "tupper" ? (
-                    <Icon as={FaToolbox} fontSize={30} color="#344234" />
+                    <Icon as={FaShop} fontSize={30} color="#518a3e" />
                   ) : (
-                    <Icon as={FaUtensils} fontSize={30} color="#344234" />
+                    <Icon as={FaRecycle} fontSize={30} color="#518a3e" />
                   )}
                 </Box>
                 <VStack align="flex-start">
@@ -128,7 +128,7 @@ export default function MobileCards() {
                   <Text fontSize="sm">{card.description}</Text>
                 </VStack>
                 <Button
-                  bg="rgba(81, 138, 62, 0.45)"
+                  bg="#518a3e"
                   _hover={{ bg: "rgba(81, 138, 62, 0.45)" }}
                   color={"white"}
                   fontWeight={600}

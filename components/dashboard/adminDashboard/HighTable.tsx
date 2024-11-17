@@ -41,6 +41,7 @@ export default function HighTable() {
     try {
       await authorizePack(packId, token);
       refetch();
+
       toast({
         title: "Pack autorizado",
         description: "El pack ha sido autorizado correctamente.",
@@ -78,6 +79,7 @@ export default function HighTable() {
         <Heading size={"xl"}>SOLICITUD DE PACKS</Heading>
         {/* Input para filtrar por email */}
         <Input
+          id="search-packs"
           w={"100%"}
           placeholder="Ingrese el email..."
           value={filter}
