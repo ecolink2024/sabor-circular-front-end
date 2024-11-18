@@ -19,6 +19,7 @@ export default function Navbar() {
     "/login/recovery-password",
     `/login/recovery-password/${recoveryToken}`,
     "/login",
+    "/contact",
   ].includes(pathname)
     ? "none"
     : "flex";

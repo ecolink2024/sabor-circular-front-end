@@ -42,7 +42,8 @@ export default function InfiniteSlider({
             >
               <Link
                 isExternal
-                href={logo.link}
+                cursor={isBorder ? "pointer" : "default"}
+                href={isBorder ? logo.link : null}
                 w={"200px"}
                 display="inline-block"
                 py={4}

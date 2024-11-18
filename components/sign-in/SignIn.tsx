@@ -152,7 +152,7 @@ export default function SignIn({
       {/* Button Redirect Index */}
       <IconButton
         as={Link}
-        bg={"rgba(81, 138, 62, 0.7)"}
+        bg={"#518a3e"}
         _hover={{ bg: "gray.300" }}
         borderRadius={"8.93px"}
         color={"white"}
@@ -202,6 +202,7 @@ export default function SignIn({
                     : `Ingresa tu nombre`
                 }
                 value={formData.name}
+                focusBorderColor="#518a3e"
                 onChange={(e) => {
                   handleInputChange(e);
                   clearFieldError("name", setErrors);
@@ -221,6 +222,7 @@ export default function SignIn({
               <Input
                 type="email"
                 placeholder="Ingresa tu email"
+                focusBorderColor="#518a3e"
                 value={formData.email}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -241,6 +243,7 @@ export default function SignIn({
               <Input
                 type="tel"
                 placeholder="Ingresa tu número de teléfono"
+                focusBorderColor="#518a3e"
                 value={formData.phone}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -261,6 +264,7 @@ export default function SignIn({
               <Input
                 type="text"
                 placeholder="Ingresa tu dirección"
+                focusBorderColor="#518a3e"
                 value={formData.address}
                 onChange={(e) => {
                   handleInputChange(e);
@@ -308,6 +312,7 @@ export default function SignIn({
                   type={passwordVisibility.newPassword ? "text" : "password"}
                   placeholder="Ingrese su contraseña"
                   value={formData.password}
+                  focusBorderColor="#518a3e"
                   onChange={(e) => {
                     setFormData((prevData) => ({
                       ...prevData,
@@ -355,6 +360,7 @@ export default function SignIn({
                   }
                   placeholder="Confirme su contraseña"
                   value={formData.confirmPassword}
+                  focusBorderColor="#518a3e"
                   onChange={(e) => {
                     setFormData((prevData) => ({
                       ...prevData,
@@ -392,7 +398,7 @@ export default function SignIn({
             {/* Submit Button  */}
             <Button
               type="submit"
-              bg={"rgba(81, 138, 62, 0.7)"}
+              bg={"#518a3e"}
               _hover={{ bg: "gray.300" }}
               borderRadius={"8.93px"}
               color={"white"}
