@@ -105,4 +105,9 @@ export const accompany: infiniteSlider[] = [
     tooltip: "logo 8",
     link: "",
   },
+  {
+    svg: "/svg/symbio-net-logo.svg",
+    tooltip: "logo 9",
+    link: "",
+  },
 ];

@@ -180,6 +180,7 @@ export default function Profile() {
                 <Input
                   type="text"
                   placeholder="Ingresa tu nombre"
+                  focusBorderColor="#518a3e"
                   value={formData.name}
                   onChange={(e) => {
                     handleInputChange(e);
@@ -201,6 +202,7 @@ export default function Profile() {
                 <Input
                   type="tel"
                   placeholder="Ingresa tu número de teléfono"
+                  focusBorderColor="#518a3e"
                   value={formData.phone}
                   onChange={(e) => {
                     handleInputChange(e);
@@ -222,6 +224,7 @@ export default function Profile() {
                 <Input
                   type="text"
                   placeholder="Ingresa tu dirección"
+                  focusBorderColor="#518a3e"
                   value={formData.address}
                   onChange={(e) => {
                     handleInputChange(e);
@@ -242,6 +245,7 @@ export default function Profile() {
                       passwordVisibility.currentPassword ? "text" : "password"
                     }
                     placeholder="Ingresa tu contraseña actual"
+                    focusBorderColor="#518a3e"
                     value={formData.currentPassword}
                     onChange={handleInputChange}
                   />
@@ -277,6 +281,7 @@ export default function Profile() {
                   <Input
                     type={passwordVisibility.newPassword ? "text" : "password"}
                     placeholder="Ingresa tu nueva contraseña"
+                    focusBorderColor="#518a3e"
                     value={formData.newPassword}
                     onChange={handleInputChange}
                   />
@@ -315,6 +320,7 @@ export default function Profile() {
                       passwordVisibility.confirmPassword ? "text" : "password"
                     }
                     placeholder="Confirma tu nueva contraseña"
+                    focusBorderColor="#518a3e"
                     value={formData.confirmPassword}
                     onChange={(e) => {
                       handleInputChange(e);
@@ -352,7 +358,7 @@ export default function Profile() {
               {/* Submit Button  */}
               <Button
                 type="submit"
-                bg={"rgba(81, 138, 62, 0.7)"}
+                bg={"#518a3e"}
                 _hover={{ bg: "gray.300" }}
                 borderRadius={"8.93px"}
                 color={"white"}

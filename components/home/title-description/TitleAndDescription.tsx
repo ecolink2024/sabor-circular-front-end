@@ -87,7 +87,7 @@ export default function TitleAndDescription() {
             bg={"white"}
             w={{ base: "320px", lg: "450px" }}
             h={{ base: "320px", lg: "450px" }}
-            mt={{ base: "100px", lg: "auto" }}
+            mt={{ base: "100px", lg: "0px" }}
             borderRadius={"full"}
             shadow={"md"}
           >

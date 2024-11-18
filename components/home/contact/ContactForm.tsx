@@ -5,15 +5,22 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   FormControl,
   FormLabel,
   Heading,
+  IconButton,
+  Image,
   Input,
+  Text,
   Textarea,
+  VStack,
   useToast,
 } from "@chakra-ui/react";
 import { FormUserDataInfo } from "@/lib/types/types";
 import { submitFormUserInfo } from "@/lib/actions/actions";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import Link from "next/link";
 
 export default function ContactForm() {
   const toast = useToast();
@@ -72,92 +79,205 @@ export default function ContactForm() {
   };
 
   return (
-    <Center w={"100%"} gap={10} flexDirection={"column"} p={20}>
-      <Heading color={"black"} size={"2xl"} fontWeight={900}>
-        Déjanos tus datos
-      </Heading>
+    <Center
+      w={"100%"}
+      gap={10}
+      flexDirection={"column"}
+      p={{ base: 6, md: 20 }}
+    >
+      {/* Button Redirect Index */}
+      <IconButton
+        as={Link}
+        bg={"#518a3e"}
+        _hover={{ bg: "gray.300" }}
+        borderRadius={"8.93px"}
+        color={"white"}
+        aria-label="redirect-index"
+        icon={<FaArrowLeftLong />}
+        href="/"
+        position={"absolute"}
+        top={4}
+        left={4}
+      />
+
       <Box
-        bg="white"
-        p={6}
-        rounded="20px"
-        boxShadow="lg"
-        maxWidth={{ base: "300px", md: "600px" }}
-        minWidth={{ base: "300px", md: "500px" }}
-        width="100%"
-        padding={{ base: 8, lg: 10 }}
+        border={"8px solid white"}
+        w={"100%"}
+        maxW={"1100px"}
+        borderRadius={"20px"}
+        display={"flex"}
+        shadow={"md"}
+        mt={{ base: 16, lg: 0 }}
       >
-        <form onSubmit={handleSubmit}>
-          <FormControl isRequired mb={4}>
-            <FormLabel htmlFor="fullName">Nombre y Apellido</FormLabel>
-            <Input
-              id="fullName"
-              name="name" // Usa 'name' en el input
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Nombre y Apellido"
-            />
-          </FormControl>
+        {/* Left Section  */}
+        <Box
+          display={{ base: "none", md: "flex" }}
+          flex={2}
+          borderLeftRadius={"16px"}
+        >
+          <Image
+            src="/svg/background-contact-form.svg"
+            alt="background-contact"
+            objectFit="cover"
+            height="100%"
+            width="100%"
+            borderLeftRadius={"10px"}
+          />
+        </Box>
 
-          <FormControl isRequired mb={4}>
-            <FormLabel htmlFor="email">Correo Electrónico</FormLabel>
-            <Input
-              id="email"
-              name="email" // Usa 'name' en el input
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Correo Electrónico"
-            />
-          </FormControl>
-
-          <FormControl isRequired mb={4}>
-            <FormLabel htmlFor="telefone">Teléfono de contacto</FormLabel>
-            <Input
-              id="telefone"
-              name="telefone" // Usa 'name' en el input
-              value={formData.telefone}
-              onChange={handleChange}
-              placeholder="Teléfono de contacto"
-            />
-          </FormControl>
-
-          <FormControl isRequired mb={4}>
-            <FormLabel htmlFor="businessName">Nombre de tu local</FormLabel>
-            <Input
-              id="businessName"
-              name="contact" // Usa 'name' en el input
-              value={formData.contact}
-              onChange={handleChange}
-              placeholder="Nombre de tu local"
-            />
-          </FormControl>
-
-          <FormControl isRequired mb={4}>
-            <FormLabel htmlFor="message">Mensaje</FormLabel>
-            <Textarea
-              id="message"
-              name="message" // Usa 'name' en el textarea
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Escribe tu mensaje aquí"
-              size="sm"
-            />
-          </FormControl>
-
-          <Button
-            type="submit"
-            bg={"rgba(81, 138, 62, 0.7)"}
-            _hover={{ bg: "gray.300" }}
-            borderRadius={"8.93px"}
-            color={"white"}
-            size="md"
-            width="full"
-            isLoading={isLoading}
-            loadingText="Enviando..."
+        {/* Right Section  */}
+        <Box
+          display={"flex"}
+          flex={3}
+          bg={"white"}
+          flexDirection={"column"}
+          p={{ base: 6, md: 10 }}
+          gap={8}
+        >
+          <VStack
+            alignItems={{ base: "center", md: "flex-start" }}
+            gap={{ base: 3, md: 6 }}
           >
-            Enviar Mensaje
-          </Button>
-        </form>
+            {/* Logo Sabor Circular  */}
+            <Link href={"/"} passHref>
+              <Box w={"100%"} h={"100%"} maxW={"140px"} maxH={"40px"}>
+                <Image
+                  src="/svg/logo-sabor-circular-register.svg"
+                  alt="logo-sabor-circular"
+                  w={180}
+                />
+              </Box>
+            </Link>
+
+            {/* Heading  */}
+            <Heading
+              color={"black"}
+              size={{ base: "lg", md: "xl" }}
+              fontWeight={800}
+            >
+              Contactanos
+            </Heading>
+
+            {/* Description  */}
+            <Text
+              fontSize={{ base: "12px", md: "15px" }}
+              textAlign={{ base: "center", md: "start" }}
+            >
+              ¿Tienes alguna pregunta? Completa el formulario y te responderemos
+              pronto.
+            </Text>
+          </VStack>
+
+          <VStack w={"100%"}>
+            <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+              <Flex gap={4} direction={{ base: "column", md: "row" }}>
+                {/* Input Nombre y Apellido  */}
+                <FormControl isRequired w={"100%"}>
+                  <FormLabel htmlFor="fullName" fontSize={"14px"}>
+                    Nombre y Apellido
+                  </FormLabel>
+                  <Input
+                    w={"100%"}
+                    id="fullName"
+                    name="name"
+                    value={formData.name}
+                    fontSize={"13px"}
+                    focusBorderColor="#518a3e"
+                    onChange={handleChange}
+                    placeholder="Nombre y Apellido"
+                  />
+                </FormControl>
+
+                {/* Input Correo Electronico */}
+                <FormControl isRequired>
+                  <FormLabel htmlFor="email" fontSize={"14px"}>
+                    Correo Electrónico
+                  </FormLabel>
+                  <Input
+                    w={"100%"}
+                    id="email"
+                    name="email"
+                    type="email"
+                    fontSize={"13px"}
+                    value={formData.email}
+                    focusBorderColor="#518a3e"
+                    onChange={handleChange}
+                    placeholder="Correo Electrónico"
+                  />
+                </FormControl>
+              </Flex>
+
+              {/* Input Contact Phone */}
+              <FormControl isRequired mt={4}>
+                <FormLabel htmlFor="telefone" fontSize={"14px"}>
+                  Teléfono de contacto
+                </FormLabel>
+                <Input
+                  w={"100%"}
+                  id="telefone"
+                  name="telefone"
+                  fontSize={"13px"}
+                  value={formData.telefone}
+                  focusBorderColor="#518a3e"
+                  onChange={handleChange}
+                  placeholder="Teléfono de contacto"
+                />
+              </FormControl>
+
+              {/* Input Shop Name  */}
+              <FormControl isRequired mt={4}>
+                <FormLabel htmlFor="businessName" fontSize={"14px"}>
+                  Nombre de tu local
+                </FormLabel>
+                <Input
+                  w={"100%"}
+                  id="businessName"
+                  name="contact"
+                  fontSize={"13px"}
+                  value={formData.contact}
+                  focusBorderColor="#518a3e"
+                  onChange={handleChange}
+                  placeholder="Nombre de tu local"
+                />
+              </FormControl>
+
+              {/* Input Message  */}
+              <FormControl isRequired mt={4}>
+                <FormLabel htmlFor="message" fontSize={"14px"}>
+                  Mensaje
+                </FormLabel>
+                <Textarea
+                  w={"100%"}
+                  id="message"
+                  name="message"
+                  fontSize={"13px"}
+                  focusBorderColor="#518a3e"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Escribe tu mensaje aquí"
+                  size="sm"
+                />
+              </FormControl>
+
+              {/* Submit Button */}
+              <Button
+                mt={6}
+                w={"100%"}
+                type="submit"
+                bg={"#518a3e"}
+                _hover={{ bg: "gray.300" }}
+                borderRadius={"8.93px"}
+                color={"white"}
+                size="md"
+                width="full"
+                isLoading={isLoading}
+                loadingText="Enviando..."
+              >
+                Enviar Mensaje
+              </Button>
+            </form>
+          </VStack>
+        </Box>
       </Box>
     </Center>
   );

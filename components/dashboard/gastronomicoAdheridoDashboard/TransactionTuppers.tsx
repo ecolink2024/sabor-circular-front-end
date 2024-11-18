@@ -91,15 +91,6 @@ export default function TransactionTuppers({
         setUserCode("");
         setTupperCount(undefined);
       } else {
-        // if (response.message) {
-        //   toast({
-        //     title: "Error",
-        //     description: response.message,
-        //     status: "error",
-        //     duration: 5000,
-        //     isClosable: true,
-        //   });
-        // }
         setErrors(response.errors);
       }
     } catch (error) {

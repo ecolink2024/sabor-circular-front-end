@@ -29,7 +29,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false); 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   useEffect(() => {
     if (user) {
@@ -81,7 +81,7 @@ export default function Login() {
       {/* Button Redirect Index */}
       <IconButton
         as={Link}
-        bg={"rgba(81, 138, 62, 0.7)"}
+        bg={"#518a3e"}
         _hover={{ bg: "gray.300" }}
         borderRadius={"8.93px"}
         color={"white"}
@@ -113,21 +113,26 @@ export default function Login() {
         </Heading>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
+            {/* Input Email  */}
             <FormControl id="email" isRequired>
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
                 placeholder="Ingrese su email"
                 value={email}
+                focusBorderColor="#518a3e"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
+
+            {/* Input Password  */}
             <FormControl id="password" isRequired>
               <FormLabel>Contraseña</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="Ingrese su contraseña"
+                  focusBorderColor="#518a3e"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -145,9 +150,11 @@ export default function Login() {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
+
+            {/* Submit Button  */}
             <Button
               type="submit"
-              bg={"rgba(81, 138, 62, 0.7)"}
+              bg={"#518a3e"}
               _hover={{ bg: "gray.300" }}
               borderRadius={"8.93px"}
               color={"white"}
