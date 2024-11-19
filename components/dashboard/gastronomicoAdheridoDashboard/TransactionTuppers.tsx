@@ -20,6 +20,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { PiWarningCircleDuotone } from "react-icons/pi";
 import { RxCross2 } from "react-icons/rx";
 
 export default function TransactionTuppers({
@@ -91,6 +92,16 @@ export default function TransactionTuppers({
         setUserCode("");
         setTupperCount(undefined);
       } else {
+        if (response.message !== "Error de validación") {
+          toast({
+            title: "Error de registro",
+            description: `${response.message}`,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            icon: <PiWarningCircleDuotone />,
+          });
+        }
         setErrors(response.errors);
       }
     } catch (error) {
