@@ -71,6 +71,7 @@ export default function CenterSection() {
               : "block"
           }
           fontSize="13px"
+          textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
@@ -82,6 +83,7 @@ export default function CenterSection() {
 
         <ChakraLink
           fontSize="13px"
+          textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
@@ -93,6 +95,7 @@ export default function CenterSection() {
 
         <ChakraLink
           fontSize="13px"
+          textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
@@ -105,6 +108,7 @@ export default function CenterSection() {
 
         <ChakraLink
           fontSize="13px"
+          textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
@@ -116,6 +120,7 @@ export default function CenterSection() {
 
         <ChakraLink
           fontSize="13px"
+          textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}

@@ -32,9 +32,25 @@ const ProtectedRouteWrapper: React.FC<{ children: React.ReactNode }> = ({
   const isDashboardAuthorized =
     isDashboardRoute && user && !isDashboardRouteAuthorized(user, pathname);
 
+  // Validacion de acceso a la ruta del admin
+  const adminRoute = pathname === "/signin/admin";
+
   useEffect(() => {
     // Si aún estamos cargando los datos, no hacemos nada
     if (isLoading) return;
+
+    // Si la ruta es admin momentáneamente no vamos a dar acceso a esta ruta
+    if (adminRoute) {
+      toast({
+        title: "Ruta no disponible",
+        description:
+          "Esta sección está temporalmente deshabilitada. Por favor, vuelve más tarde.",
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+      });
+      router.push("/");
+    }
 
     // Si es una ruta pública, no hacemos nada, ya que el acceso está permitido
     if (isPublicRoute) return;
@@ -98,6 +114,7 @@ const ProtectedRouteWrapper: React.FC<{ children: React.ReactNode }> = ({
     pathname,
     isPublicRoute,
     isProfileRoute,
+    adminRoute,
     isDashboardRoute,
     isDashboardAuthorized,
     isLoading,

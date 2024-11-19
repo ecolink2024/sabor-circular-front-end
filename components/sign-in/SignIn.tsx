@@ -27,6 +27,7 @@ import {
 import React, { FormEvent, useState } from "react";
 import { FaArrowLeftLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
+import { PiWarningCircleDuotone } from "react-icons/pi";
 
 export default function SignIn({
   registrationType = "casa",
@@ -116,6 +117,16 @@ export default function SignIn({
           confirmPassword: "",
         }));
       } else {
+        if (response.message) {
+          toast({
+            title: "Error de registro",
+            description: `${response.message}`,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            icon: <PiWarningCircleDuotone />,
+          });
+        }
         setErrors(response.errors);
       }
     } catch (error) {
