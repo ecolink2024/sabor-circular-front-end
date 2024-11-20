@@ -94,7 +94,7 @@ export default function TransactionTuppers({
       } else {
         if (response.message !== "Error de validación") {
           toast({
-            title: "Error de registro",
+            title: "Error",
             description: `${response.message}`,
             status: "error",
             duration: 5000,
@@ -140,11 +140,11 @@ export default function TransactionTuppers({
         <Heading size={"lg"} textAlign={"center"}>
           {userType?.role === "gastronomico"
             ? transactionType === "withdraw"
-              ? "Ingreso envases aptos"
-              : "Egreso envases aptos"
+              ? "REPOSICION ♻️"
+              : "CLIENTE 👤"
             : transactionType === "withdraw"
-            ? "Ingreso envases no aptos"
-            : "Egreso envases no aptos"}
+            ? "CLIENTE 👤"
+            : "RECOLECCION ♻️"}
         </Heading>
         <VStack w={"100%"} gap={4}>
           {!user ? (

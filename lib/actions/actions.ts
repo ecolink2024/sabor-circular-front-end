@@ -334,11 +334,10 @@ export const createTransaction = async (
           errors: formattedErrors,
         };
       }
-
       // Si hay algún otro tipo de error, retornamos el mensaje de error general
       return {
         success: false,
-        message: errorResponse.message || "Error desconocido",
+        message: errorResponse.message,
         errors: [],
       };
     }

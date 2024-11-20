@@ -27,9 +27,9 @@ export default function CasaDashboard({ id }: { id: string }) {
         textAlign={"center"}
         fontWeight={700}
         fontSize={"20px"}
-        display={Array.isArray(data) && data.length === 0 ? "block" : "none"}
+        display={"none"}
       >
-        *Usos ilimitados hasta Febrero 2025
+        Usos ilimitados hasta Febrero 2025
       </Text>
     </Dashboard>
   );

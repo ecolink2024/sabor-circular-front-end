@@ -82,7 +82,13 @@ export default function Footer() {
               user?.role === "gastronomico" ||
               user?.role === "admin"
                 ? "none"
-                : "block"
+                : user?.role === "casa"
+                ? user?.code === undefined ||
+                  user?.code === null ||
+                  user?.code === ""
+                  ? "block"
+                  : "none"
+                : "none"
             }
           >
             -¡Quiero sumarme!
