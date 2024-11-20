@@ -65,7 +65,13 @@ export default function TitleAndDescription() {
               user?.role === "gastronomico" ||
               user?.role === "admin"
                 ? "none"
-                : "flex"
+                : user?.role === "casa"
+                ? user?.code === undefined ||
+                  user?.code === null ||
+                  user?.code === ""
+                  ? "block"
+                  : "none"
+                : "none"
             }
             w={"200px"}
             borderRadius={"15px"}

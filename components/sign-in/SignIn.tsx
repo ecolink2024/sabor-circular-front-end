@@ -157,7 +157,8 @@ export default function SignIn({
       alignItems="center"
       flexDirection={"column"}
       gap={10}
-      py={10}
+      py={{ base: 16, lg: 10 }}
+      px={6}
       position={"relative"}
     >
       {/* Button Redirect Index */}
@@ -185,7 +186,7 @@ export default function SignIn({
         p={6}
         rounded="20px"
         boxShadow="lg"
-        maxWidth={{ base: "300px", md: "450px" }}
+        maxWidth={{ base: "100%", md: "450px" }}
         width="100%"
         padding={{ base: 8, lg: 10 }}
       >

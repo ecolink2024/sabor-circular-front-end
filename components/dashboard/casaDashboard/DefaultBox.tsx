@@ -52,7 +52,8 @@ export default function DefaultBox({
       </VStack>
 
       <Text fontWeight={"bold"} fontSize={"13px"} textAlign={"center"}>
-        Se te habilitará un (1) envase retornable para usar en locales adheridos
+        Un único pago que te habilita un (1) envase retornable para que uses
+        ilimitadamente hasta febrero de 2025
       </Text>
       <CompraPackButton refetch={refetch} />
     </Box>
