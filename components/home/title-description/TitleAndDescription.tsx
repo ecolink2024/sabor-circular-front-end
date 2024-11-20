@@ -64,14 +64,14 @@ export default function TitleAndDescription() {
               user?.role === "punto" ||
               user?.role === "gastronomico" ||
               user?.role === "admin"
-                ? "none"
+                ? "flex"
                 : user?.role === "casa"
                 ? user?.code === undefined ||
                   user?.code === null ||
                   user?.code === ""
-                  ? "block"
+                  ? "flex"
                   : "none"
-                : "none"
+                : "flex"
             }
             w={"200px"}
             borderRadius={"15px"}

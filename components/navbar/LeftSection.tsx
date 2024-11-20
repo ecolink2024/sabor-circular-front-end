@@ -117,7 +117,7 @@ export default function LeftSection() {
                   user?.code === ""
                   ? "block"
                   : "none"
-                : "none"
+                : "flex"
             }
             onClick={() => handleRedirect(hrefTapercito)}
           >

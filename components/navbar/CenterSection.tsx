@@ -74,7 +74,7 @@ export default function CenterSection() {
                 user?.code === ""
                 ? "block"
                 : "none"
-              : "none"
+              : "block"
           }
           fontSize="13px"
           textAlign={"center"}

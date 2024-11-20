@@ -88,7 +88,7 @@ export default function Footer() {
                   user?.code === ""
                   ? "block"
                   : "none"
-                : "none"
+                : "flex"
             }
           >
             -¡Quiero sumarme!
