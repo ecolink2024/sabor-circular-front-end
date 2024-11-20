@@ -4,13 +4,14 @@ import { montserrat } from "@/public/fonts/font";
 import Navbar from "@/components/navbar/Navbar";
 import { Metadata } from "next";
 
+// Metadata
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.saborcircular.com.ar/"),
   title: "Sabor Circular - tu pedido en envases retornables",
   description:
     "Sabor Circular. Revolucionando el take away y el delivery con envases retornables.",
   keywords:
-    "Sabor circular, envases retornables, delivery, take away, sustentabilidad, gastronomía, cultura del descarte, delivery consciente, sabor circular",
+    "Sabor Circular, envases retornables, delivery, take away, sustentabilidad, gastronomía, cultura del descarte, delivery consciente, sabor circular",
   icons: {
     icon: "/img/fondo-contact.png",
   },
