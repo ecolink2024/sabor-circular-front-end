@@ -19,7 +19,7 @@ export const cardsWorks = [
     title: "Devolvé el envase y repetí",
     icon: "covered",
     description:
-      "Acercá el envase a un Punto de Retorno para su sanitización y reintroducción al circuito. ¡ Repetí!",
+      "Acercá el envase a un Punto de Retorno para su sanitización y reintroducción al circuito. ¡Repetí!",
     button: "Ver Puntos",
   },
 ];

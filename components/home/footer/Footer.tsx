@@ -85,7 +85,7 @@ export default function Footer() {
                 : "block"
             }
           >
-            -Empezá a usar #Tapercito
+            -¡Quiero sumarme!
           </Link>
           <Link href="/return-container">-Puntos de Recepción</Link>
           <Link href="#how-its-work">-Como funciona?</Link>

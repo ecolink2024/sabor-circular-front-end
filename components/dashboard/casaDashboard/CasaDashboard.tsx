@@ -29,7 +29,7 @@ export default function CasaDashboard({ id }: { id: string }) {
         fontSize={"20px"}
         display={Array.isArray(data) && data.length === 0 ? "block" : "none"}
       >
-        Próximamente más envases disponibles por usuario
+        *Usos ilimitados hasta Febrero 2025
       </Text>
     </Dashboard>
   );
