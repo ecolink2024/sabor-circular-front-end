@@ -122,6 +122,7 @@ export default function AuthorizedBox({ data }: { data: UserPacks[] | null }) {
         </Box>
       </Flex>
       <Text
+        display={"none"}
         textAlign={"center"}
         fontWeight={600}
         fontSize={{ base: "lg", md: "xl" }}

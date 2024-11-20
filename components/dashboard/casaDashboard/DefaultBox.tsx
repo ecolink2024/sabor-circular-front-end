@@ -47,12 +47,12 @@ export default function DefaultBox({
           color={"#518a3e"}
           fontWeight={"extrabold"}
         >
-          $9000
+          $9400
         </Text>
       </VStack>
 
       <Text fontWeight={"bold"} fontSize={"13px"} textAlign={"center"}>
-        Se te habilitarán 2 (dos) envases reutilizables para usar cuando desees
+        Se te habilitará un (1) envase retornable para usar en locales adheridos
       </Text>
       <CompraPackButton refetch={refetch} />
     </Box>

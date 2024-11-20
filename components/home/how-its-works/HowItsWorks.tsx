@@ -1,6 +1,6 @@
 "use client";
 import { worksans } from "@/public/fonts/font";
-import { Center, Heading, Stack, Text } from "@chakra-ui/react";
+import { Center, Heading, Stack } from "@chakra-ui/react";
 import CardsWorks from "./cards-works/CardsWorks";
 import { useEffect } from "react";
 
@@ -25,9 +25,6 @@ export default function HowItsWorks() {
       direction={"column"}
       gap={6}
     >
-      <Text fontWeight={600} color={"#518a3e"} textTransform="uppercase">
-        Cómo funciona
-      </Text>
       {/* Title Section */}
       <Heading
         color={"#344234"}
@@ -39,7 +36,7 @@ export default function HowItsWorks() {
         id="how-its-work"
         textAlign={"center"}
       >
-        Comida Saludable y Fresca en Tuppers de Calidad
+        Cómo funciona
       </Heading>
 
       {/* Cards Sections */}

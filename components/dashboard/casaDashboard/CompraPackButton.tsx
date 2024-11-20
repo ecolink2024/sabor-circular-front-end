@@ -110,7 +110,7 @@ export default function CompraPackButton({
         color={"white"}
         onClick={onOpen}
       >
-        Compra tu pack
+        Suscribirme
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"}>

@@ -77,7 +77,7 @@ export default function TitleAndDescription() {
             fontSize={"13px"}
             onClick={() => router.push(hrefTapercito)}
           >
-            Sumate por $9000
+            Sumate por $9400
           </Button>
         </Flex>
 
@@ -92,7 +92,7 @@ export default function TitleAndDescription() {
             shadow={"md"}
           >
             <Image
-              src="/img/landing-page.png"
+              src="/img/landing-page.jpg"
               w={"100%"}
               h={"100%"}
               borderRadius={"full"}
