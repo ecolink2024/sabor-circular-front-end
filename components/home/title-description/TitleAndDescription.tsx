@@ -41,6 +41,7 @@ export default function TitleAndDescription() {
           align={{ base: "center", lg: "flex-start" }}
         >
           <Heading
+            as={"h1"}
             fontWeight={"black"}
             fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
             color={"white"}
@@ -102,6 +103,7 @@ export default function TitleAndDescription() {
               w={"100%"}
               h={"100%"}
               borderRadius={"full"}
+              alt="landing-page-image"
             />
           </Box>
         </Flex>

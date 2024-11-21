@@ -46,7 +46,12 @@ export default function VerifyEmail({ token }: { token: string | null }) {
           justifyContent={"center"}
           gap={6}
         >
-          <Image src="/img/fondo-contact.png" w={"80px"} h={"auto"} />
+          <Image
+            src="/img/fondo-contact.png"
+            w={"80px"}
+            h={"auto"}
+            alt="verify-email"
+          />
 
           <Text fontSize={{ base: "md", sm: "lg" }} mb={4} fontWeight={600}>
             {message || "¡Tu correo electrónico ha sido verificado con éxito!"}
