@@ -18,7 +18,7 @@ export default function Contact() {
     >
       {/* Button Contact  */}
       <VStack w={"70%"} h={"100%"} bg={"#344234"} gap={20}>
-        <Image src="/img/fondo-contact.png" w={"120px"} h={"auto"} />
+        <Image src="/img/fondo-contact.png" w={"120px"} h={"auto"} alt="fondo-contact"/>
         <VStack gap={3}>
           <Text fontWeight={600} color={"#ea9b42"} textTransform="uppercase">
             Contactanos

@@ -100,7 +100,11 @@ export default function Footer() {
       </Flex>
 
       <Center py={6} flexDirection={"column"} px={10}>
-        <Image src="/img/line-sabor-circular.png" w={"350px"} />
+        <Image
+          src="/img/line-sabor-circular.png"
+          w={"350px"}
+          alt="line-sabor-circular"
+        />
         <Text fontSize="sm" textAlign={"center"}>
           © {new Date().getFullYear()} SaborCircular. Todos los derechos
           reservados.
