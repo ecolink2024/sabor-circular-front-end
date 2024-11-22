@@ -4,13 +4,9 @@ import { scrollAnimation } from "@/lib/utils/utils";
 import { Box, HStack, Link, Image } from "@chakra-ui/react";
 interface InfiniteSliderProps {
   image: infiniteSlider[];
-  isBorder?: boolean;
 }
 
-export default function InfiniteSlider({
-  image,
-  isBorder,
-}: InfiniteSliderProps) {
+export default function InfiniteSliderAttch({ image }: InfiniteSliderProps) {
   return (
     <HStack
       justify={"flex-start"}
@@ -20,6 +16,7 @@ export default function InfiniteSlider({
       position={"relative"}
       overflow={"hidden"}
       mt={"100px"}
+      mb={"60px"}
     >
       <HStack
         as="div"
@@ -34,7 +31,7 @@ export default function InfiniteSlider({
           .map((logo, ix) => (
             <Box
               key={ix}
-              border={isBorder ? "1px solid" : "none"}
+              border={"1px solid"}
               borderColor={"gray.100"}
               borderRadius={"20px"}
               px={8}
@@ -42,24 +39,31 @@ export default function InfiniteSlider({
             >
               <Link
                 isExternal
-                cursor={isBorder ? "pointer" : "default"}
-                href={isBorder ? logo.link : null}
-                w={"200px"}
-                display="inline-block"
+                href={logo.link}
+                w="200px"
                 py={4}
+                display="inline-block"
               >
-                <Image
-                  src={logo.svg}
-                  width={200}
-                  height={"auto"}
-                  maxH={"150px"}
-                  alt={logo.tooltip}
-                  style={{
-                    flexShrink: 0,
-                    objectFit: "contain",
-                  }}
-                  borderRadius={"20px"}
-                />
+                <Box
+                  w="200px"
+                  h="80px"
+                  borderRadius="20px"
+                  overflow="hidden"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  bg="white"
+                >
+                  <Image
+                    src={logo.svg}
+                    alt={logo.tooltip}
+                    style={{
+                      objectFit: "contain",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </Box>
               </Link>
             </Box>
           ))}

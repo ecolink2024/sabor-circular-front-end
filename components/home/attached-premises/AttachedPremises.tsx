@@ -1,9 +1,9 @@
 "use client";
 import { worksans } from "@/public/fonts/font";
 import { Box, Heading, Stack } from "@chakra-ui/react";
-import InfiniteSlider from "./InfiniteSlider";
 import { attachedPremises } from "@/lib/data/data";
 import { useEffect } from "react";
+import InfiniteSliderAttch from "./infiniteSliderAttch";
 
 export default function AttachedPremises() {
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function AttachedPremises() {
         Locales Adheridos
       </Heading>
 
-      <InfiniteSlider isBorder image={attachedPremises} />
+      <InfiniteSliderAttch image={attachedPremises} />
 
       {/* Divider  */}
       <Stack w={"100%"} h={"100px"} bg={"#344234"}>
