@@ -12,7 +12,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { IoLogoWhatsapp } from "react-icons/io";
+import { MdMail } from "react-icons/md";
 import { RiInstagramFill } from "react-icons/ri";
 
 export default function Footer() {
@@ -60,8 +60,8 @@ export default function Footer() {
             <Link href="https://www.instagram.com/saborcircular" isExternal>
               <Icon as={RiInstagramFill} fontSize={30} color="#344234" />
             </Link>
-            <Link href="https://wa.me/" isExternal display={"none"}>
-              <Icon as={IoLogoWhatsapp} fontSize={30} color="#344234" />
+            <Link href="mailto:saborcircular.cba@gmail.com" isExternal>
+              <Icon as={MdMail} fontSize={32} color="#344234" />
             </Link>
           </HStack>
         </Flex>

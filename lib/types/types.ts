@@ -1,7 +1,7 @@
 export type infiniteSlider = {
   svg: string;
   tooltip: string;
-  link: string;
+  link: string | undefined;
 };
 
 export interface AuthContextType {

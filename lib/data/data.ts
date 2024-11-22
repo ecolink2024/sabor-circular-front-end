@@ -26,41 +26,34 @@ export const cardsWorks = [
 
 export const attachedPremises: infiniteSlider[] = [
   {
-    svg: "/svg/risata.svg",
+    svg: "/img/risata-logo.png",
     tooltip: "logo 219",
-
     link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/risata.svg",
+    svg: "/img/leopoldo-logo.png",
     tooltip: "logo 220",
-    link: "https://www.instagram.com/pizzarisata/?hl=es",
+    link: undefined,
   },
   {
-    svg: "/svg/risata.svg",
+    svg: "/img/risata-logo.png",
     tooltip: "logo 286",
     link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/risata.svg",
+    svg: "/img/leopoldo-logo.png",
     tooltip: "logo 297",
-    link: "https://www.instagram.com/pizzarisata/?hl=es",
+    link: undefined,
   },
   {
-    svg: "/svg/risata.svg",
+    svg: "/img/risata-logo.png",
     tooltip: "logo 311",
     link: "https://www.instagram.com/pizzarisata/?hl=es",
   },
   {
-    svg: "/svg/risata.svg",
+    svg: "/img/leopoldo-logo.png",
     tooltip: "logo 317",
-    link: "https://www.instagram.com/pizzarisata/?hl=es",
-  },
-
-  {
-    svg: "/svg/risata.svg",
-    tooltip: "logo 323",
-    link: "https://www.instagram.com/pizzarisata/?hl=es",
+    link: undefined,
   },
 ];
 

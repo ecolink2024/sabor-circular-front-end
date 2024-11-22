@@ -1,6 +1,6 @@
 import { worksans } from "@/public/fonts/font";
 import { Heading, VStack } from "@chakra-ui/react";
-import InfiniteSlider from "../attached-premises/InfiniteSlider";
+import InfiniteSlider from "./InfiniteSlider";
 import { accompany } from "@/lib/data/data";
 
 export default function Accompany() {
