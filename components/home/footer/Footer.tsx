@@ -40,13 +40,14 @@ export default function Footer() {
 
       <Flex
         direction={{ base: "column", lg: "row" }}
-        gap={6}
         align={{ base: "center", lg: "flex-start" }}
+        gap={6}
       >
         <Flex
           gap={3}
-          direction={{ base: "row", lg: "column" }}
-          px={{ base: 6, lg: 10 }}
+          direction={"column"}
+          px={{ base: 3, lg: 10 }}
+          align={{ base: "center", lg: "flex-start" }}
         >
           <Link href="/">
             <Image
@@ -96,6 +97,13 @@ export default function Footer() {
           <Link href="/return-container">-Puntos de Recepción</Link>
           <Link href="#how-its-work">-Como funciona?</Link>
           <Link href="/contact">-Quiero ser local adherido</Link>
+          <Link
+            href="https://www.symbionet.tech/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            - Equipo de Desarrollo
+          </Link>
         </VStack>
       </Flex>
 
