@@ -53,12 +53,11 @@ export default function TitleAndDescription() {
             Devolvé, Repetí
           </Heading>
           <Text
-            fontSize={{ base: "md", lg: "xl" }}
+            fontSize={{ base: "md", lg: "2xl" }}
             textAlign={{ base: "center", lg: "start" }}
             mx={{ base: 10, lg: 0 }}
           >
-            Revolucionando el take away y delivery ahora, recibí tu comida en
-            envases retornables
+            Recibí tu comida en envases retornables ♻️
           </Text>
           <Button
             display={
@@ -84,7 +83,7 @@ export default function TitleAndDescription() {
             fontSize={"13px"}
             onClick={() => router.push(hrefTapercito)}
           >
-            Sumate por $9400
+            ¡Más info!
           </Button>
         </Flex>
 
