@@ -9,17 +9,15 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 
 export default function TitleAndDescription() {
   const { user } = useAuth();
-  const router = useRouter();
 
-  const hrefTapercito = user
-    ? user.role === "casa"
-      ? `/dashboard/casa/${user._id}`
-      : `/dashboard/admin/${user._id}`
-    : "/login";
+  const redirectHowItsWorks = () => {
+    document
+      .getElementById("how-its-work")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <Flex
@@ -81,7 +79,7 @@ export default function TitleAndDescription() {
             color={"white"}
             h={"40px"}
             fontSize={"13px"}
-            onClick={() => router.push(hrefTapercito)}
+            onClick={redirectHowItsWorks}
           >
             ¡Más info!
           </Button>

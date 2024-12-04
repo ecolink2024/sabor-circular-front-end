@@ -34,10 +34,8 @@ export default function SignIn({
 }: {
   registrationType: "admin" | "casa" | "pg";
 }) {
-  // Chakra UI toast for displaying success or error messages
   const toast = useToast();
 
-  // State to store the registration form data
   const [formData, setFormData] = useState<RegisterData>({
     name: "",
     email: "",
@@ -53,44 +51,27 @@ export default function SignIn({
     confirmPassword: "",
   });
 
-  // Boolean state to control the visibility of the loading spinner
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // State to manage the visibility of the password fields (current, new, and confirm passwords)
   const [passwordVisibility, setPasswordVisibility] = useState({
     newPassword: false,
     confirmPassword: false,
   });
 
-  // State to store validation errors for the form
   const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
 
-  /**
-   * Function to update `formData` values when the user types in the form fields.
-   * If the registration type is 'pg', allows the user to select a role; otherwise, the role remains static.
-   *
-   * @param e - The change event from the input and select elements in the form
-   */
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
 
-    // If the registration type is 'pg', allow the role to be changed
     if (registrationType === "pg" && id === "role") {
       setFormData((prevData) => ({ ...prevData, [id]: value }));
     } else {
-      // For 'admin' or 'casa', the role cannot be changed from the input
       setFormData((prevData) => ({ ...prevData, [id]: value }));
     }
   };
 
-  /**
-   * Function to handle form submission for registration.
-   * Sends `formData` to the server to register the user.
-   *
-   * @param e - The form submission event
-   */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -102,7 +83,7 @@ export default function SignIn({
         toast({
           title: "Registro exitoso.",
           description:
-            "Te has registrado correctamente. Por favor, revisa tu correo para verificar tu cuenta.",
+            "Registro exitoso. Por favor, revisa tu bandeja de entrada o la carpeta de spam para encontrar el correo de verificación y completar la activación de tu cuenta.",
           status: "success",
           duration: null,
           isClosable: true,
@@ -142,7 +123,6 @@ export default function SignIn({
     }
   };
 
-  // Function to toggle the visibility of the password fields (current, new, confirm)
   const togglePasswordVisibility = (field: PasswordFieldRegister) => {
     setPasswordVisibility((prevState) => ({
       ...prevState,

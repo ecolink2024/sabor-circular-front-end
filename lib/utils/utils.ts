@@ -1,5 +1,6 @@
 import { keyframes } from "@emotion/react";
 import { User, ValidationError, dashboardUsersRoutes } from "../types/types";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const scrollAnimation = keyframes`
 0% {
@@ -23,17 +24,15 @@ export const getTokenFromPathname = (
   // Creamos la expresión regular para la ruta seleccionada
   const match = pathname.match(new RegExp(`/${routePattern}/(.+)`));
 
-  return match ? match[1] : null; // match[1] es el token
+  return match ? match[1] : null;
 };
 
 export const isDashboardRouteAuthorized = (
   user: User | null,
   pathname: string
 ): boolean => {
-  // Verifica si el usuario está autenticado y si tiene un rol y un id
   if (!user || !user.role || !user._id) return false;
 
-  // Recorre las rutas disponibles para el rol del usuario
   return (
     dashboardUsersRoutes[user.role]?.some((route) => {
       // Reemplaza '[id]' por el ID del usuario en la ruta
@@ -64,4 +63,38 @@ export const clearFieldError = (
   setErrors((prevErrors) =>
     prevErrors?.filter((error) => error.path !== field)
   );
+};
+
+const handleTupperClick = () => {
+  const section = document.getElementById("locales-adheridos");
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+export const redirectCard = (
+  card: string,
+  router: AppRouterInstance,
+  user: User | null
+) => {
+  // validación para la primera y segunda tarjeta (usuario)
+  if (card === "1" || card === "2") {
+    if (user) {
+      if (user.role === "casa") {
+        return router.push(`/dashboard/casa/${user._id}`);
+      } else {
+        return router.push(`/`);
+      }
+    } else {
+      return router.push(`/login`);
+    }
+  }
+  // validación para la tercera tarjeta (tupper)
+  else if (card === "3") {
+    handleTupperClick();
+  }
+  // validación para la tercera tarjeta (return-container)
+  else {
+    return router.push(`/return-container`);
+  }
 };

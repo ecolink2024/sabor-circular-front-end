@@ -1,10 +1,11 @@
 "use client";
 import { worksans } from "@/public/fonts/font";
 import { Center, Heading, Stack } from "@chakra-ui/react";
-import CardsWorks from "./cards-works/CardsWorks";
 import { useEffect } from "react";
+import CardsWorks from "./CardsWorks";
 
 export default function HowItsWorks() {
+  
   useEffect(() => {
     const section = sessionStorage.getItem("scrollToSection");
     if (section === "how-its-work") {
