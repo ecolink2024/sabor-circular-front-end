@@ -1,23 +1,34 @@
 import { infiniteSlider } from "../types/types";
+import { FaRecycle, FaShop, FaUserPlus } from "react-icons/fa6";
 
 export const cardsWorks = [
   {
-    title: "Registrate en la plataforma",
-    icon: "user",
-    description:
-      "Creá un usuario y suscribite a la comunidad para empezar a usar el servicio",
+    id: "1",
+    title: "Regístrate en la Plataforma",
+    icon: FaUserPlus,
+    description: "Creá tu usuario y sumate a la comunidad de Sabor Circular",
     button: "¡Quiero sumarme!",
   },
   {
+    id: "2",
+    title: "Activá tu suscripción",
+    icon: FaUserPlus,
+    description:
+      " Un único pago ($9400) que te habilita un envase retornable y descuentos exclusivos",
+    button: "¡Quiero sumarme!",
+  },
+  {
+    id: "3",
     title: "Hacé tu pedido en Locales Adheridos",
-    icon: "tupper",
+    icon: FaShop,
     description:
       "Encargá con tu código único de usuario y recibí el pedido en un envase retornable",
     button: "Ver Locales adheridos",
   },
   {
+    id: "4",
     title: "Devolvé el envase y repetí",
-    icon: "covered",
+    icon: FaRecycle,
     description:
       "Acercá el envase a un Punto de Retorno para su sanitización y reintroducción al circuito. ¡Repetí!",
     button: "Ver Puntos",

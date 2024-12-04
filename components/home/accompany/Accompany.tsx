@@ -16,7 +16,7 @@ export default function Accompany() {
         Acompañan
       </Heading>
 
-      <InfiniteSlider image={accompany} />
+      <InfiniteSlider images={accompany} />
     </VStack>
   );
 }
