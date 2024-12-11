@@ -6,6 +6,7 @@ import AttachedPremises from "./attached-premises/AttachedPremises";
 import Contact from "./contact/Contact";
 import Accompany from "./accompany/Accompany";
 import Footer from "./footer/Footer";
+import WidgetWsp from "./whatsapp/WidgetWsp";
 
 export default function Home() {
   return (
@@ -27,6 +28,9 @@ export default function Home() {
 
       {/* Footer  */}
       <Footer />
+
+      {/* Widget Wsp */}
+      <WidgetWsp display />
     </VStack>
   );
 }
