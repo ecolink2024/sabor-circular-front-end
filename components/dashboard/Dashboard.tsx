@@ -2,6 +2,7 @@
 import { useAuth } from "@/providers/AuthProvider";
 import { Stack, Center, Flex, Skeleton, Heading, Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
+import WidgetWsp from "../home/whatsapp/WidgetWsp";
 
 export default function Dashboard({ children }: { children: ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -9,9 +10,10 @@ export default function Dashboard({ children }: { children: ReactNode }) {
     <Stack
       as={Center}
       height={"100%"}
-      minH={{ base: "calc(100vh - 70px)", lg: "calc(100vh - 90px)" }}
       p={10}
+      m={"auto"}
       gap={20}
+      position={"relative"}
     >
       <Flex
         w={"100%"}
@@ -41,7 +43,11 @@ export default function Dashboard({ children }: { children: ReactNode }) {
           </Text>
         </Skeleton>
       </Flex>
+
       {children}
+
+      {/* Widget Wsp */}
+      <WidgetWsp display={user?.role === "casa"} />
     </Stack>
   );
 }
