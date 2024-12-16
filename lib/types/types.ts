@@ -7,6 +7,7 @@ export type infiniteSlider = {
 export interface AuthContextType {
   token: string | null;
   user: User | null;
+  userRole: string[] | undefined;
   isLoading: boolean;
   isLoggingOut: boolean;
   login: (token: string) => void;
@@ -19,7 +20,7 @@ export type RegisterData = {
   email: string;
   phone: string;
   address: string;
-  role: string;
+  role: string[];
   code?: string;
   tupperCount?: number;
   password: string;
@@ -55,7 +56,7 @@ export type User = {
   email: string; // Correo electrónico del usuario
   phone: string; // Número de teléfono del usuario
   address: string; // Dirección del usuario
-  role: string; // Rol del usuario
+  role: string[]; // Rol del usuario
   tupperCount: number; // Contador de 'tupper' del usuario
   tupperMount?: number;
   code?: string;
@@ -122,6 +123,7 @@ export const publicRoutes: string[] = [
   "/login",
   "/signin/pg",
   "/signin/admin",
+  "/login/recovery-password",
 ];
 
 export const dashboardUsersRoutes: Record<string, string[]> = {

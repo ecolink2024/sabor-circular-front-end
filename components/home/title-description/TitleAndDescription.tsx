@@ -1,4 +1,5 @@
 "use client";
+import { getUserType } from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Heading,
@@ -11,7 +12,9 @@ import {
 } from "@chakra-ui/react";
 
 export default function TitleAndDescription() {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
+
+  const role = getUserType(userRole);
 
   const redirectHowItsWorks = () => {
     document
@@ -32,7 +35,7 @@ export default function TitleAndDescription() {
           flex={1}
           h={"100%"}
           direction={"column"}
-          gap={6}
+          gap={{ base: 3, lg: 6 }}
           pl={{ base: 0, lg: 28 }}
           pt={{ base: 10, lg: 0 }}
           justify={"center"}
@@ -44,11 +47,10 @@ export default function TitleAndDescription() {
             fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
             color={"white"}
             textAlign={{ base: "center", lg: "start" }}
-            lineHeight={"80px"}
+            lineHeight={{ base: "50px", lg: "80px" }}
+            style={{ textWrap: "balance" }}
           >
-            Disfrutá,
-            <br />
-            Devolvé, Repetí
+            Disfrutá, Devolvé, Repetí
           </Heading>
           <Text
             fontSize={{ base: "md", lg: "2xl" }}
@@ -59,11 +61,12 @@ export default function TitleAndDescription() {
           </Text>
           <Button
             display={
-              user?.role === "punto" ||
-              user?.role === "gastronomico" ||
-              user?.role === "admin"
+              role === "punto" ||
+              role === "gastronomico" ||
+              role === "admin" ||
+              role === "hibrido"
                 ? "flex"
-                : user?.role === "casa"
+                : role === "casa"
                 ? user?.code === undefined ||
                   user?.code === null ||
                   user?.code === ""

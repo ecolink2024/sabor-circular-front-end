@@ -19,7 +19,7 @@ export default function DefaultBox({
       borderRadius={"20px"}
       border={"1.5px solid"}
       borderColor={"gray.100"}
-      p={10}
+      p={{ base: 6, lg: 10 }}
       flexDirection={"column"}
       justifyContent={"space-evenly"}
     >
@@ -28,10 +28,10 @@ export default function DefaultBox({
           fontWeight={"extrabold"}
           textAlign={"center"}
           color={"#518a3e"}
-          fontSize={"23px"}
+          fontSize={{ base: "18px", lg: "23px" }}
           display="inline"
         >
-          Suscribite por{" "}
+          Activá tu suscripción semestral por{" "}
           <Text
             textDecoration="line-through"
             fontSize={"23px"}
@@ -42,7 +42,7 @@ export default function DefaultBox({
         </Text>
 
         <Text
-          fontSize={"40px"}
+          fontSize={{ base: "35px", lg: "40px" }}
           display="inline"
           color={"#518a3e"}
           fontWeight={"extrabold"}
@@ -52,8 +52,8 @@ export default function DefaultBox({
       </VStack>
 
       <Text fontWeight={"bold"} fontSize={"13px"} textAlign={"center"}>
-        Un único pago que te habilita un (1) envase retornable para que uses
-        ilimitadamente hasta febrero de 2025
+        Se te habilitará un (1) envase retornable para que uses las veces que
+        quieras en el plazo de 6 meses
       </Text>
       <CompraPackButton refetch={refetch} />
     </Box>

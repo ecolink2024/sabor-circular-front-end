@@ -23,6 +23,7 @@ export default function PuntoCircularDashboard() {
           transactionType="withdraw"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
+          userType={"punto"}
         />
 
         {/* Egreso Tuppers  */}
@@ -31,6 +32,7 @@ export default function PuntoCircularDashboard() {
           transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
+          userType={"punto"}
         />
       </Flex>
     </Dashboard>

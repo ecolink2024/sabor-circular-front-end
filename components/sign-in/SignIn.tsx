@@ -43,10 +43,10 @@ export default function SignIn({
     address: "",
     role:
       registrationType === "casa"
-        ? "casa"
+        ? ["casa"]
         : registrationType === "admin"
-        ? "admin"
-        : "",
+        ? ["admin"]
+        : [""],
     password: "",
     confirmPassword: "",
   });
@@ -65,8 +65,10 @@ export default function SignIn({
   ) => {
     const { id, value } = e.target;
 
-    if (registrationType === "pg" && id === "role") {
-      setFormData((prevData) => ({ ...prevData, [id]: value }));
+    if (id === "role") {
+      const selectedValue =
+        value === "ambas" ? ["punto", "gastronomico"] : [value];
+      setFormData((prevData) => ({ ...prevData, [id]: selectedValue }));
     } else {
       setFormData((prevData) => ({ ...prevData, [id]: value }));
     }
@@ -278,7 +280,13 @@ export default function SignIn({
                 <FormLabel>Rol</FormLabel>
                 <Select
                   placeholder="Selecciona un rol"
-                  value={formData.role}
+                  focusBorderColor="#518a3e"
+                  value={
+                    formData.role.includes("punto") &&
+                    formData.role.includes("gastronomico")
+                      ? "ambas"
+                      : formData.role[0]
+                  }
                   onChange={(e) => {
                     handleInputChange(e);
                     clearFieldError("role", setErrors);
@@ -286,6 +294,7 @@ export default function SignIn({
                 >
                   <option value="punto">Punto</option>
                   <option value="gastronomico">Gastronómico</option>
+                  <option value="ambas">Ambas</option>
                 </Select>
                 <FormErrorMessage>
                   {getErrorMessage("role", errors)}

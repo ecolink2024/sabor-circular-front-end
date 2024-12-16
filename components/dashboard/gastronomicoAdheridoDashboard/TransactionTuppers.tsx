@@ -2,7 +2,6 @@ import { createTransaction } from "@/lib/actions/actions";
 import useSearchUserByCode from "@/lib/hooks/useSearchUserByCode";
 import { TransactionResponse, ValidationError } from "@/lib/types/types";
 import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
-import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
   Button,
@@ -18,6 +17,7 @@ import {
   Skeleton,
   FormControl,
   FormErrorMessage,
+  Badge,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { PiWarningCircleDuotone } from "react-icons/pi";
@@ -28,11 +28,13 @@ export default function TransactionTuppers({
   token,
   transactionType,
   url,
+  userType,
 }: {
   isLoadingUser: boolean;
   token: string | null;
   transactionType: "deposit" | "withdraw";
   url: string;
+  userType: string | null;
 }) {
   const {
     userCode,
@@ -43,7 +45,6 @@ export default function TransactionTuppers({
   } = useSearchUserByCode("", token);
 
   const toast = useToast();
-  const { user: userType } = useAuth();
 
   // State for the selected user
   const [user, setUser] = useState<{ code: string; name: string } | null>(null);
@@ -136,9 +137,10 @@ export default function TransactionTuppers({
         flexDirection={"column"}
         justifyContent={"space-evenly"}
         p={10}
+        position={"relative"}
       >
         <Heading size={"lg"} textAlign={"center"}>
-          {userType?.role === "gastronomico"
+          {userType === "gastronomico"
             ? transactionType === "withdraw"
               ? "REPOSICION ♻️"
               : "CLIENTE 👤"
@@ -146,6 +148,21 @@ export default function TransactionTuppers({
             ? "CLIENTE 👤"
             : "RECOLECCION ♻️"}
         </Heading>
+
+        <Badge
+          position={"absolute"}
+          top={12}
+          left={"50%"}
+          transform="translateX(-50%)"
+          borderRadius={"4px"}
+          bg={
+            userType === "gastronomico" ? "rgba(81, 138, 62, 0.20)" : "#FEEBCB"
+          }
+          color={userType === "gastronomico" ? "#518a3e" : "#744210"}
+        >
+          {userType}
+        </Badge>
+
         <VStack w={"100%"} gap={4}>
           {!user ? (
             <>
@@ -246,7 +263,7 @@ export default function TransactionTuppers({
           type="submit"
           isLoading={isLoading}
           onClick={handleSubmit}
-          bg={"#518a3e"}
+          bg={userType === "gastronomico" ? "#518a3e" : "#FEBB5F"}
           _hover={{ bg: "gray.300" }}
           borderRadius={"8.93px"}
           color={"white"}
