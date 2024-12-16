@@ -6,8 +6,8 @@ const WidgetWsp = ({ display }: { display: boolean }) => {
     <Box
       display={display ? "block" : "none"}
       position={"fixed"}
-      w={"60px"}
-      h={"60px"}
+      w={{ base: "50px", lg: "60px" }}
+      h={{ base: "50px", lg: "60px" }}
       bottom={"0"}
       right={"0"}
       cursor={"pointer"}

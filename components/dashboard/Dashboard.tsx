@@ -3,9 +3,13 @@ import { useAuth } from "@/providers/AuthProvider";
 import { Stack, Center, Flex, Skeleton, Heading, Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import WidgetWsp from "../home/whatsapp/WidgetWsp";
+import { getUserType } from "@/lib/utils/utils";
 
 export default function Dashboard({ children }: { children: ReactNode }) {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, userRole } = useAuth();
+
+  const role = getUserType(userRole);
+
   return (
     <Stack
       as={Center}
@@ -31,7 +35,10 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
           <Text
             display={
-              user?.role === "gastronomico" || user?.role === "casa"
+              role === "gastronomico" ||
+              role === "casa" ||
+              role === "admin" ||
+              role === "hibrido"
                 ? "none"
                 : "block"
             }
@@ -47,7 +54,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
       {children}
 
       {/* Widget Wsp */}
-      <WidgetWsp display={user?.role === "casa"} />
+      <WidgetWsp display={role === "casa"} />
     </Stack>
   );
 }

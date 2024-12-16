@@ -21,19 +21,24 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { getUserType } from "@/lib/utils/utils";
 
 export default function Login() {
   const toast = useToast();
   const router = useRouter();
-  const { login, user } = useAuth();
+  const { login, user, userRole } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const role = getUserType(userRole);
+
   useEffect(() => {
     if (user) {
-      router.push(`/dashboard/${user.role}/${user._id}`);
+      router.push(
+        `/dashboard/${role === "hibrido" ? "gastronomico" : role}/${user._id}`
+      );
     }
   }, [user, router]);
 

@@ -20,7 +20,7 @@ import { cardsWorks } from "@/lib/data/data";
 import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import { redirectCard } from "@/lib/utils/utils";
+import { getUserType, redirectCard } from "@/lib/utils/utils";
 
 export default function CardsWorks() {
   // Ref for slider
@@ -28,7 +28,7 @@ export default function CardsWorks() {
 
   const router = useRouter();
 
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
 
   return (
     <HStack
@@ -109,7 +109,9 @@ export default function CardsWorks() {
                 fontWeight={600}
                 borderRadius="8.93px"
                 leftIcon={<GoArrowUpRight />}
-                onClick={() => redirectCard(card.id, router, user)}
+                onClick={() =>
+                  redirectCard(card.id, router, user, getUserType(userRole))
+                }
               >
                 {card.button}
               </Button>

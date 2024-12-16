@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Providers } from "@/providers/providers";
 import { montserrat } from "@/public/fonts/font";
-import Navbar from "@/components/navbar/Navbar";
 import { Metadata } from "next";
+// import { GoogleAnalytics } from "@next/third-parties/google";
+import Navbar from "@/components/navbar/Navbar";
 
 // Metadata
 export const metadata: Metadata = {
@@ -54,6 +55,11 @@ export default function RootLayout({
           {children}
         </Providers>
       </body>
+
+      {/* Script Google Analytics  */}
+      {/* <GoogleAnalytics
+        gaId={`G-${process.env.NEXT_PUBLIC_GA_ID?.toUpperCase()!}`}
+      /> */}
     </html>
   );
 }

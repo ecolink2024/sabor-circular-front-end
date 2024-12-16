@@ -26,20 +26,16 @@ import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 export default function Profile() {
   const toast = useToast();
 
-  // State to manage the loading state during the update process
   const [isLoadingUpdate, setIsLoadingUpdate] = useState<boolean>(false);
 
-  // State to store validation errors for the form fields (e.g., password, phone, etc.)
   const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
 
-  // State to manage the visibility of the password fields (current, new, and confirm passwords)
   const [passwordVisibility, setPasswordVisibility] = useState({
     currentPassword: false,
     newPassword: false,
     confirmPassword: false,
   });
 
-  // Custom hook to access user authentication data (e.g., user info, token, etc.)
   const {
     user,
     isLoading: isLoadingUser,
@@ -48,7 +44,6 @@ export default function Profile() {
     logout,
   } = useAuth();
 
-  // State to hold the form data being submitted for the user update (e.g., name, phone, passwords, etc.)
   const [formData, setFormData] = useState<UpdateUser>({
     name: "",
     phone: "",
@@ -58,7 +53,6 @@ export default function Profile() {
     confirmPassword: "",
   });
 
-  // useEffect hook to update formData whenever the `user` state changes
   useEffect(() => {
     if (user) {
       setFormData({
@@ -72,7 +66,6 @@ export default function Profile() {
     }
   }, [user]);
 
-  // Function to handle form input changes and update the respective form field in `formData`
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -81,7 +74,6 @@ export default function Profile() {
     }));
   };
 
-  // Function to handle form submission (e.g., updating user profile)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoadingUpdate(true);
@@ -132,7 +124,6 @@ export default function Profile() {
     }
   };
 
-  // Function to toggle the visibility of the password fields (current, new, confirm)
   const togglePasswordVisibility = (field: PasswordField) => {
     setPasswordVisibility((prevState) => ({
       ...prevState,
@@ -370,7 +361,7 @@ export default function Profile() {
               </Button>
 
               {/* Delete User Button */}
-              <DeleteUser user={user} token={token} logout={logout} />
+              <DeleteUser token={token} logout={logout} />
             </Stack>
           </form>
         </Box>

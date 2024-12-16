@@ -1,15 +1,18 @@
+import { getUserType } from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import { Box, Stack, Image, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function CenterSection() {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
+  const role = getUserType(userRole);
+
   const hrefTapercito = user
-    ? user.role === "casa"
+    ? role === "casa"
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
     : "/login";
@@ -64,11 +67,12 @@ export default function CenterSection() {
       >
         <ChakraLink
           display={
-            user?.role === "punto" ||
-            user?.role === "gastronomico" ||
-            user?.role === "admin"
+            role === "punto" ||
+            role === "gastronomico" ||
+            role === "admin" ||
+            role === "hibrido"
               ? "none"
-              : user?.role === "casa"
+              : role === "casa"
               ? user?.code === undefined ||
                 user?.code === null ||
                 user?.code === ""
