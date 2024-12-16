@@ -1,5 +1,6 @@
 import { deleteOwnAccount } from "@/lib/actions/actions";
-import { User } from "@/lib/types/types";
+import { getUserType } from "@/lib/utils/utils";
+import { useAuth } from "@/providers/AuthProvider";
 import {
   Button,
   Modal,
@@ -10,20 +11,19 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-  useToast, // Importa useToast para los mensajes de notificación
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 export default function DeleteUser({
-  user,
   token,
   logout,
 }: {
-  user: User | null;
   token: string | null;
   logout: () => void;
 }) {
   const toast = useToast();
+  const { userRole } = useAuth();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,7 +59,7 @@ export default function DeleteUser({
     <>
       <Button
         onClick={onOpen}
-        display={user?.role === "casa" ? "flex" : "none"}
+        display={getUserType(userRole) === "casa" ? "flex" : "none"}
         colorScheme="red"
         borderRadius={"8.93px"}
         color={"white"}

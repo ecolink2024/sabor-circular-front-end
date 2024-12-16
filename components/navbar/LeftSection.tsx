@@ -1,4 +1,5 @@
 "use client";
+import { getUserType } from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
@@ -17,12 +18,14 @@ import { MdGroups, MdInfo, MdOutlineMenu } from "react-icons/md";
 import { RiRecycleFill } from "react-icons/ri";
 
 export default function LeftSection() {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
+  const role = getUserType(userRole);
+
   const hrefTapercito = user
-    ? user.role === "casa"
+    ? role === "casa"
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
     : "/login";
@@ -107,11 +110,11 @@ export default function LeftSection() {
             icon={<FaBasketShopping color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
             display={
-              user?.role === "punto" ||
-              user?.role === "gastronomico" ||
-              user?.role === "admin"
+              role === "punto" ||
+              role === "gastronomico" ||
+              role === "admin"
                 ? "none"
-                : user?.role === "casa"
+                : role === "casa"
                 ? user?.code === undefined ||
                   user?.code === null ||
                   user?.code === ""

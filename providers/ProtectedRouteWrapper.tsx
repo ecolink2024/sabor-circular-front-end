@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { publicRoutes } from "@/lib/types/types";
 import {
   getTokenFromPathname,
+  getUserType,
   isDashboardRouteAuthorized,
 } from "@/lib/utils/utils";
 import { useAuth } from "./AuthProvider";
@@ -14,7 +15,7 @@ const ProtectedRouteWrapper: React.FC<{ children: React.ReactNode }> = ({
   const toast = useToast();
   const router = useRouter();
   const pathname = usePathname();
-  const { user, token, isLoading, isLoggingOut } = useAuth();
+  const { user, token, isLoading, isLoggingOut, userRole } = useAuth();
 
   // Verificar si la ruta está en las rutas públicas
   const isPublicRoute =
@@ -30,7 +31,9 @@ const ProtectedRouteWrapper: React.FC<{ children: React.ReactNode }> = ({
 
   // Validación de acceso a las rutas del dashboard
   const isDashboardAuthorized =
-    isDashboardRoute && user && !isDashboardRouteAuthorized(user, pathname);
+    isDashboardRoute &&
+    user &&
+    !isDashboardRouteAuthorized(user, getUserType(userRole), pathname);
 
   // Validacion de acceso a la ruta del admin
   const adminRoute = pathname === "/signin/admin";

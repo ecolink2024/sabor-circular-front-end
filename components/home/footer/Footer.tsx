@@ -1,4 +1,5 @@
 "use client";
+import { getUserType } from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
@@ -16,10 +17,12 @@ import { MdMail } from "react-icons/md";
 import { RiInstagramFill } from "react-icons/ri";
 
 export default function Footer() {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
+
+  const role = getUserType(userRole);
 
   const hrefTapercito = user
-    ? user.role === "casa"
+    ? role === "casa"
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
     : "login";
@@ -79,11 +82,12 @@ export default function Footer() {
           <Link
             href={hrefTapercito}
             display={
-              user?.role === "punto" ||
-              user?.role === "gastronomico" ||
-              user?.role === "admin"
+              role === "punto" ||
+              role === "gastronomico" ||
+              role === "admin" ||
+              role === "hibrido"
                 ? "none"
-                : user?.role === "casa"
+                : role === "casa"
                 ? user?.code === undefined ||
                   user?.code === null ||
                   user?.code === ""

@@ -19,9 +19,13 @@ import { FaUserCog } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
 import { BiSolidLogOutCircle } from "react-icons/bi";
 import { PiUserList } from "react-icons/pi";
+import { getUserType } from "@/lib/utils/utils";
+// import { sendGAEvent } from "@next/third-parties/google";
 
 export default function RightSection() {
-  const { token, logout, user, isLoading } = useAuth();
+  const { token, logout, user, isLoading, userRole } = useAuth();
+
+  const role = getUserType(userRole);
 
   const handleLogout = () => {
     logout();
@@ -60,6 +64,12 @@ export default function RightSection() {
               leftIcon={<FaUserPlus />}
               h={"37px"}
               fontSize={"13px"}
+              // onClick={() =>
+              //   sendGAEvent({
+              //     event: "buttonClicked",
+              //     value: process.env.NEXT_PUBLIC_GA_ID,
+              //   })
+              // }
             >
               Registrarse
             </Button>
@@ -92,6 +102,12 @@ export default function RightSection() {
               bg={"#ea9b42"}
               _hover={{ bg: "gray.300" }}
               color={"white"}
+              // onClick={() =>
+              //   sendGAEvent({
+              //     event: "buttonClicked",
+              //     value: process.env.NEXT_PUBLIC_GA_ID,
+              //   })
+              // }
             />
           </Skeleton>
         </Link>
@@ -114,7 +130,12 @@ export default function RightSection() {
 
           <MenuList position={"relative"} bottom={1}>
             <MenuGroup title="Perfil">
-              <Link href={`/dashboard/${user?.role}/${user?._id}`} passHref>
+              <Link
+                href={`/dashboard/${
+                  role === "hibrido" ? "gastronomico" : role
+                }/${user?._id}`}
+                passHref
+              >
                 <MenuItem icon={<MdDashboardCustomize color="#ea9b42" />}>
                   Mi cuenta
                 </MenuItem>

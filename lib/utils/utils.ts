@@ -15,13 +15,11 @@ export const getTokenFromPathname = (
   pathname: string,
   type: "recovery-password" | "verify-email"
 ): string | null => {
-  // Generamos la expresión regular dependiendo del tipo de ruta que queremos buscar
   const routePattern =
     type === "recovery-password"
       ? "login/recovery-password"
       : "signin/verify-email";
 
-  // Creamos la expresión regular para la ruta seleccionada
   const match = pathname.match(new RegExp(`/${routePattern}/(.+)`));
 
   return match ? match[1] : null;
@@ -29,25 +27,24 @@ export const getTokenFromPathname = (
 
 export const isDashboardRouteAuthorized = (
   user: User | null,
+  userRole: string,
   pathname: string
 ): boolean => {
-  if (!user || !user.role || !user._id) return false;
+  if (!user || !userRole || !user._id) return false;
 
   return (
-    dashboardUsersRoutes[user.role]?.some((route) => {
-      // Reemplaza '[id]' por el ID del usuario en la ruta
+    dashboardUsersRoutes[
+      userRole === "hibrido" ? "gastronomico" : userRole
+    ]?.some((route) => {
       const expectedPath = route.replace("[id]", user._id);
 
-      // Si la ruta contiene parámetros dinámicos, validamos con una expresión regular
       const routeRegex = new RegExp(`^${expectedPath}$`);
 
-      // Verificamos si la ruta coincide con la ruta actual
       return routeRegex.test(pathname);
-    }) || false // Retorna falso si no coincide ninguna ruta
+    }) || false
   );
 };
 
-// Función para obtener el mensaje de error de un campo específico
 export const getErrorMessage = (
   field: string,
   errors: ValidationError[] | undefined
@@ -75,12 +72,13 @@ const handleTupperClick = () => {
 export const redirectCard = (
   card: string,
   router: AppRouterInstance,
-  user: User | null
+  user: User | null,
+  userRole: string
 ) => {
   // validación para la primera y segunda tarjeta (usuario)
   if (card === "1" || card === "2") {
     if (user) {
-      if (user.role === "casa") {
+      if (userRole === "casa") {
         return router.push(`/dashboard/casa/${user._id}`);
       } else {
         return router.push(`/`);
@@ -98,3 +96,23 @@ export const redirectCard = (
     return router.push(`/return-container`);
   }
 };
+
+export function getUserType(users: string[] | undefined): string {
+  const uniqueUsers = Array.from(new Set(users)).sort();
+  const key = uniqueUsers.join(",");
+
+  switch (key) {
+    case "gastronomico,punto":
+      return "hibrido";
+    case "admin":
+      return "admin";
+    case "casa":
+      return "casa";
+    case "gastronomico":
+      return "gastronomico";
+    case "punto":
+      return "punto";
+    default:
+      return "unknown";
+  }
+}
