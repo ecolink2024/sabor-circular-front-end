@@ -23,7 +23,10 @@ export default function PuntoCircularDashboard() {
           transactionType="withdraw"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
-          userType={"punto"}
+          heading="Reposicion de envase"
+          type={"cliente"}
+          bg="rgba(81, 138, 62, 0.20)"
+          color="#518a3e"
         />
 
         {/* Egreso Tuppers  */}
@@ -32,7 +35,10 @@ export default function PuntoCircularDashboard() {
           transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
-          userType={"punto"}
+          heading="Recolección"
+          type={"stock"}
+          bg="#FEEBCB"
+          color="#F9BA5B"
         />
       </Flex>
     </Dashboard>

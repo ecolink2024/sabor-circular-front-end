@@ -28,13 +28,19 @@ export default function TransactionTuppers({
   token,
   transactionType,
   url,
-  userType,
+  type,
+  bg,
+  color,
+  heading,
 }: {
   isLoadingUser: boolean;
   token: string | null;
   transactionType: "deposit" | "withdraw";
   url: string;
-  userType: string | null;
+  type: string | null;
+  bg: string;
+  color: string;
+  heading: string;
 }) {
   const {
     userCode,
@@ -139,14 +145,8 @@ export default function TransactionTuppers({
         p={10}
         position={"relative"}
       >
-        <Heading size={"lg"} textAlign={"center"}>
-          {userType === "gastronomico"
-            ? transactionType === "withdraw"
-              ? "REPOSICION ♻️"
-              : "CLIENTE 👤"
-            : transactionType === "withdraw"
-            ? "CLIENTE 👤"
-            : "RECOLECCION ♻️"}
+        <Heading fontSize={"25px"} textAlign={"center"}>
+          {heading}
         </Heading>
 
         <Badge
@@ -155,12 +155,12 @@ export default function TransactionTuppers({
           left={"50%"}
           transform="translateX(-50%)"
           borderRadius={"4px"}
-          bg={
-            userType === "gastronomico" ? "rgba(81, 138, 62, 0.20)" : "#FEEBCB"
-          }
-          color={userType === "gastronomico" ? "#518a3e" : "#744210"}
+          bg={bg}
+          color={color}
+          w={"80px"}
+          textAlign={"center"}
         >
-          {userType}
+          {type}
         </Badge>
 
         <VStack w={"100%"} gap={4}>
@@ -263,7 +263,7 @@ export default function TransactionTuppers({
           type="submit"
           isLoading={isLoading}
           onClick={handleSubmit}
-          bg={userType === "gastronomico" ? "#518a3e" : "#FEBB5F"}
+          bg={color}
           _hover={{ bg: "gray.300" }}
           borderRadius={"8.93px"}
           color={"white"}

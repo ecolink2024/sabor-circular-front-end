@@ -25,7 +25,10 @@ export default function GastronomicoAdheridoDashboard() {
           transactionType="withdraw"
           isLoadingUser={isLoadingUser}
           url={"gastronomicoCreateTransaction"}
-          userType={"gastronomico"}
+          heading="Pedido de envase 👤"
+          type={"cliente"}
+          bg="rgba(81, 138, 62, 0.20)"
+          color="#518a3e"
         />
 
         {/* Egreso Tuppers */}
@@ -34,7 +37,10 @@ export default function GastronomicoAdheridoDashboard() {
           transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"gastronomicoCreateTransaction"}
-          userType={"gastronomico"}
+          heading="Reposición"
+          type={"stock"}
+          bg="#FEEBCB"
+          color="#F9BA5B"
         />
       </Flex>
 
@@ -53,7 +59,10 @@ export default function GastronomicoAdheridoDashboard() {
           transactionType="withdraw"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
-          userType={"punto circular"}
+          heading="Reposicion de envase 👤"
+          type={"cliente"}
+          bg="rgba(81, 138, 62, 0.20)"
+          color="#518a3e"
         />
 
         {/* Egreso Tuppers  */}
@@ -62,7 +71,10 @@ export default function GastronomicoAdheridoDashboard() {
           transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
-          userType={"punto circular"}
+          heading="Recolección"
+          type={"stock"}
+          bg="#FEEBCB"
+          color="#F9BA5B"
         />
       </Flex>
     </Dashboard>
