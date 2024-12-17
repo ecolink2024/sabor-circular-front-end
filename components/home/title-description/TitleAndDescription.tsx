@@ -10,6 +10,7 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function TitleAndDescription() {
   const { user, userRole } = useAuth();
@@ -82,7 +83,13 @@ export default function TitleAndDescription() {
             color={"white"}
             h={"40px"}
             fontSize={"13px"}
-            onClick={redirectHowItsWorks}
+            onClick={() => {
+              sendGAEvent({
+                event: "buttonClicked",
+                value: "M023XH03J1",
+              });
+              redirectHowItsWorks();
+            }}
           >
             ¡Más info!
           </Button>

@@ -2,7 +2,7 @@ import "./globals.css";
 import { Providers } from "@/providers/providers";
 import { montserrat } from "@/public/fonts/font";
 import { Metadata } from "next";
-// import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Navbar from "@/components/navbar/Navbar";
 
 // Metadata
@@ -57,9 +57,7 @@ export default function RootLayout({
       </body>
 
       {/* Script Google Analytics  */}
-      {/* <GoogleAnalytics
-        gaId={`G-${process.env.NEXT_PUBLIC_GA_ID?.toUpperCase()!}`}
-      /> */}
+      <GoogleAnalytics gaId={`G-M023XH03J1`} />
     </html>
   );
 }

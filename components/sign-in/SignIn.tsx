@@ -28,6 +28,7 @@ import React, { FormEvent, useState } from "react";
 import { FaArrowLeftLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 import { PiWarningCircleDuotone } from "react-icons/pi";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function SignIn({
   registrationType = "casa",
@@ -293,8 +294,8 @@ export default function SignIn({
                   }}
                 >
                   <option value="punto">Punto</option>
-                  <option value="gastronomico">Gastronómico</option>
-                  <option value="ambas">Ambas</option>
+                  {/* <option value="gastronomico">Gastronómico</option> */}
+                  <option value="ambas">Gastronómico</option>
                 </Select>
                 <FormErrorMessage>
                   {getErrorMessage("role", errors)}
@@ -406,6 +407,12 @@ export default function SignIn({
               size="md"
               width="full"
               isLoading={isLoading}
+              onClick={() => {
+                sendGAEvent({
+                  event: "buttonClicked",
+                  value: "M023XH03J1",
+                });
+              }}
             >
               Registrarse
             </Button>

@@ -11,9 +11,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ImAttachment } from "react-icons/im";
-import { CldImage } from "next-cloudinary";
+import CldImage from "./CldImage";
 
-export default function ButtonViewImage({ fileUrl }: { fileUrl: string }) {
+export default function ButtonViewImage({
+  fileUrl,
+}: {
+  fileUrl?: string | undefined;
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -55,8 +59,8 @@ export default function ButtonViewImage({ fileUrl }: { fileUrl: string }) {
               <Spinner size="xl" position="absolute" color="#344234" />
             )}
             <CldImage
-              src={fileUrl}
-              alt="comprobante"
+              src={fileUrl!}
+              alt={`comprante ${fileUrl!}`}
               width={1200}
               height={1200}
               style={{
