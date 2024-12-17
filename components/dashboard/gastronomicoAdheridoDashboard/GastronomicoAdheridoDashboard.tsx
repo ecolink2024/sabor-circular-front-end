@@ -71,7 +71,7 @@ export default function GastronomicoAdheridoDashboard() {
           transactionType="deposit"
           isLoadingUser={isLoadingUser}
           url={"puntoCreateTransaction"}
-          heading="Recoleción"
+          heading="Recolección"
           type={"stock"}
           bg="#FEEBCB"
           color="#F9BA5B"
