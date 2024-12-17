@@ -20,7 +20,7 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { BiSolidLogOutCircle } from "react-icons/bi";
 import { PiUserList } from "react-icons/pi";
 import { getUserType } from "@/lib/utils/utils";
-// import { sendGAEvent } from "@next/third-parties/google";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export default function RightSection() {
   const { token, logout, user, isLoading, userRole } = useAuth();
@@ -64,12 +64,12 @@ export default function RightSection() {
               leftIcon={<FaUserPlus />}
               h={"37px"}
               fontSize={"13px"}
-              // onClick={() =>
-              //   sendGAEvent({
-              //     event: "buttonClicked",
-              //     value: process.env.NEXT_PUBLIC_GA_ID,
-              //   })
-              // }
+              onClick={() =>
+                sendGAEvent({
+                  event: "buttonClicked",
+                  value: "M023XH03J1",
+                })
+              }
             >
               Registrarse
             </Button>
@@ -102,12 +102,12 @@ export default function RightSection() {
               bg={"#ea9b42"}
               _hover={{ bg: "gray.300" }}
               color={"white"}
-              // onClick={() =>
-              //   sendGAEvent({
-              //     event: "buttonClicked",
-              //     value: process.env.NEXT_PUBLIC_GA_ID,
-              //   })
-              // }
+              onClick={() =>
+                sendGAEvent({
+                  event: "buttonClicked",
+                  value: "M023XH03J1",
+                })
+              }
             />
           </Skeleton>
         </Link>
