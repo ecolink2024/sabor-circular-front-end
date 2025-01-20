@@ -1,7 +1,9 @@
+import { PreferenceResponse } from "mercadopago/dist/clients/preference/commonTypes";
 import {
   FormUserDataInfo,
   Issue,
   LoginData,
+  PaymentResponse,
   RegisterData,
   RegisterResponse,
   TransactionData,
@@ -12,6 +14,7 @@ import {
   UserPacks,
   UserResponse,
 } from "../types/types";
+import { Items } from "mercadopago/dist/clients/commonTypes";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -186,40 +189,6 @@ export const fetchUserPacks = async ({
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);
     return null;
-  }
-};
-
-export const submitPack = async (
-  userId: string,
-  tupperAmount: number,
-  file: Blob | File,
-  token: string | null
-) => {
-  const formData = new FormData();
-  formData.append("userId", userId);
-  formData.append("tupperAmount", tupperAmount.toString());
-  if (file) {
-    formData.append("file", file);
-  }
-
-  try {
-    const response = await fetch(`${BASE_URL}/auth/pack`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("Error en la solicitud: " + response.statusText);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al enviar el pack:", error);
-    throw error;
   }
 };
 
@@ -541,6 +510,31 @@ export const resetPassword = async (
     };
   } catch (error) {
     console.error("Error en la solicitud POST:", error);
+    throw error;
+  }
+};
+
+export const getPreferenceId = async (
+  data: Items[]
+): Promise<PreferenceResponse> => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/generatePaymentLink`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener el preferenceId");
+    }
+
+    const responseData: PaymentResponse = await response.json();
+
+    return responseData.preference;
+  } catch (error) {
+    console.error("Error al obtener el preferenceId:", error);
     throw error;
   }
 };

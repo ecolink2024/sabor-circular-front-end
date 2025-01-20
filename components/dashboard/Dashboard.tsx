@@ -14,9 +14,10 @@ export default function Dashboard({ children }: { children: ReactNode }) {
     <Stack
       as={Center}
       height={"100%"}
-      p={10}
+      py={{ base: 10, lg: 16 }}
+      px={6}
       m={"auto"}
-      gap={20}
+      gap={{ base: 1, lg: 10 }}
       position={"relative"}
     >
       <Flex
@@ -32,7 +33,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
           </Heading>
         </Skeleton>
 
-        <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
+        <Skeleton  isLoaded={!isLoading} borderRadius={"8.93px"}>
           <Text
             display={
               role === "gastronomico" ||

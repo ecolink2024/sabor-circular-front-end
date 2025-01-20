@@ -1,5 +1,9 @@
 "use client";
-import { getUserType } from "@/lib/utils/utils";
+import {
+  getUserType,
+  redirectAttachedPremises,
+  redirectHowItsWorks,
+} from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
@@ -32,28 +36,6 @@ export default function LeftSection() {
 
   const handleRedirect = (href: string) => {
     router.push(href);
-  };
-
-  const redirectHowItsWorks = () => {
-    if (pathname === "/") {
-      document
-        .getElementById("how-its-work")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      sessionStorage.setItem("scrollToSection", "how-its-work");
-      router.push("/");
-    }
-  };
-
-  const redirectAttachedPremises = () => {
-    if (pathname === "/") {
-      document
-        .getElementById("locales-adheridos")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      sessionStorage.setItem("scrollToSection", "locales-adheridos");
-      router.push("/");
-    }
   };
 
   return (
@@ -110,9 +92,7 @@ export default function LeftSection() {
             icon={<FaBasketShopping color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
             display={
-              role === "punto" ||
-              role === "gastronomico" ||
-              role === "admin"
+              role === "punto" || role === "gastronomico" || role === "admin"
                 ? "none"
                 : role === "casa"
                 ? user?.code === undefined ||
@@ -140,7 +120,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<MdInfo color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={redirectHowItsWorks}
+            onClick={() => redirectHowItsWorks(pathname, router)}
           >
             <Link href={"/"}>¿Cómo funciona? </Link>
           </MenuItem>
@@ -149,7 +129,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<FaShop color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={redirectAttachedPremises}
+            onClick={() => redirectAttachedPremises(pathname, router)}
           >
             <Link href={"/"}>Locales adheridos</Link>
           </MenuItem>

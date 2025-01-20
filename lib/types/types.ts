@@ -1,3 +1,5 @@
+import { PreferenceResponse } from "mercadopago/dist/clients/preference/commonTypes";
+
 export type infiniteSlider = {
   svg: string;
   tooltip: string;
@@ -144,3 +146,7 @@ export type Issue = {
 };
 
 export type PasswordFieldRegister = "newPassword" | "confirmPassword";
+
+export type PaymentResponse = {
+  preference: PreferenceResponse;
+};

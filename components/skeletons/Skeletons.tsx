@@ -4,10 +4,10 @@ export function SkeletonBox() {
   return (
     <Skeleton
       w={"100%"}
-      maxW={"390px"}
+      maxW={"md"}
       h={"100%"}
-      minH={"400px"}
-      borderRadius={"16px"}
+      minH={"md"}
+      borderRadius={"lg"}
     />
   );
 }

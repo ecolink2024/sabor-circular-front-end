@@ -116,3 +116,31 @@ export function getUserType(users: string[] | undefined): string {
       return "unknown";
   }
 }
+
+export const redirectAttachedPremises = (
+  pathname: string,
+  router: AppRouterInstance
+) => {
+  if (pathname === "/") {
+    document
+      .getElementById("locales-adheridos")
+      ?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    sessionStorage.setItem("scrollToSection", "locales-adheridos");
+    router.push("/");
+  }
+};
+
+export const redirectHowItsWorks = (
+  pathname: string,
+  router: AppRouterInstance
+) => {
+  if (pathname === "/") {
+    document
+      .getElementById("how-its-work")
+      ?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    sessionStorage.setItem("scrollToSection", "how-its-work");
+    router.push("/");
+  }
+};
