@@ -41,7 +41,8 @@ export default function SignIn({
     name: "",
     email: "",
     phone: "",
-    address: "",
+    address: undefined,
+    IDCard: "",
     role:
       registrationType === "casa"
         ? ["casa"]
@@ -208,6 +209,27 @@ export default function SignIn({
               </FormErrorMessage>
             </FormControl>
 
+            {/* Input DNI  */}
+            <FormControl
+              id="IDCard"
+              isInvalid={!!getErrorMessage("IDCard", errors)}
+            >
+              <FormLabel>DNI</FormLabel>
+              <Input
+                type="text"
+                placeholder={`Ingresa tu dni completo`}
+                value={formData.IDCard}
+                focusBorderColor="#518a3e"
+                onChange={(e) => {
+                  handleInputChange(e);
+                  clearFieldError("IDCard", setErrors);
+                }}
+              />
+              <FormErrorMessage>
+                {getErrorMessage("IDCard", errors)}
+              </FormErrorMessage>
+            </FormControl>
+
             {/* Input Email  */}
             <FormControl
               id="email"
@@ -251,25 +273,27 @@ export default function SignIn({
             </FormControl>
 
             {/* Input Address */}
-            <FormControl
-              id="address"
-              isInvalid={!!getErrorMessage("address", errors)}
-            >
-              <FormLabel>Dirección</FormLabel>
-              <Input
-                type="text"
-                placeholder="Ingresa tu dirección"
-                focusBorderColor="#518a3e"
-                value={formData.address}
-                onChange={(e) => {
-                  handleInputChange(e);
-                  clearFieldError("address", setErrors);
-                }}
-              />
-              <FormErrorMessage>
-                {getErrorMessage("address", errors)}
-              </FormErrorMessage>
-            </FormControl>
+            {registrationType === "pg" && (
+              <FormControl
+                id="address"
+                isInvalid={!!getErrorMessage("address", errors)}
+              >
+                <FormLabel>Dirección</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Ingresa tu dirección"
+                  focusBorderColor="#518a3e"
+                  value={formData.address}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    clearFieldError("address", setErrors);
+                  }}
+                />
+                <FormErrorMessage>
+                  {getErrorMessage("address", errors)}
+                </FormErrorMessage>
+              </FormControl>
+            )}
 
             {/* Select Role  */}
             {registrationType === "pg" && (
