@@ -1,15 +1,21 @@
 "use client";
+import { useAuth } from "@/providers/AuthProvider";
 import Dashboard from "../Dashboard";
 import DefaultBox from "./defaultBox/DefaultBox";
-import useUserPacks from "@/lib/hooks/useUserPacks";
+import { isAuthorizedPack } from "@/lib/utils/utils";
+import AuthorizedBox from "./authorizedBox/AuthorizedBox";
 
-export default function CasaDashboard({ id }: { id: string }) {
-  const {} = useUserPacks();
-  console.log(id);
+export default function CasaDashboard() {
+  const { code, authorizedAt, isAuthenticated } = useAuth();
+  const authorized = isAuthorizedPack(code, authorizedAt, isAuthenticated);
+
   return (
     <Dashboard>
-      <DefaultBox />
-      {/* <AuthorizedBox /> */}
+      {/* Unauthorized User */}
+      {!authorized.isValid && <DefaultBox />}
+
+      {/* Authorized User */}
+      {authorized.isValid && <AuthorizedBox />}
     </Dashboard>
   );
 }

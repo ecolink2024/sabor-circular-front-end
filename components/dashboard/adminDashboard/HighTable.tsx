@@ -20,7 +20,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import ButtonViewImage from "./ButtonViewImage";
+// import ButtonViewImage from "./ButtonViewImage";
 import { authorizePack } from "@/lib/actions/actions";
 
 export default function HighTable() {
@@ -146,7 +146,7 @@ export default function HighTable() {
 
                   {/* Comprobante */}
                   <Td textAlign={"center"}>
-                    <ButtonViewImage fileUrl={pack?.fileUrl} />
+                    {/* <ButtonViewImage fileUrl={pack?.fileUrl} /> */}
                   </Td>
 
                   {/* Botón para "Alta" */}

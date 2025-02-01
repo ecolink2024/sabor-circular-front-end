@@ -10,6 +10,9 @@ export interface AuthContextType {
   token: string | null;
   user: User | null;
   userRole: string[] | undefined;
+  isAuthenticated: boolean;
+  authorizedAt: Date | null | undefined;
+  code: string | undefined;
   isLoading: boolean;
   isLoggingOut: boolean;
   login: (token: string) => void;
@@ -65,6 +68,7 @@ export type User = {
   tupperMount?: number;
   code?: string;
   createdAt?: string;
+  authorizedAt: Date | null;
 };
 
 export type UpdateUser = {

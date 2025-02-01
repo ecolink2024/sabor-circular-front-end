@@ -151,6 +151,7 @@ export const fetchUserData = async ({
     }
 
     const data: User = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);

@@ -14,10 +14,10 @@ export default function Dashboard({ children }: { children: ReactNode }) {
     <Stack
       as={Center}
       height={"100%"}
-      py={{ base: 10, lg: 16 }}
+      py={{ base: 20, lg: 16 }}
       px={6}
       m={"auto"}
-      gap={{ base: 1, lg: 10 }}
+      gap={{ base: 4, lg: 10 }}
       position={"relative"}
     >
       <Flex
@@ -33,7 +33,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
           </Heading>
         </Skeleton>
 
-        <Skeleton  isLoaded={!isLoading} borderRadius={"8.93px"}>
+        <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
           <Text
             display={
               role === "gastronomico" ||
@@ -52,7 +52,13 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         </Skeleton>
       </Flex>
 
-      {children}
+      <Skeleton
+        w={isLoading ? "auto" : "100%"}
+        isLoaded={!isLoading}
+        borderRadius={"8.93px"}
+      >
+        {children}
+      </Skeleton>
 
       {/* Widget Wsp */}
       <WidgetWsp display={role === "casa"} />

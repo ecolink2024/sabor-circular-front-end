@@ -17,6 +17,7 @@ export default function DefaultBox() {
   const { preference, isLoading, activated, handleActivate } = useMercadoPago();
 
   return (
+    
     <Box
       w={"100%"}
       h={"100%"}

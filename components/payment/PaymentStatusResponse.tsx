@@ -60,13 +60,7 @@ export default function PaymentStatusResponse({ status }: { status: string }) {
         borderRadius="xl"
         boxShadow="md"
         mx="auto"
-        bg={
-          status === "success"
-            ? "green.50"
-            : status === "failure"
-            ? "red.50"
-            : "yellow.50"
-        }
+        bg={"white"}
         borderColor={
           status === "success"
             ? "green.200"

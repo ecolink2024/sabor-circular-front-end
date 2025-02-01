@@ -21,7 +21,9 @@ export default function Success({ countdown }: { countdown: number }) {
           h={"80px"}
           borderRadius={"full"}
           bg={"white"}
-          shadow={"sm"}
+          shadow={"md"}
+          border={"1px solid"}
+          borderColor={"gray.100"}
         >
           <Icon as={FaCheck} fontSize={30} color={"green.400"} />
         </Box>

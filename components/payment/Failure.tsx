@@ -19,7 +19,9 @@ export default function Failure({ countdown }: { countdown: number }) {
           h={"80px"}
           borderRadius={"full"}
           bg={"white"}
-          shadow={"sm"}
+          shadow={"md"}
+          border={"1px solid"}
+          borderColor={"gray.100"}
         >
           <Icon as={FaXmark} fontSize={30} color={"red.400"} />
         </Box>

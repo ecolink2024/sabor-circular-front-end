@@ -16,17 +16,19 @@ import { MdContentCopy } from "react-icons/md";
 import { useAuth } from "@/providers/AuthProvider";
 import BoxContainer from "./BoxContainer";
 import AlertComponent from "./AlertComponent";
+import { calculateExpirationDate, formatDate } from "@/lib/utils/utils";
 
 export default function AuthorizedBox() {
-  const dni = "41483764";
-  const { user } = useAuth();
+  const { user, code, authorizedAt } = useAuth();
   const [isCodeVisible, setIsCodeVisible] = useState(false);
 
-  const { onCopy } = useClipboard(dni);
+  const { onCopy } = useClipboard(code || "");
 
   const toggleCodeVisibility = () => {
     setIsCodeVisible(!isCodeVisible);
   };
+
+  const expirationDate = calculateExpirationDate(authorizedAt, 6);
 
   return (
     <Flex
@@ -53,7 +55,7 @@ export default function AuthorizedBox() {
               position={"relative"}
               top={"3px"}
             >
-              {isCodeVisible ? dni : "* * * * * * *"}
+              {isCodeVisible ? code : "* * * * * * *"}
             </Text>
 
             <HStack>
@@ -63,7 +65,7 @@ export default function AuthorizedBox() {
                   size={"sm"}
                   onClick={onCopy}
                   aria-label="Copiar código"
-                  isDisabled={!dni}
+                  isDisabled={!code}
                   icon={<MdContentCopy color="#518a3e" />}
                   borderRadius={"6px"}
                 />
@@ -100,7 +102,7 @@ export default function AuthorizedBox() {
           justifyContent={"flex-end"}
           gap={8}
         >
-          <Box>
+          <Box as={Center} flex={1} flexDirection={"column"}>
             <Text
               textAlign={"center"}
               fontSize={"5xl"}
@@ -129,12 +131,13 @@ export default function AuthorizedBox() {
             >
               <Icon as={FaCalendarDay} fontSize={18} color="#344234" />
               <Text fontSize="sm" color="#344234">
-                <strong>Expiracion:</strong> 11/12/2025
+                <strong>Expiracion:</strong>{" "}
+                {formatDate(expirationDate || new Date())}
               </Text>
             </Flex>
 
             {/* Alert Component */}
-            <AlertComponent date={"11/12/2025"} />
+            <AlertComponent expirationDate={expirationDate} />
           </VStack>
         </Center>
       </BoxContainer>

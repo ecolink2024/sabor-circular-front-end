@@ -1,4 +1,5 @@
 "use client";
+import { calculateAlertDate, formatDate } from "@/lib/utils/utils";
 import {
   Alert,
   AlertDescription,
@@ -7,9 +8,23 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-function AlertComponent({ date }: { date: string }) {
+function AlertComponent({
+  expirationDate,
+}: {
+  expirationDate: Date | null | undefined;
+}) {
+  const currentDate = new Date();
+  const alertDate = calculateAlertDate(expirationDate);
+
+  const shouldShowAlert =
+    alertDate &&
+    expirationDate &&
+    currentDate >= alertDate &&
+    currentDate < expirationDate;
+
   return (
     <Alert
+      display={shouldShowAlert ? "flex" : "none"}
       status="error"
       variant="subtle"
       bg="red.100"
@@ -33,7 +48,7 @@ function AlertComponent({ date }: { date: string }) {
           fontSize={"13px"}
           lineHeight={"0.8px"}
         >
-          {`Tu suscripción vencera pronto ${date}`}
+          {`Tu suscripción vencera pronto ${formatDate(expirationDate)}`}
         </AlertDescription>
       </div>
     </Alert>

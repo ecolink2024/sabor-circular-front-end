@@ -18,7 +18,9 @@ export default function Pending({ countdown }: { countdown: number }) {
           h={"80px"}
           borderRadius={"full"}
           bg={"white"}
-          shadow={"sm"}
+          shadow={"md"}
+          border={"1px solid"}
+          borderColor={"gray.100"}
         >
           <Spinner
             borderWidth={6}
