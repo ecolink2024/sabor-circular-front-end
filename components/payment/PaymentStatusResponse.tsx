@@ -10,34 +10,41 @@ import Pending from "./Pending";
 
 export default function PaymentStatusResponse({ status }: { status: string }) {
   const router = useRouter();
-  const { user, userRole } = useAuth();
+  const { userRole, user, refetchUserData } = useAuth();
+  const role = getUserType(userRole);
+
   const [countdown, setCountdown] = useState<number>(
     status === "pending" ? 10 : 5
   );
-
-  const role = getUserType(userRole);
 
   useEffect(() => {
     const timer: NodeJS.Timeout = setInterval(() => {
       setCountdown((prev) => {
         if (prev === 1) {
           clearInterval(timer);
-          if (user) {
-            // router.push(
-            //   `/dashboard/${role === "hibrido" ? "gastronomico" : role}/${
-            //     user._id
-            //   }`
-            // );
-          } else {
-            router.push("/");
-          }
         }
         return prev > 0 ? prev - 1 : 0;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [status, user, role, router]);
+  }, [status, user, role, router, refetchUserData]);
+
+  useEffect(() => {
+    if (countdown === 1) {
+      const updateDataAndRedirect = async () => {
+        refetchUserData();
+
+        router.push(
+          `/dashboard/${role === "hibrido" ? "gastronomico" : role}/${
+            user?._id
+          }`
+        );
+      };
+
+      updateDataAndRedirect();
+    }
+  }, [countdown, refetchUserData, router, role, user?._id]);
 
   return (
     <Container

@@ -53,6 +53,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
       </Flex>
 
       <Skeleton
+        as={Center}
         w={isLoading ? "auto" : "100%"}
         isLoaded={!isLoading}
         borderRadius={"8.93px"}

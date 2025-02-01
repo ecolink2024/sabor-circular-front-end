@@ -124,9 +124,6 @@ export const publicRoutes: string[] = [
   "/signin/pg",
   "/signin/admin",
   "/login/recovery-password",
-  "/payment/success",
-  "/payment/failure",
-  "/payment/pending",
 ];
 
 export const dashboardUsersRoutes: Record<string, string[]> = {

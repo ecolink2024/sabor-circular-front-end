@@ -184,8 +184,8 @@ export function isAuthorizedPack(
     return { isValid: false };
   }
 
-  // Validar que el código no sea nulo, indefinido o una cadena vacía
-  if (!code || code.trim() === "") {
+  // Validar que el código no sea nulo, indefinido, una cadena vacía o Pending
+  if (!code || code.trim() === "" || code === "pending") {
     return { isValid: false };
   }
 

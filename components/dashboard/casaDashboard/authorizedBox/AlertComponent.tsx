@@ -14,6 +14,7 @@ function AlertComponent({
   expirationDate: Date | null | undefined;
 }) {
   const currentDate = new Date();
+
   const alertDate = calculateAlertDate(expirationDate);
 
   const shouldShowAlert =
@@ -48,7 +49,7 @@ function AlertComponent({
           fontSize={"13px"}
           lineHeight={"0.8px"}
         >
-          {`Tu suscripción vencera pronto ${formatDate(expirationDate)}`}
+          {`Tu suscripción vencerá pronto el ${formatDate(expirationDate)}`}
         </AlertDescription>
       </div>
     </Alert>
