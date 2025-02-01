@@ -77,15 +77,6 @@ export type UpdateUser = {
   confirmPassword?: string;
 };
 
-export type UserPacks = {
-  _id: string;
-  userId: string;
-  code: string;
-  tupperAmount: number;
-  authorizedAt: string;
-  fileUrl: string;
-};
-
 export type UserResponse = {
   names: {
     name: string;

@@ -11,7 +11,6 @@ import {
   UnauthorizedPack,
   UpdateUser,
   User,
-  UserPacks,
   UserResponse,
 } from "../types/types";
 import { Items } from "mercadopago/dist/clients/commonTypes";
@@ -156,39 +155,6 @@ export const fetchUserData = async ({
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);
     throw error;
-  }
-};
-
-export const fetchUserPacks = async ({
-  userId,
-  userToken,
-}: {
-  userId: string;
-  userToken: string;
-}): Promise<UserPacks[] | null> => {
-  const token = `Bearer ${userToken}`;
-
-  try {
-    const response = await fetch(`${BASE_URL}/auth/packs/${userId}`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(
-        `Error: ${response.statusText}. Detalles: ${errorMessage}`
-      );
-    }
-
-    const data: UserPacks[] = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-    return null;
   }
 };
 

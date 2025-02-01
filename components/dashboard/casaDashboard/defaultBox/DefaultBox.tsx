@@ -1,4 +1,4 @@
-import MercadoPagoPayment from "@/components/mercado-pago-payment/MercadoPagoPayment";
+import MercadoPagoPayment from "@/components/payment/MercadoPagoPayment";
 import useMercadoPago from "@/lib/hooks/useMercadoPago";
 import {
   Box,

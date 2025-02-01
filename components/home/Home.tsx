@@ -11,7 +11,7 @@ import WidgetWsp from "./whatsapp/WidgetWsp";
 export default function Home() {
   return (
     <VStack gap={0} position={"relative"} top={"10px"} h={"100%"}>
-      {/* Titulo, Description and Image  */}
+      {/* Title, Description and Image  */}
       <TitleAndDescription />
 
       {/* How its Works Cards  */}
