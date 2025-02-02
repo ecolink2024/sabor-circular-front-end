@@ -20,7 +20,7 @@ export default function HighTable() {
   const { packs } = usePacksRequest();
 
   const filteredPacks = packs.filter((pack) =>
-    pack.userId.toLowerCase().includes(filter.toLowerCase())
+    pack.userName.toLowerCase().includes(filter.toLowerCase())
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +37,9 @@ export default function HighTable() {
       overflow={"hidden"}
     >
       {/* Heading Table */}
-      <Box p={0} w={"100%"} color={"black"} my={8}>
+      <Box p={0} w={"100%"} my={8}>
         <Heading textAlign={"center"} fontSize={{ base: "2xl", lg: "4xl" }}>
-          SOLICITUD DE PACKS
+          SUSCRIPCIONES
         </Heading>
 
         <Input
@@ -47,7 +47,7 @@ export default function HighTable() {
           w={"100%"}
           borderRadius={"8.93px"}
           fontSize={"14px"}
-          placeholder="Ingrese el User ID..."
+          placeholder="Ingrese el nombre del usuario..."
           focusBorderColor="#518a3e"
           value={filter}
           onChange={handleInputChange}
@@ -66,7 +66,7 @@ export default function HighTable() {
           {/* Head Table  */}
           <Thead bg="gray.100">
             <Tr>
-              <Th textAlign={"center"}>User ID</Th>
+              <Th textAlign={"center"}>Nombre</Th>
               <Th textAlign={"center"}>Fecha Transacción</Th>
               <Th textAlign={"center"}>Cantidad</Th>
               <Th textAlign={"center"}>Estado</Th>
@@ -79,8 +79,8 @@ export default function HighTable() {
             {filteredPacks.length > 0 ? (
               filteredPacks.map((pack) => (
                 <Tr key={pack._id}>
-                  {/* User ID */}
-                  <Td textAlign={"center"}>{pack.userId}</Td>
+                  {/* User Name */}
+                  <Td textAlign={"center"}>{pack.userName}</Td>
 
                   {/* Fecha Transacción */}
                   <Td textAlign={"center"}>
