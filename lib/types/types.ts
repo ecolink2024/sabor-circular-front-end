@@ -140,6 +140,7 @@ export interface Payment {
   _id: string;
   paymentId: string;
   userId: string;
+  userName: string;
   quantity: string;
   paymentReceiveAt: string;
   action: "approved" | "pending" | "failure";

@@ -42,7 +42,7 @@ export default function AllUsersTable() {
       overflow={"hidden"}
     >
       {/* Heading Table */}
-      <Box p={0} w={"100%"} color={"black"} my={8}>
+      <Box p={0} w={"100%"} my={8}>
         <Heading textAlign={"center"} fontSize={{ base: "2xl", lg: "4xl" }}>
           LISTADO DE USUARIOS
         </Heading>
