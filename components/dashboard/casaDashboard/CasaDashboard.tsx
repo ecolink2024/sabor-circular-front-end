@@ -13,13 +13,13 @@ export default function CasaDashboard() {
   return (
     <Dashboard>
       {/* Unauthorized User */}
-      {!authorized.isValid && code !== "pending" && <DefaultBox />}
+      {!authorized.isValid && code !== "PENDING" && <DefaultBox />}
 
       {/* Pending User Payment */}
-      {!authorized.isValid && code === "pending" && <PendingBox />}
+      {!authorized.isValid && code === "PENDING" && <PendingBox />}
 
       {/* Authorized User */}
-      {authorized.isValid && code !== "pending" && <AuthorizedBox />}
+      {authorized.isValid && code !== "PENDING" && <AuthorizedBox />}
     </Dashboard>
   );
 }

@@ -94,19 +94,6 @@ export type TransactionData = {
   type: "withdraw" | "deposit";
 };
 
-export type UnauthorizedPack = {
-  _id: string;
-  createdAt?: string;
-  userId: {
-    _id: string;
-    name: string;
-    email: string;
-    phone: string;
-  };
-  tupperAmount: number;
-  fileUrl: string;
-};
-
 export interface FormUserDataInfo {
   name: string;
   email: string;
@@ -148,3 +135,12 @@ export type PasswordFieldRegister = "newPassword" | "confirmPassword";
 export type PaymentResponse = {
   preference: PreferenceResponse;
 };
+
+export interface Payment {
+  _id: string;
+  paymentId: string;
+  userId: string;
+  quantity: string;
+  paymentReceiveAt: string;
+  action: "approved" | "pending" | "failure";
+}
