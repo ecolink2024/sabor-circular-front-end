@@ -145,10 +145,16 @@ export const redirectHowItsWorks = (
   }
 };
 
-export const formatDate = (date: Date | null | undefined) => {
+export const formatDate = (date: Date | string | null | undefined) => {
   if (!date) return null;
 
-  return date.toLocaleDateString("es-ES", {
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+
+  if (isNaN(dateObj.getTime())) {
+    return null;
+  }
+
+  return dateObj.toLocaleDateString("es-ES", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -185,7 +191,7 @@ export function isAuthorizedPack(
   }
 
   // Validar que el código no sea nulo, indefinido, una cadena vacía o Pending
-  if (!code || code.trim() === "" || code === "pending") {
+  if (!code || code.trim() === "" || code === "PENDING") {
     return { isValid: false };
   }
 

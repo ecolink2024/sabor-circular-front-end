@@ -44,9 +44,10 @@ export default function DeleteUserByAdmin({
     <>
       <Button
         w={"100%"}
-        borderRadius={"8.93px"}
+        size={"sm"}
         bg={"red.400"}
         color={"white"}
+        borderRadius={"8.93px"}
         onClick={onOpen}
       >
         Eliminar
@@ -54,7 +55,7 @@ export default function DeleteUserByAdmin({
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius={"8.93px"}>
           <ModalHeader>Confirmar Eliminación</ModalHeader>
           <ModalBody>
             <Text>
@@ -62,11 +63,19 @@ export default function DeleteUserByAdmin({
             </Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button
+              bg={"#518a3e"}
+              borderRadius={"8.93px"}
+              color={"white"}
+              mr={2}
+              onClick={onClose}
+            >
               Cancelar
             </Button>
             <Button
-              colorScheme="red"
+              bg={"red.400"}
+              color={"white"}
+              borderRadius={"8.93px"}
               onClick={handleDelete}
               isLoading={isLoading}
               loadingText="Eliminando..."

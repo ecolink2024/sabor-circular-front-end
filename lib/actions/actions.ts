@@ -3,12 +3,12 @@ import {
   FormUserDataInfo,
   Issue,
   LoginData,
+  Payment,
   PaymentResponse,
   RegisterData,
   RegisterResponse,
   TransactionData,
   TransactionResponse,
-  UnauthorizedPack,
   UpdateUser,
   User,
   UserResponse,
@@ -293,51 +293,6 @@ export const createTransaction = async (
   }
 };
 
-export const fetchUnauthorizedPacks = async (
-  token: string | null
-): Promise<UnauthorizedPack[]> => {
-  try {
-    const response = await fetch(`${BASE_URL}/auth/packs/unauthorized`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al obtener los packs no autorizados");
-    }
-
-    const data: UnauthorizedPack[] = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const authorizePack = async (packId: string, token: string | null) => {
-  try {
-    const response = await fetch(`${BASE_URL}/auth/pack/${packId}/authorize`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al autorizar el pack");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error en la solicitud de autorización:", error);
-    throw error;
-  }
-};
-
 export const getUsersData = async (token: string | null) => {
   try {
     const response = await fetch(`${BASE_URL}/auth/usersData`, {
@@ -502,6 +457,27 @@ export const getPreferenceId = async (
     return responseData.preference;
   } catch (error) {
     console.error("Error al obtener el preferenceId:", error);
+    throw error;
+  }
+};
+
+export const getAllMoneyTransactions = async (): Promise<Payment[]> => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/getAllMoneyTransactions`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener las transacciones de dinero");
+    }
+
+    const responseData: Payment[] = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error al obtener las transacciones de dinero:", error);
     throw error;
   }
 };
