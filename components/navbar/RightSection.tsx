@@ -128,7 +128,7 @@ export default function RightSection() {
             </Skeleton>
           </MenuButton>
 
-          <MenuList position={"relative"} bottom={1}>
+          <MenuList position={"relative"} bottom={1} zIndex={999}>
             <MenuGroup title="Perfil">
               <Link
                 href={`/dashboard/${

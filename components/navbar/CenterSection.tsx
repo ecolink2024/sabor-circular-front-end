@@ -1,4 +1,8 @@
-import { getUserType } from "@/lib/utils/utils";
+import {
+  getUserType,
+  redirectAttachedPremises,
+  redirectHowItsWorks,
+} from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import { Box, Stack, Image, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
@@ -16,28 +20,6 @@ export default function CenterSection() {
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
     : "/login";
-
-  const redirectHowItsWorks = () => {
-    if (pathname === "/") {
-      document
-        .getElementById("how-its-work")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      sessionStorage.setItem("scrollToSection", "how-its-work");
-      router.push("/");
-    }
-  };
-
-  const redirectAttachedPremises = () => {
-    if (pathname === "/") {
-      document
-        .getElementById("locales-adheridos")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      sessionStorage.setItem("scrollToSection", "locales-adheridos");
-      router.push("/");
-    }
-  };
 
   return (
     <Stack display={"flex"} align={"center"} flex={3} position={"relative"}>
@@ -110,7 +92,7 @@ export default function CenterSection() {
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
-          onClick={redirectHowItsWorks}
+          onClick={() => redirectHowItsWorks(pathname, router)}
           cursor="pointer"
         >
           ¿Cómo funciona?
@@ -123,7 +105,7 @@ export default function CenterSection() {
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
-          onClick={redirectAttachedPremises}
+          onClick={() => redirectAttachedPremises(pathname, router)}
         >
           Locales adheridos
         </ChakraLink>

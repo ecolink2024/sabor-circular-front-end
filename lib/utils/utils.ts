@@ -116,3 +116,85 @@ export function getUserType(users: string[] | undefined): string {
       return "unknown";
   }
 }
+
+export const redirectAttachedPremises = (
+  pathname: string,
+  router: AppRouterInstance
+) => {
+  if (pathname === "/") {
+    document
+      .getElementById("locales-adheridos")
+      ?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    sessionStorage.setItem("scrollToSection", "locales-adheridos");
+    router.push("/");
+  }
+};
+
+export const redirectHowItsWorks = (
+  pathname: string,
+  router: AppRouterInstance
+) => {
+  if (pathname === "/") {
+    document
+      .getElementById("how-its-work")
+      ?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    sessionStorage.setItem("scrollToSection", "how-its-work");
+    router.push("/");
+  }
+};
+
+export const formatDate = (date: Date | null | undefined) => {
+  if (!date) return null;
+
+  return date.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
+
+export const calculateExpirationDate = (
+  date: Date | null | undefined,
+  expirationMonthNumbers: number
+) => {
+  if (!date) return null;
+
+  const expirationDate = new Date(date);
+  expirationDate.setMonth(expirationDate.getMonth() + expirationMonthNumbers);
+  return expirationDate;
+};
+
+export const calculateAlertDate = (expirationDate: Date | null | undefined) => {
+  if (!expirationDate) return null;
+
+  const alertDate = new Date(expirationDate);
+  alertDate.setDate(alertDate.getDate() - 15);
+  return alertDate;
+};
+
+export function isAuthorizedPack(
+  code: string | null | undefined,
+  authorizedAt: string | null | undefined | Date,
+  isAuthenticated: boolean
+): { isValid: boolean; error?: string } {
+  // Validar si el usuario está autenticado
+  if (!isAuthenticated) {
+    return { isValid: false };
+  }
+
+  // Validar que el código no sea nulo, indefinido, una cadena vacía o Pending
+  if (!code || code.trim() === "" || code === "pending") {
+    return { isValid: false };
+  }
+
+  // Validar que la fecha de autorización no sea nula, indefinida o una cadena vacía
+  if (!authorizedAt || authorizedAt.toString().trim() === "") {
+    return {
+      isValid: false,
+    };
+  }
+
+  return { isValid: true };
+}

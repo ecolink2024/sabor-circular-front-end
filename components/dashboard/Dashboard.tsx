@@ -14,9 +14,10 @@ export default function Dashboard({ children }: { children: ReactNode }) {
     <Stack
       as={Center}
       height={"100%"}
-      p={10}
+      py={{ base: 20, lg: 16 }}
+      px={6}
       m={"auto"}
-      gap={20}
+      gap={{ base: 4, lg: 10 }}
       position={"relative"}
     >
       <Flex
@@ -51,7 +52,14 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         </Skeleton>
       </Flex>
 
-      {children}
+      <Skeleton
+        as={Center}
+        w={isLoading ? "auto" : "100%"}
+        isLoaded={!isLoading}
+        borderRadius={"8.93px"}
+      >
+        {children}
+      </Skeleton>
 
       {/* Widget Wsp */}
       <WidgetWsp display={role === "casa"} />

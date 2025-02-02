@@ -1,36 +1,25 @@
 "use client";
-import { Text } from "@chakra-ui/react";
-import React from "react";
-import DefaultBox from "./DefaultBox";
-import { SkeletonBox } from "@/components/skeletons/Skeletons";
-import useUserPacks from "@/lib/hooks/useUserPacks";
-import ValidationBox from "./ValidationBox";
+import { useAuth } from "@/providers/AuthProvider";
 import Dashboard from "../Dashboard";
-import AuthorizedBox from "./AuthorizedBox";
+import DefaultBox from "./defaultBox/DefaultBox";
+import { isAuthorizedPack } from "@/lib/utils/utils";
+import AuthorizedBox from "./authorizedBox/AuthorizedBox";
+import PendingBox from "./pendingBox/PendingBox";
 
-export default function CasaDashboard({ id }: { id: string }) {
-  const { data, isLoading, refetch } = useUserPacks(id);
+export default function CasaDashboard() {
+  const { code, authorizedAt, isAuthenticated } = useAuth();
+  const authorized = isAuthorizedPack(code, authorizedAt, isAuthenticated);
 
   return (
     <Dashboard>
-      {isLoading ? (
-        <SkeletonBox />
-      ) : Array.isArray(data) && data.length === 0 ? (
-        <DefaultBox refetch={refetch} />
-      ) : data && data[0].authorizedAt !== null ? (
-        <AuthorizedBox data={data} />
-      ) : (
-        <ValidationBox />
-      )}
+      {/* Unauthorized User */}
+      {!authorized.isValid && code !== "pending" && <DefaultBox />}
 
-      <Text
-        textAlign={"center"}
-        fontWeight={700}
-        fontSize={"20px"}
-        display={"none"}
-      >
-        Usos ilimitados hasta Febrero 2025
-      </Text>
+      {/* Pending User Payment */}
+      {!authorized.isValid && code === "pending" && <PendingBox />}
+
+      {/* Authorized User */}
+      {authorized.isValid && code !== "pending" && <AuthorizedBox />}
     </Dashboard>
   );
 }
