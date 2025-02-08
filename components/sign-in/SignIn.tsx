@@ -43,7 +43,7 @@ export default function SignIn({
     name: "",
     email: "",
     phone: "",
-    address: undefined,
+    address: "",
     IDCard: "",
     role:
       registrationType === "casa"
