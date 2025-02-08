@@ -32,7 +32,7 @@ export default function LeftSection() {
     ? role === "casa"
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
-    : "/login";
+    : "/activate-subscription";
 
   const handleRedirect = (href: string) => {
     router.push(href);
@@ -95,9 +95,9 @@ export default function LeftSection() {
               role === "punto" || role === "gastronomico" || role === "admin"
                 ? "none"
                 : role === "casa"
-                ? user?.code === undefined ||
-                  user?.code === null ||
-                  user?.code === ""
+                ? user?.IDCard === undefined ||
+                  user?.IDCard === null ||
+                  user?.IDCard === ""
                   ? "block"
                   : "none"
                 : "flex"

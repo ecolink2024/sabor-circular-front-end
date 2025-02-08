@@ -1,5 +1,10 @@
 import { keyframes } from "@emotion/react";
-import { User, ValidationError, dashboardUsersRoutes } from "../types/types";
+import {
+  SubscriptionInfo,
+  User,
+  ValidationError,
+  dashboardUsersRoutes,
+} from "../types/types";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const scrollAnimation = keyframes`
@@ -84,7 +89,7 @@ export const redirectCard = (
         return router.push(`/`);
       }
     } else {
-      return router.push(`/login`);
+      return router.push(`/activate-subscription`);
     }
   }
   // validación para la tercera tarjeta (tupper)
@@ -181,26 +186,31 @@ export const calculateAlertDate = (expirationDate: Date | null | undefined) => {
 };
 
 export function isAuthorizedPack(
-  code: string | null | undefined,
-  authorizedAt: string | null | undefined | Date,
-  isAuthenticated: boolean
-): { isValid: boolean; error?: string } {
-  // Validar si el usuario está autenticado
+  isAuthenticated: boolean,
+  pack: SubscriptionInfo | undefined
+): { isValid: boolean } {
   if (!isAuthenticated) {
     return { isValid: false };
   }
 
-  // Validar que el código no sea nulo, indefinido, una cadena vacía o Pending
-  if (!code || code.trim() === "" || code === "PENDING") {
+  if (
+    !pack ||
+    Object.keys(pack).length === 0 ||
+    pack.code === undefined ||
+    pack.code === null
+  ) {
     return { isValid: false };
   }
 
-  // Validar que la fecha de autorización no sea nula, indefinida o una cadena vacía
-  if (!authorizedAt || authorizedAt.toString().trim() === "") {
-    return {
-      isValid: false,
-    };
-  }
-
   return { isValid: true };
+}
+
+export function isExpiringOrExpired(expirationDate: string) {
+  if (!expirationDate) return;
+  const today = new Date();
+  const expiration = new Date(expirationDate);
+  const timeDiff = expiration.getTime() - today.getTime();
+  const daysDiff = timeDiff / (1000 * 3600 * 24);
+
+  return daysDiff <= 15;
 }

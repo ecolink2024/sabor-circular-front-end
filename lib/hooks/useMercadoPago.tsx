@@ -12,17 +12,21 @@ export default function useMercadoPago() {
   const fetchPreferenceId = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await getPreferenceId([
-        {
-          id: user?._id || "",
-          title: "Envase Retornable",
-          description:
-            "Un envase retornable reutilizable que promueve la economía circular.",
-          quantity: 1,
-          unit_price: 2,
-          picture_url: "https://www.saborcircular.com.ar/img/landing-page.jpg",
-        },
-      ]);
+      const response = await getPreferenceId(
+        [
+          {
+            id: user?._id || "",
+            title: "Envase Retornable",
+            description:
+              "Un envase retornable reutilizable que promueve la economía circular.",
+            quantity: 1,
+            unit_price: 2,
+            picture_url:
+              "https://www.saborcircular.com.ar/img/landing-page.jpg",
+          },
+        ],
+        user ? user._id : null
+      );
       setPreference(response);
     } catch {
       setPreference(null);

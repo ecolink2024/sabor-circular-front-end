@@ -7,9 +7,9 @@ const MercadoPagoPayment = ({ preferenceId }: { preferenceId: string }) => {
       locale: "es-AR",
     });
   }, []);
-  
+
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Wallet initialization={{ preferenceId: preferenceId }} />
     </div>
   );

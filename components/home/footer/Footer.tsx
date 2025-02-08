@@ -25,7 +25,7 @@ export default function Footer() {
     ? role === "casa"
       ? `/dashboard/casa/${user._id}`
       : `/dashboard/admin/${user._id}`
-    : "login";
+    : "/activate-subscription";
 
   return (
     <Stack

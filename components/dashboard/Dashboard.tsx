@@ -28,7 +28,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         gap={6}
       >
         <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
-          <Heading color={"white"} size={"2xl"}>
+          <Heading color={"white"} size={"2xl"} as={"h2"}>
             {`Hola ${user?.name.split(" ")[0]}!`}
           </Heading>
         </Skeleton>
@@ -57,6 +57,8 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         w={isLoading ? "auto" : "100%"}
         isLoaded={!isLoading}
         borderRadius={"8.93px"}
+        flexDirection={"column"}
+        gap={{ base: 4, lg: 10 }}
       >
         {children}
       </Skeleton>

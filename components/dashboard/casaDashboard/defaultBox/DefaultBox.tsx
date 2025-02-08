@@ -9,11 +9,24 @@ import {
   Image,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { FaCalendarDay } from "react-icons/fa6";
 import { TbRefresh } from "react-icons/tb";
 
-export default function DefaultBox() {
+export default function DefaultBox({
+  isActivateSubscriptionPage = false,
+  price,
+  oldPrice,
+  duration,
+}: {
+  isActivateSubscriptionPage?: boolean;
+  price: number;
+  oldPrice: number;
+  duration: number;
+}) {
+  const router = useRouter();
   const { preference, isLoading, activated, handleActivate } = useMercadoPago();
 
   return (
@@ -25,6 +38,7 @@ export default function DefaultBox() {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
+      flexDirection={"column"}
       mx="auto"
       bg={"white"}
       shadow="lg"
@@ -67,7 +81,7 @@ export default function DefaultBox() {
           position={"relative"}
           zIndex={2}
         >
-          Suscripción Semestral
+          Adhesión Semestral
         </Heading>
 
         <Stack spacing={4}>
@@ -85,7 +99,7 @@ export default function DefaultBox() {
             </Text>
             <Flex justify="space-between" align={"center"}>
               <Text fontSize="2xl" fontWeight="extrabold" color="#518a3e">
-                $9400
+                ${price}
               </Text>
               <Text
                 fontSize="lg"
@@ -93,7 +107,7 @@ export default function DefaultBox() {
                 color="gray.500"
                 textDecoration="line-through"
               >
-                $23.500
+                ${oldPrice}
               </Text>
             </Flex>
           </Box>
@@ -111,8 +125,8 @@ export default function DefaultBox() {
           >
             <Icon as={TbRefresh} fontSize={20} color="#344234" mt={1} />
             <Text fontSize="sm" color="#344234">
-              <strong>2 envase retornable</strong> para usar las veces que
-              quieras durante 6 meses
+              <strong>2 envases retornables</strong> para usar las veces que
+              quieras durante {duration} meses
             </Text>
           </Flex>
 
@@ -129,7 +143,7 @@ export default function DefaultBox() {
           >
             <Icon as={FaCalendarDay} fontSize={18} color="#344234" />
             <Text fontSize="sm" color="#344234">
-              <strong>Duración:</strong> 6 meses
+              <strong>Duración:</strong> {duration} meses
             </Text>
           </Flex>
         </Stack>
@@ -143,9 +157,13 @@ export default function DefaultBox() {
           _hover={{ bg: "#518a3e" }}
           color="white"
           isLoading={isLoading}
-          onClick={handleActivate}
+          onClick={() =>
+            isActivateSubscriptionPage
+              ? router.push("/login")
+              : handleActivate()
+          }
         >
-          Activar Suscripción
+          Activar Adhesión
         </Button>
 
         {/* Display MercadoPagoPayment only after activation */}
@@ -154,9 +172,14 @@ export default function DefaultBox() {
         )}
 
         <Text fontSize="xs" color="#344234" mt={4} textAlign="center">
-          ¡Ahorra $14.100 con esta oferta especial!
+          {`¡Ahorra $${oldPrice - price} con esta oferta especial!`}
         </Text>
       </Box>
+
+      <VStack
+        w={"100%"}
+        display={isActivateSubscriptionPage ? "flex" : "none"}
+      ></VStack>
     </Box>
   );
 }

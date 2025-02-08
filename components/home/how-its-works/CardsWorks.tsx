@@ -23,10 +23,8 @@ import { useRouter } from "next/navigation";
 import { getUserType, redirectCard } from "@/lib/utils/utils";
 
 export default function CardsWorks() {
-  // Ref for slider
-  const swiperRef = useRef<SwiperClass | null>(null);
-
   const router = useRouter();
+  const swiperRef = useRef<SwiperClass | null>(null);
 
   const { user, userRole } = useAuth();
 

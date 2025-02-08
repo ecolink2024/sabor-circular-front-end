@@ -1,6 +1,6 @@
 "use client";
-import { useUsersData } from "@/lib/hooks/useUsersData";
-import { User } from "@/lib/types/types";
+import { useUsersAndPackData } from "@/lib/hooks/useUsersAndPackData";
+import { UserAndPack } from "@/lib/types/types";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Heading,
@@ -17,18 +17,18 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import DeleteUserByAdmin from "./DeleteUserByAdmin";
-import { formatDate } from "@/lib/utils/utils";
+import { formatDate, isExpiringOrExpired } from "@/lib/utils/utils";
 
 export default function AllUsersTable() {
   const { token } = useAuth();
-  const { users, refetch } = useUsersData(token);
+  const { users, refetch } = useUsersAndPackData(token);
   const [filter, setFilter] = useState<string>("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
 
-  const filteredUsers = users?.filter((user: User) =>
+  const filteredUsers = users?.filter((user: UserAndPack) =>
     user.email?.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -85,23 +85,32 @@ export default function AllUsersTable() {
           <Tbody fontSize={{ base: "xs", lg: "sm" }}>
             {filteredUsers && filteredUsers?.length > 0 ? (
               filteredUsers.map((user) => (
-                <Tr key={user._id}>
+                <Tr key={user.userId}>
                   {/* Nombre */}
                   <Td>{user.name}</Td>
 
                   {/* Código de Usuario */}
-                  <Td textAlign={user.code ? "start" : "center"}>
-                    {user.code || "_"}
+                  <Td textAlign={user?.pack?.code ? "start" : "center"}>
+                    {user?.pack?.code || "_"}
                   </Td>
 
                   {/* Tipo de Usuario */}
                   <Td textAlign={"center"}>{user.role}</Td>
 
-                  {/* Fecha de Suscripción */}
-                  <Td>{formatDate(user?.authorizedAt)}</Td>
+                  {/* Fecha de Expiracion */}
+                  <Td
+                    textAlign={"center"}
+                    color={
+                      isExpiringOrExpired(user?.pack.authorizedAt)
+                        ? "red.500"
+                        : "inherit"
+                    }
+                  >
+                    {formatDate(user?.pack.authorizedAt)}
+                  </Td>
 
                   {/* Cantidad de Tuppers */}
-                  <Td textAlign={"center"}>{user.tupperCount}</Td>
+                  <Td textAlign={"center"}>{user.pack?.tupperAmount}</Td>
 
                   {/* Email */}
                   <Tooltip
@@ -128,7 +137,7 @@ export default function AllUsersTable() {
                   <Td>
                     <DeleteUserByAdmin
                       userName={user.name}
-                      userId={user._id}
+                      userId={user.userId}
                       refetch={refetch}
                     />
                   </Td>

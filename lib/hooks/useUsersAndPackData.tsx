@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { getUsersData } from "../actions/actions";
-import { User } from "../types/types";
+import { getUsersAndPackData } from "../actions/actions";
+import { UserAndPack } from "../types/types";
 
-export const useUsersData = (token: string | null) => {
-  const [users, setUsers] = useState<User[] | null>(null);
+export const useUsersAndPackData = (token: string | null) => {
+  const [users, setUsers] = useState<UserAndPack[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,8 +16,8 @@ export const useUsersData = (token: string | null) => {
 
     try {
       setIsLoading(true);
-      const userData = await getUsersData(token);
-      setUsers(userData);
+      const userAndPackData: UserAndPack[] = await getUsersAndPackData(token);
+      setUsers(userAndPackData);
       setIsLoading(false);
     } catch (err) {
       setError("Error al obtener los datos de los usuarios");

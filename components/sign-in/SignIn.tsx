@@ -37,6 +37,8 @@ export default function SignIn({
 }) {
   const toast = useToast();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
   const [formData, setFormData] = useState<RegisterData>({
     name: "",
     email: "",
@@ -53,14 +55,10 @@ export default function SignIn({
     confirmPassword: "",
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [passwordVisibility, setPasswordVisibility] = useState({
     newPassword: false,
     confirmPassword: false,
   });
-
-  const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -97,6 +95,7 @@ export default function SignIn({
           name: "",
           email: "",
           phone: "",
+          IDCard: "",
           address: "",
           password: "",
           confirmPassword: "",

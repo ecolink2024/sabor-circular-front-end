@@ -106,21 +106,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // Role
   const userRole = user?.role;
 
-  // Authorized
-  const authorizedAt = user?.authorizedAt;
-
-  // Code
-  const code = user?.code;
+  console.log(userRole);
 
   return (
     <AuthContext.Provider
       value={{
         token,
         user,
-        authorizedAt,
         userRole,
         isAuthenticated,
-        code,
         login,
         logout,
         refetchUserData,

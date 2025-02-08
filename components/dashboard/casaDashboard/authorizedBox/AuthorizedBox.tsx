@@ -13,22 +13,22 @@ import {
 import { FaEyeSlash, FaEye, FaCalendarDay } from "react-icons/fa6";
 import { useState } from "react";
 import { MdContentCopy } from "react-icons/md";
-import { useAuth } from "@/providers/AuthProvider";
 import BoxContainer from "./BoxContainer";
 import AlertComponent from "./AlertComponent";
-import { calculateExpirationDate, formatDate } from "@/lib/utils/utils";
+import { formatDate } from "@/lib/utils/utils";
+import { SubscriptionInfo } from "@/lib/types/types";
 
-export default function AuthorizedBox() {
-  const { user, code, authorizedAt } = useAuth();
+export default function AuthorizedBox({
+  pack,
+}: {
+  pack: SubscriptionInfo | undefined;
+}) {
+  const { onCopy } = useClipboard(pack?.code || "");
   const [isCodeVisible, setIsCodeVisible] = useState(false);
-
-  const { onCopy } = useClipboard(code || "");
 
   const toggleCodeVisibility = () => {
     setIsCodeVisible(!isCodeVisible);
   };
-
-  const expirationDate = calculateExpirationDate(authorizedAt, 6);
 
   return (
     <Flex
@@ -55,7 +55,7 @@ export default function AuthorizedBox() {
               position={"relative"}
               top={"3px"}
             >
-              {isCodeVisible ? code : "* * * * * * *"}
+              {isCodeVisible ? pack?.code : "* * * * * * *"}
             </Text>
 
             <HStack>
@@ -65,7 +65,7 @@ export default function AuthorizedBox() {
                   size={"sm"}
                   onClick={onCopy}
                   aria-label="Copiar código"
-                  isDisabled={!code}
+                  isDisabled={!pack?.code}
                   icon={<MdContentCopy color="#518a3e" />}
                   borderRadius={"6px"}
                 />
@@ -109,7 +109,7 @@ export default function AuthorizedBox() {
               fontWeight={900}
               color={"#518a3e"}
             >
-              {user?.tupperCount || 0}
+              {pack?.tupperAmount || 0}
             </Text>
             <Text fontWeight={600} textAlign={"center"}>
               Envases disponibles para usar en Locales Adheridos
@@ -132,12 +132,12 @@ export default function AuthorizedBox() {
               <Icon as={FaCalendarDay} fontSize={18} color="#344234" />
               <Text fontSize="sm" color="#344234">
                 <strong>Expiracion:</strong>{" "}
-                {formatDate(expirationDate || new Date())}
+                {formatDate(pack?.authorizedAt || new Date())}
               </Text>
             </Flex>
 
             {/* Alert Component */}
-            <AlertComponent expirationDate={expirationDate} />
+            <AlertComponent expirationDate={pack?.authorizedAt} />
           </VStack>
         </Center>
       </BoxContainer>

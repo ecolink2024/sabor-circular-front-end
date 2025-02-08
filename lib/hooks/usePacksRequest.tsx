@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import { Payment } from "../types/types";
+import { GetAllMoneyTransaction } from "../types/types";
 import { getAllMoneyTransactions } from "../actions/actions";
 
 export const usePacksRequest = () => {
-  const [packs, setPacks] = useState<Payment[]>([]);
+  const [packs, setPacks] = useState<GetAllMoneyTransaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

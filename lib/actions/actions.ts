@@ -3,10 +3,12 @@ import {
   FormUserDataInfo,
   Issue,
   LoginData,
-  Payment,
+  GetAllMoneyTransaction,
   PaymentResponse,
   RegisterData,
   RegisterResponse,
+  SubscriptionInfo,
+  SubscriptionResponse,
   TransactionData,
   TransactionResponse,
   UpdateUser,
@@ -15,7 +17,7 @@ import {
 } from "../types/types";
 import { Items } from "mercadopago/dist/clients/commonTypes";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BASE_URL = process.env.BASE_URL;
 
 export const registerUser = async (
   data: RegisterData
@@ -293,9 +295,9 @@ export const createTransaction = async (
   }
 };
 
-export const getUsersData = async (token: string | null) => {
+export const getUsersAndPackData = async (token: string | null) => {
   try {
-    const response = await fetch(`${BASE_URL}/auth/usersData`, {
+    const response = await fetch(`${BASE_URL}/auth/getUserAndPackData`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -437,7 +439,8 @@ export const resetPassword = async (
 };
 
 export const getPreferenceId = async (
-  data: Items[]
+  items: Items[],
+  userId: string | null
 ): Promise<PreferenceResponse> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/generatePaymentLink`, {
@@ -445,7 +448,7 @@ export const getPreferenceId = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ items, userId }),
     });
 
     if (!response.ok) {
@@ -454,6 +457,7 @@ export const getPreferenceId = async (
 
     const responseData: PaymentResponse = await response.json();
 
+    console.log(responseData.preference);
     return responseData.preference;
   } catch (error) {
     console.error("Error al obtener el preferenceId:", error);
@@ -461,7 +465,9 @@ export const getPreferenceId = async (
   }
 };
 
-export const getAllMoneyTransactions = async (): Promise<Payment[]> => {
+export const getAllMoneyTransactions = async (): Promise<
+  GetAllMoneyTransaction[]
+> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/getAllMoneyTransactions`, {
       method: "GET",
@@ -474,10 +480,38 @@ export const getAllMoneyTransactions = async (): Promise<Payment[]> => {
       throw new Error("Error al obtener las transacciones de dinero");
     }
 
-    const responseData: Payment[] = await response.json();
+    const responseData: GetAllMoneyTransaction[] = await response.json();
     return responseData;
   } catch (error) {
     console.error("Error al obtener las transacciones de dinero:", error);
+    throw error;
+  }
+};
+
+export const userUpdateSubscription = async (
+  userId: string,
+  token: string
+): Promise<SubscriptionInfo> => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/auth/UserUpdateSubscription/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error actualizando la suscripción");
+    }
+
+    const data: SubscriptionResponse = await response.json();
+    return data.subscriptionInfo;
+  } catch (error) {
+    console.error("Error en userUpdateSubscription:", error);
     throw error;
   }
 };
