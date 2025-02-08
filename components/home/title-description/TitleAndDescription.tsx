@@ -68,9 +68,9 @@ export default function TitleAndDescription() {
               role === "hibrido"
                 ? "flex"
                 : role === "casa"
-                ? user?.code === undefined ||
-                  user?.code === null ||
-                  user?.code === ""
+                ? user?.IDCard === undefined ||
+                  user?.IDCard === null ||
+                  user?.IDCard === ""
                   ? "flex"
                   : "none"
                 : "flex"

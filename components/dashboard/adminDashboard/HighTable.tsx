@@ -16,8 +16,8 @@ import { formatDate } from "@/lib/utils/utils";
 import { usePacksRequest } from "@/lib/hooks/usePacksRequest";
 
 export default function HighTable() {
-  const [filter, setFilter] = useState<string>("");
   const { packs } = usePacksRequest();
+  const [filter, setFilter] = useState<string>("");
 
   const filteredPacks = packs.filter((pack) =>
     pack.userName.toLowerCase().includes(filter.toLowerCase())

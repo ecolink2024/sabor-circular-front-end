@@ -1,25 +1,26 @@
 "use client";
-import { useAuth } from "@/providers/AuthProvider";
+import useUserPack from "@/lib/hooks/useUserPack";
 import Dashboard from "../Dashboard";
-import DefaultBox from "./defaultBox/DefaultBox";
+import { useAuth } from "@/providers/AuthProvider";
 import { isAuthorizedPack } from "@/lib/utils/utils";
+import DefaultBox from "./defaultBox/DefaultBox";
 import AuthorizedBox from "./authorizedBox/AuthorizedBox";
-import PendingBox from "./pendingBox/PendingBox";
 
 export default function CasaDashboard() {
-  const { code, authorizedAt, isAuthenticated } = useAuth();
-  const authorized = isAuthorizedPack(code, authorizedAt, isAuthenticated);
+  const { user, isAuthenticated } = useAuth();
+
+  const { pack } = useUserPack(user ? user._id : null);
+  const authorized = isAuthorizedPack(isAuthenticated, pack);
 
   return (
     <Dashboard>
       {/* Unauthorized User */}
-      {!authorized.isValid && code !== "PENDING" && <DefaultBox />}
-
-      {/* Pending User Payment */}
-      {!authorized.isValid && code === "PENDING" && <PendingBox />}
+      {!authorized.isValid && (
+        <DefaultBox price={10500} oldPrice={23500} duration={6} />
+      )}
 
       {/* Authorized User */}
-      {authorized.isValid && code !== "PENDING" && <AuthorizedBox />}
+      {authorized.isValid && <AuthorizedBox pack={pack} />}
     </Dashboard>
   );
 }

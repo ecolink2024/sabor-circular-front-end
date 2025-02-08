@@ -11,8 +11,6 @@ export interface AuthContextType {
   user: User | null;
   userRole: string[] | undefined;
   isAuthenticated: boolean;
-  authorizedAt: Date | null | undefined;
-  code: string | undefined;
   isLoading: boolean;
   isLoggingOut: boolean;
   login: (token: string) => void;
@@ -27,8 +25,6 @@ export type RegisterData = {
   address?: string | undefined;
   IDCard: string;
   role: string[];
-  code?: string;
-  tupperCount?: number;
   password: string;
   confirmPassword: string;
 };
@@ -57,18 +53,15 @@ export interface LoginData {
 }
 
 export type User = {
-  _id: string; // Identificador único del usuario
-  name: string; // Nombre del usuario
-  email: string; // Correo electrónico del usuario
-  phone: string; // Número de teléfono del usuario
-  address?: string; // Dirección del usuario
-  IDCard: string; // DNI del usuario
-  role: string[]; // Rol del usuario
-  tupperCount: number; // Contador de 'tupper' del usuario
-  tupperMount?: number;
-  code?: string;
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address?: string;
+  IDCard: string;
+  role: string[];
+  code: string;
   createdAt?: string;
-  authorizedAt: Date | null;
 };
 
 export type UpdateUser = {
@@ -111,6 +104,7 @@ export const publicRoutes: string[] = [
   "/signin/pg",
   "/signin/admin",
   "/login/recovery-password",
+  "/activate-subscription",
 ];
 
 export const dashboardUsersRoutes: Record<string, string[]> = {
@@ -136,12 +130,39 @@ export type PaymentResponse = {
   preference: PreferenceResponse;
 };
 
-export interface Payment {
+export type GetAllMoneyTransaction = {
   _id: string;
   paymentId: string;
   userId: string;
   userName: string;
   quantity: string;
   paymentReceiveAt: string;
-  action: "approved" | "pending" | "failure";
-}
+  action: string;
+};
+
+export type SubscriptionInfo = {
+  _id: string;
+  deletedAt: string | null;
+  userId: string;
+  code: string;
+  tupperAmount: number;
+  status: string;
+  authorizedAt: Date | null | undefined;
+};
+
+export type SubscriptionResponse = {
+  subscriptionInfo: SubscriptionInfo;
+};
+
+export type UserAndPack = {
+  userId: string;
+  name: string;
+  role: string[];
+  email: string;
+  phone: string;
+  pack: {
+    code: string;
+    authorizedAt: string;
+    tupperAmount: number;
+  };
+};

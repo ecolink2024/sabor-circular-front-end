@@ -215,12 +215,11 @@ export default function Profile() {
               </FormControl>
 
               {/* Input Address */}
-              {role !== "casa" && (
+              {role !== "casa" && role !== "admin" && (
                 <FormControl
                   id="address"
                   isInvalid={!!getErrorMessage("address", errors)}
                   isRequired
-                  display={role === "casa" ? "none" : "block"}
                 >
                   <FormLabel>Dirección</FormLabel>
                   <Input
