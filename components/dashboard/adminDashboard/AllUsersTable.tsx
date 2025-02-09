@@ -85,9 +85,9 @@ export default function AllUsersTable() {
           <Tbody fontSize={{ base: "xs", lg: "sm" }}>
             {filteredUsers && filteredUsers?.length > 0 ? (
               filteredUsers.map((user) => (
-                <Tr key={user.userId}>
+                <Tr key={user?.userId}>
                   {/* Nombre */}
-                  <Td>{user.name}</Td>
+                  <Td>{user?.name}</Td>
 
                   {/* Código de Usuario */}
                   <Td textAlign={user?.pack?.code ? "start" : "center"}>
@@ -95,26 +95,28 @@ export default function AllUsersTable() {
                   </Td>
 
                   {/* Tipo de Usuario */}
-                  <Td textAlign={"center"}>{user.role}</Td>
+                  <Td textAlign={"center"}>{user?.role}</Td>
 
                   {/* Fecha de Expiracion */}
                   <Td
                     textAlign={"center"}
                     color={
-                      isExpiringOrExpired(user?.pack.authorizedAt)
+                      isExpiringOrExpired(user?.pack?.authorizedAt)
                         ? "red.500"
                         : "inherit"
                     }
                   >
-                    {formatDate(user?.pack.authorizedAt)}
+                    {formatDate(user?.pack?.authorizedAt) ?? "-"}
                   </Td>
 
                   {/* Cantidad de Tuppers */}
-                  <Td textAlign={"center"}>{user.pack?.tupperAmount}</Td>
+                  <Td textAlign={"center"}>
+                    {user?.pack?.tupperAmount ?? "-"}
+                  </Td>
 
                   {/* Email */}
                   <Tooltip
-                    label={user.email}
+                    label={user?.email}
                     placement="top"
                     top={"20px"}
                     borderRadius={"4px"}
@@ -126,18 +128,18 @@ export default function AllUsersTable() {
                       textOverflow="ellipsis"
                       whiteSpace="nowrap"
                     >
-                      {user.email}
+                      {user?.email}
                     </Td>
                   </Tooltip>
 
                   {/* Teléfono */}
-                  <Td>{user.phone}</Td>
+                  <Td>{user?.phone}</Td>
 
                   {/* Botón de Eliminar */}
                   <Td>
                     <DeleteUserByAdmin
-                      userName={user.name}
-                      userId={user.userId}
+                      userName={user?.name}
+                      userId={user?.userId}
                       refetch={refetch}
                     />
                   </Td>

@@ -310,6 +310,7 @@ export const getUsersAndPackData = async (token: string | null) => {
     }
 
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error en la solicitud de datos de usuarios:", error);
