@@ -20,7 +20,7 @@ export default function HighTable() {
   const [filter, setFilter] = useState<string>("");
 
   const filteredPacks = packs.filter((pack) =>
-    pack.userName.toLowerCase().includes(filter.toLowerCase())
+    pack?.userName?.toLowerCase().includes(filter.toLowerCase())
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,25 +76,25 @@ export default function HighTable() {
 
           {/* Body Table */}
           <Tbody fontSize={{ base: "xs", lg: "sm" }}>
-            {filteredPacks.length > 0 ? (
-              filteredPacks.map((pack) => (
-                <Tr key={pack._id}>
+            {filteredPacks?.length > 0 ? (
+              filteredPacks?.map((pack) => (
+                <Tr key={pack?._id}>
                   {/* User Name */}
-                  <Td textAlign={"center"}>{pack.userName}</Td>
+                  <Td textAlign={"center"}>{pack?.userName ?? "-"}</Td>
 
                   {/* Fecha Transacción */}
                   <Td textAlign={"center"}>
-                    {formatDate(pack.paymentReceiveAt)}
+                    {formatDate(pack?.paymentReceiveAt) ?? "-"}
                   </Td>
 
                   {/* Cantidad */}
-                  <Td textAlign={"center"}>{pack.quantity}</Td>
+                  <Td textAlign={"center"}>{pack?.quantity ?? "_"}</Td>
 
                   {/* Estado */}
-                  <Td textAlign={"center"}>{pack.action}</Td>
+                  <Td textAlign={"center"}>{pack?.action ?? "-"}</Td>
 
                   {/* N° de Transacción */}
-                  <Td textAlign={"center"}>{pack.paymentId}</Td>
+                  <Td textAlign={"center"}>{pack?.paymentId ?? "-"}</Td>
                 </Tr>
               ))
             ) : (
