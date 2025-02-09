@@ -205,12 +205,18 @@ export function isAuthorizedPack(
   return { isValid: true };
 }
 
-export function isExpiringOrExpired(expirationDate: string) {
-  if (!expirationDate) return;
-  const today = new Date();
-  const expiration = new Date(expirationDate);
-  const timeDiff = expiration.getTime() - today.getTime();
-  const daysDiff = timeDiff / (1000 * 3600 * 24);
+export const isExpiringOrExpired = (date: Date | null | undefined): boolean => {
+  if (!date) return false;
 
-  return daysDiff <= 15;
-}
+  const currentDate = new Date("2025-07-25T00:00:00.000Z");
+
+  const expirationDate = calculateExpirationDate(date, 6);
+
+  if (!expirationDate) return false;
+
+  const timeDifference = expirationDate.getTime() - currentDate.getTime();
+
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  return daysDifference <= 15 || timeDifference < 0;
+};

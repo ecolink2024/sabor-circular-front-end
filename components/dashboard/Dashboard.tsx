@@ -52,16 +52,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         </Skeleton>
       </Flex>
 
-      <Skeleton
-        as={Center}
-        w={isLoading ? "auto" : "100%"}
-        isLoaded={!isLoading}
-        borderRadius={"8.93px"}
-        flexDirection={"column"}
-        gap={{ base: 4, lg: 10 }}
-      >
-        {children}
-      </Skeleton>
+      {children}
 
       {/* Widget Wsp */}
       <WidgetWsp display={role === "casa"} />

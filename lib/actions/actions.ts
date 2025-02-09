@@ -466,13 +466,14 @@ export const getPreferenceId = async (
   }
 };
 
-export const getAllMoneyTransactions = async (): Promise<
-  GetAllMoneyTransaction[]
-> => {
+export const getAllMoneyTransactions = async (
+  token: string | null
+): Promise<GetAllMoneyTransaction[]> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/getAllMoneyTransactions`, {
       method: "GET",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -481,10 +482,9 @@ export const getAllMoneyTransactions = async (): Promise<
       throw new Error("Error al obtener las transacciones de dinero");
     }
 
-    const responseData: GetAllMoneyTransaction[] = await response.json();
+    const responseData = await response.json();
     return responseData;
   } catch (error) {
-    console.error("Error al obtener las transacciones de dinero:", error);
     throw error;
   }
 };

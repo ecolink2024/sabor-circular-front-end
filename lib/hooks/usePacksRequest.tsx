@@ -1,8 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { GetAllMoneyTransaction } from "../types/types";
 import { getAllMoneyTransactions } from "../actions/actions";
+import { useAuth } from "@/providers/AuthProvider";
 
 export const usePacksRequest = () => {
+  const { token } = useAuth();
   const [packs, setPacks] = useState<GetAllMoneyTransaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +14,7 @@ export const usePacksRequest = () => {
 
     try {
       setError(null);
-      const data = await getAllMoneyTransactions();
+      const data = await getAllMoneyTransactions(token);
       setPacks(data);
     } catch (err) {
       setError("No se pudo obtener la información");

@@ -162,7 +162,7 @@ export type UserAndPack = {
   phone: string;
   pack: {
     code: string;
-    authorizedAt: string;
-    tupperAmount: number;
+    authorizedAt: Date;
+    tupperMount: number;
   };
 };
