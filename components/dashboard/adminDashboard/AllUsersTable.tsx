@@ -14,7 +14,6 @@ import {
   Td,
   Tooltip,
   Box,
-  Skeleton,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import DeleteUserByAdmin from "./DeleteUserByAdmin";
@@ -88,9 +87,7 @@ export default function AllUsersTable() {
               filteredUsers.map((user) => (
                 <Tr key={user?.userId}>
                   {/* Nombre */}
-                  <Skeleton>
-                    <Td>{user?.name}</Td>
-                  </Skeleton>
+                  <Td>{user?.name}</Td>
 
                   {/* Código de Usuario */}
                   <Td textAlign={user?.pack?.code ? "start" : "center"}>
