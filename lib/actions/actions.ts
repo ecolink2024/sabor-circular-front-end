@@ -441,7 +441,7 @@ export const resetPassword = async (
 
 export const getPreferenceId = async (
   items: Items[],
-  userId: string | null
+  userId: string | undefined
 ): Promise<PreferenceResponse> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/generatePaymentLink`, {

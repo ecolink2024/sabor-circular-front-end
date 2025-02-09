@@ -145,7 +145,7 @@ export type SubscriptionInfo = {
   deletedAt: string | null;
   userId: string;
   code: string;
-  tupperAmount: number;
+  tupperCount: number;
   status: string;
   authorizedAt: Date | null | undefined;
 };

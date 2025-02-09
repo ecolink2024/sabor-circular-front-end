@@ -109,7 +109,7 @@ export default function AuthorizedBox({
               fontWeight={900}
               color={"#518a3e"}
             >
-              {pack?.tupperAmount || 0}
+              {pack?.tupperCount || 0}
             </Text>
             <Text fontWeight={600} textAlign={"center"}>
               Envases disponibles para usar en Locales Adheridos

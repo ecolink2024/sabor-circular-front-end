@@ -316,7 +316,7 @@ export default function SignIn({
                     clearFieldError("role", setErrors);
                   }}
                 >
-                  <option value="punto">Punto</option>
+                  <option value="recolector">Recolector</option>
                   {/* <option value="gastronomico">Gastronómico</option> */}
                   <option value="ambas">Gastronómico</option>
                 </Select>

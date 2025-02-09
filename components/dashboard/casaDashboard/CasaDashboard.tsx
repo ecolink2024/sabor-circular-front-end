@@ -9,7 +9,7 @@ import AuthorizedBox from "./authorizedBox/AuthorizedBox";
 export default function CasaDashboard() {
   const { user, isAuthenticated } = useAuth();
 
-  const { pack } = useUserPack(user ? user._id : null);
+  const { pack } = useUserPack(user?._id);
   const authorized = isAuthorizedPack(isAuthenticated, pack);
 
   return (

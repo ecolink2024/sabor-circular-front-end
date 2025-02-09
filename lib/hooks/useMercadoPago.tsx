@@ -25,7 +25,7 @@ export default function useMercadoPago() {
               "https://www.saborcircular.com.ar/img/landing-page.jpg",
           },
         ],
-        user ? user._id : null
+        user?._id
       );
       setPreference(response);
     } catch {

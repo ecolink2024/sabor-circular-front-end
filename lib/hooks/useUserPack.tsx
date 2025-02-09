@@ -3,7 +3,7 @@ import { SubscriptionInfo } from "../types/types";
 import { userUpdateSubscription } from "../actions/actions";
 import { useAuth } from "@/providers/AuthProvider";
 
-export default function useUserPack(userId: string | null) {
+export default function useUserPack(userId: string | undefined) {
   const { token } = useAuth();
   const [pack, setPack] = useState<SubscriptionInfo>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
