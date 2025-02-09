@@ -106,7 +106,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // Role
   const userRole = user?.role;
 
-  console.log(userRole);
 
   return (
     <AuthContext.Provider

@@ -6,9 +6,10 @@ import PuntoCircularDashboard from "@/components/dashboard/puntoCircularDashboar
 export default async function Dashboard({
   params,
 }: {
-  params: { userType: string };
+  params: { userType: string | undefined };
 }) {
-  const userType = params.userType;
+  const userType = params?.userType;
+
 
   const renderDashboard = () => {
     switch (userType) {
