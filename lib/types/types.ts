@@ -134,9 +134,9 @@ export type GetAllMoneyTransaction = {
   _id: string;
   paymentId: string;
   userId: string;
-  userName: string;
   quantity: string;
   paymentReceiveAt: string;
+  userName: string;
   action: string;
 };
 

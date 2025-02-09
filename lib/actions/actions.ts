@@ -3,7 +3,6 @@ import {
   FormUserDataInfo,
   Issue,
   LoginData,
-  GetAllMoneyTransaction,
   PaymentResponse,
   RegisterData,
   RegisterResponse,
@@ -313,7 +312,27 @@ export const getUsersAndPackData = async (token: string | null) => {
 
     return data;
   } catch (error) {
-    console.error("Error en la solicitud de datos de usuarios:", error);
+    throw error;
+  }
+};
+
+export const getAllMoneyTransactions = async (token: string | null) => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/getAllMoneyTransactions`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener las transacciones de dinero");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
     throw error;
   }
 };
@@ -462,29 +481,6 @@ export const getPreferenceId = async (
     return responseData.preference;
   } catch (error) {
     console.error("Error al obtener el preferenceId:", error);
-    throw error;
-  }
-};
-
-export const getAllMoneyTransactions = async (
-  token: string | null
-): Promise<GetAllMoneyTransaction[]> => {
-  try {
-    const response = await fetch(`${BASE_URL}/auth/getAllMoneyTransactions`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al obtener las transacciones de dinero");
-    }
-
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
     throw error;
   }
 };

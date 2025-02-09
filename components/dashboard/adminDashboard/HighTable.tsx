@@ -15,9 +15,11 @@ import {
 import React, { useState } from "react";
 import { formatDate } from "@/lib/utils/utils";
 import { usePacksRequest } from "@/lib/hooks/usePacksRequest";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function HighTable() {
-  const { packs, isLoading } = usePacksRequest();
+  const { token } = useAuth();
+  const { packs, isLoading } = usePacksRequest(token);
   const [filter, setFilter] = useState<string>("");
 
   const filteredPacks = packs.filter((pack) =>
