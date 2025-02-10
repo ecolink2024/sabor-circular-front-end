@@ -91,11 +91,26 @@ export default function AllUsersTable() {
                 filteredUsers.map((user) => (
                   <Tr key={user?.userId}>
                     {/* Nombre */}
-                    <Td>{user?.name ?? "-"}</Td>
+                    <Tooltip
+                      label={user?.name ?? "-"}
+                      placement="top"
+                      top={"20px"}
+                      borderRadius={"4px"}
+                    >
+                      <Td
+                        isTruncated
+                        maxWidth="20ch"
+                        overflow="hidden"
+                        textOverflow="ellipsis"
+                        whiteSpace="nowrap"
+                      >
+                        {user?.name ?? "-"}
+                      </Td>
+                    </Tooltip>
 
                     {/* Código de Usuario */}
                     <Td textAlign={user?.pack?.code ? "start" : "center"}>
-                      {user?.pack?.code || "-"}
+                      {user?.pack?.code ?? "-"}
                     </Td>
 
                     {/* Tipo de Usuario */}
