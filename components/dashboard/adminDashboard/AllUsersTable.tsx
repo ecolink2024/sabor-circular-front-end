@@ -30,7 +30,7 @@ export default function AllUsersTable() {
   };
 
   const filteredUsers = users?.filter((user: UserAndPack) =>
-    user.email?.toLowerCase().includes(filter.toLowerCase())
+    (user.email ?? "").toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
