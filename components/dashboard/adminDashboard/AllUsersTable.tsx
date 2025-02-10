@@ -89,17 +89,17 @@ export default function AllUsersTable() {
                 filteredUsers.map((user) => (
                   <Tr key={user?.userId}>
                     {/* Nombre */}
-                    <Td>{user?.name}</Td>
+                    <Td>{user?.name ?? "-"}</Td>
 
                     {/* Código de Usuario */}
                     <Td textAlign={user?.pack?.code ? "start" : "center"}>
-                      {user?.pack?.code || "_"}
+                      {user?.pack?.code || "-"}
                     </Td>
 
                     {/* Tipo de Usuario */}
-                    <Td textAlign={"center"}>{user?.role}</Td>
+                    <Td textAlign={"center"}>{user?.role ?? "-"}</Td>
 
-                    {/* Fecha de Expiracion */}
+                    {/* Fecha de Suscripcion */}
                     <Td
                       textAlign={"center"}
                       color={
@@ -119,7 +119,7 @@ export default function AllUsersTable() {
 
                     {/* Email */}
                     <Tooltip
-                      label={user?.email}
+                      label={user?.email ?? "-"}
                       placement="top"
                       top={"20px"}
                       borderRadius={"4px"}
@@ -131,12 +131,12 @@ export default function AllUsersTable() {
                         textOverflow="ellipsis"
                         whiteSpace="nowrap"
                       >
-                        {user?.email}
+                        {user?.email ?? "-"}
                       </Td>
                     </Tooltip>
 
                     {/* Teléfono */}
-                    <Td>{user?.phone}</Td>
+                    <Td>{user?.phone ?? "-"}</Td>
 
                     {/* Botón de Eliminar */}
                     <Td>

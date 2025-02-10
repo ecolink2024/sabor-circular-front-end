@@ -92,7 +92,7 @@ export default function HighTable() {
                     </Td>
 
                     {/* Cantidad */}
-                    <Td textAlign={"center"}>{pack?.quantity ?? "_"}</Td>
+                    <Td textAlign={"center"}>{pack?.quantity ?? "-"}</Td>
 
                     {/* Estado */}
                     <Td textAlign={"center"}>{pack?.action ?? "-"}</Td>
