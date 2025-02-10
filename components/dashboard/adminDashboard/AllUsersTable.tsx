@@ -106,12 +106,12 @@ export default function AllUsersTable() {
                       textAlign={"center"}
                       color={
                         user?.role?.includes("casa") &&
-                        isExpiringOrExpired(user.pack.authorizedAt)
+                        isExpiringOrExpired(user?.pack?.authorizedAt)
                           ? "red.500"
                           : "inherit"
                       }
                     >
-                      {formatDate(user.pack.authorizedAt) ?? "-"}
+                      {formatDate(user?.pack?.authorizedAt) ?? "-"}
                     </Td>
 
                     {/* Cantidad de Tuppers */}
