@@ -22,7 +22,6 @@ export const usePacksRequest = (token: string | null) => {
         token
       );
 
-      console.log(data);
       setPacks(data);
     } catch (err) {
       setError("No se pudo obtener la información");
@@ -30,7 +29,7 @@ export const usePacksRequest = (token: string | null) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     fetchData();

@@ -477,7 +477,6 @@ export const getPreferenceId = async (
 
     const responseData: PaymentResponse = await response.json();
 
-    console.log(responseData.preference);
     return responseData.preference;
   } catch (error) {
     console.error("Error al obtener el preferenceId:", error);
