@@ -99,7 +99,7 @@ export default function AllUsersTable() {
                     >
                       <Td
                         isTruncated
-                        maxWidth="20ch"
+                        maxWidth="18ch"
                         overflow="hidden"
                         textOverflow="ellipsis"
                         whiteSpace="nowrap"
