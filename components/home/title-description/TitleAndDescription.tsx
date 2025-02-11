@@ -1,6 +1,4 @@
 "use client";
-import { getUserType } from "@/lib/utils/utils";
-import { useAuth } from "@/providers/AuthProvider";
 import {
   Heading,
   Text,
@@ -13,10 +11,7 @@ import {
 import { sendGAEvent } from "@next/third-parties/google";
 
 export default function TitleAndDescription() {
-  const { user, userRole } = useAuth();
-
-  const role = getUserType(userRole);
-
+  //redirect cards how is work
   const redirectHowItsWorks = () => {
     document
       .getElementById("how-its-work")
@@ -61,20 +56,6 @@ export default function TitleAndDescription() {
             Recibí tu comida en envases retornables ♻️
           </Text>
           <Button
-            display={
-              role === "punto" ||
-              role === "gastronomico" ||
-              role === "admin" ||
-              role === "hibrido"
-                ? "flex"
-                : role === "casa"
-                ? user?.IDCard === undefined ||
-                  user?.IDCard === null ||
-                  user?.IDCard === ""
-                  ? "flex"
-                  : "none"
-                : "flex"
-            }
             w={"200px"}
             borderRadius={"15px"}
             fontWeight={500}

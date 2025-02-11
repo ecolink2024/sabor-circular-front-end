@@ -485,8 +485,8 @@ export const getPreferenceId = async (
 };
 
 export const userUpdateSubscription = async (
-  userId: string,
-  token: string
+  userId: string | undefined,
+  token: string | null
 ): Promise<SubscriptionInfo> => {
   try {
     const response = await fetch(
@@ -501,10 +501,11 @@ export const userUpdateSubscription = async (
     );
 
     if (!response.ok) {
-      throw new Error("Error actualizando la suscripción");
+      throw new Error("");
     }
 
     const data: SubscriptionResponse = await response.json();
+    console.log(data);
     return data.subscriptionInfo;
   } catch (error) {
     console.error("Error en userUpdateSubscription:", error);

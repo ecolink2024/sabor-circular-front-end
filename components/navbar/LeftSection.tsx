@@ -28,15 +28,10 @@ export default function LeftSection() {
 
   const role = getUserType(userRole);
 
-  const hrefTapercito = user
-    ? role === "casa"
+  const hrefTapercito =
+    user && role === "casa"
       ? `/dashboard/casa/${user._id}`
-      : `/dashboard/admin/${user._id}`
-    : "/activate-subscription";
-
-  const handleRedirect = (href: string) => {
-    router.push(href);
-  };
+      : "/activate-subscription";
 
   return (
     <Stack
@@ -76,9 +71,7 @@ export default function LeftSection() {
           variant={"unstyled"}
           position={"relative"}
           top={-1}
-        >
-          Actions
-        </MenuButton>
+        />
         <MenuList
           borderRadius={"14px"}
           borderTopLeftRadius={"none"}
@@ -92,17 +85,14 @@ export default function LeftSection() {
             icon={<FaBasketShopping color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
             display={
-              role === "punto" || role === "gastronomico" || role === "admin"
+              role === "punto" ||
+              role === "gastronomico" ||
+              role === "admin" ||
+              role === "hibrido"
                 ? "none"
-                : role === "casa"
-                ? user?.IDCard === undefined ||
-                  user?.IDCard === null ||
-                  user?.IDCard === ""
-                  ? "block"
-                  : "none"
-                : "flex"
+                : "block"
             }
-            onClick={() => handleRedirect(hrefTapercito)}
+            onClick={() => router.push(hrefTapercito)}
           >
             ¡Quiero sumarme!
           </MenuItem>
@@ -111,7 +101,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<RiRecycleFill color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={() => handleRedirect("/return-container")}
+            onClick={() => router.push("/return-container")}
           >
             Puntos de retorno
           </MenuItem>
@@ -138,7 +128,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<MdGroups color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={() => handleRedirect("/contact")}
+            onClick={() => router.push("/contact")}
           >
             <Link href={"/"}>Quiero ser local adherido</Link>
           </MenuItem>

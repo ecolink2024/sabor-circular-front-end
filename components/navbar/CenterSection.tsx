@@ -4,40 +4,38 @@ import {
   redirectHowItsWorks,
 } from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
-import { Box, Stack, Image, Link as ChakraLink } from "@chakra-ui/react";
-import Link from "next/link";
+import { Box, Stack, Image, Link as Text } from "@chakra-ui/react";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function CenterSection() {
-  const { user, userRole } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const { user, userRole } = useAuth();
 
   const role = getUserType(userRole);
 
-  const hrefTapercito = user
-    ? role === "casa"
+  const hrefTapercito =
+    user && role === "casa"
       ? `/dashboard/casa/${user._id}`
-      : `/dashboard/admin/${user._id}`
-    : "/activate-subscription";
+      : "/activate-subscription";
 
   return (
     <Stack display={"flex"} align={"center"} flex={3} position={"relative"}>
       {/* Logo */}
-      <Link href={"/"}>
-        <Box
-          w={"100%"}
-          h={"100%"}
-          maxW={"140px"}
-          maxH={"40px"}
+      <Box
+        w={"100%"}
+        h={"100%"}
+        maxW={"140px"}
+        maxH={"40px"}
+        display={{ base: "block", lg: "none" }}
+        onClick={() => router.push("/")}
+      >
+        <Image
           display={{ base: "block", lg: "none" }}
-        >
-          <Image
-            src="/svg/logo-sabor-circular-nav.svg"
-            alt="logo-sabor-circular"
-          />
-        </Box>
-      </Link>
+          src="/svg/logo-sabor-circular-nav.svg"
+          alt="logo-sabor-circular"
+        />
+      </Box>
 
       {/* Menu Links en desktop */}
       <Stack
@@ -45,21 +43,15 @@ export default function CenterSection() {
         spacing={6}
         display={{ base: "none", lg: "flex" }}
         position={"relative"}
-        bottom={1}
       >
-        <ChakraLink
+        {/* Quiero sumarme */}
+        <Text
           display={
             role === "punto" ||
             role === "gastronomico" ||
             role === "admin" ||
             role === "hibrido"
               ? "none"
-              : role === "casa"
-              ? user?.code === undefined ||
-                user?.code === null ||
-                user?.code === ""
-                ? "block"
-                : "none"
               : "block"
           }
           fontSize="13px"
@@ -67,25 +59,27 @@ export default function CenterSection() {
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
+          cursor={"pointer"}
           _hover={{ color: "#383838", textDecoration: "none" }}
-          href={hrefTapercito}
+          onClick={() => router.push(hrefTapercito)}
         >
           ¡Quiero sumarme!
-        </ChakraLink>
-
-        <ChakraLink
+        </Text>
+        {/* Puntos de Retorno  */}
+        <Text
           fontSize="13px"
           textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
-          href="/return-container"
+          cursor={"pointer"}
+          onClick={() => router.push("/return-container")}
         >
           Puntos de retorno
-        </ChakraLink>
-
-        <ChakraLink
+        </Text>
+        {/* Quiero Sumarme */}
+        <Text
           fontSize="13px"
           textAlign={"center"}
           color="#171E30"
@@ -96,31 +90,35 @@ export default function CenterSection() {
           cursor="pointer"
         >
           ¿Cómo funciona?
-        </ChakraLink>
+        </Text>
 
-        <ChakraLink
+        {/* Locales Adheridos */}
+        <Text
           fontSize="13px"
           textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
+          cursor={"pointer"}
           _hover={{ color: "#383838", textDecoration: "none" }}
           onClick={() => redirectAttachedPremises(pathname, router)}
         >
           Locales adheridos
-        </ChakraLink>
+        </Text>
 
-        <ChakraLink
+        {/* Quiero Ser Local Adherido */}
+        <Text
           fontSize="13px"
           textAlign={"center"}
           color="#171E30"
           textDecoration="none"
           fontWeight={500}
           _hover={{ color: "#383838", textDecoration: "none" }}
-          href="/contact"
+          cursor={"pointer"}
+          onClick={() => router.push("/contact")}
         >
           Quiero ser local Adherido
-        </ChakraLink>
+        </Text>
       </Stack>
     </Stack>
   );

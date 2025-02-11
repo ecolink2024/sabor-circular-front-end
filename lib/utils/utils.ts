@@ -83,11 +83,7 @@ export const redirectCard = (
   // validación para la primera y segunda tarjeta (usuario)
   if (card === "1" || card === "2") {
     if (user) {
-      if (userRole === "casa") {
-        return router.push(`/dashboard/casa/${user._id}`);
-      } else {
-        return router.push(`/`);
-      }
+      return router.push(`/dashboard/${userRole}/${user._id}`);
     } else {
       return router.push(`/activate-subscription`);
     }
@@ -96,7 +92,7 @@ export const redirectCard = (
   else if (card === "3") {
     handleTupperClick();
   }
-  // validación para la tercera tarjeta (return-container)
+  // validación para la cuarta tarjeta (return-container)
   else {
     return router.push(`/return-container`);
   }

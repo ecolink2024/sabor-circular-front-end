@@ -10,6 +10,12 @@ export default function useUserPack(userId: string | undefined) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!token) {
+      setError("Token no disponible");
+      setIsLoading(false);
+      return;
+    }
+
     const fetchUserPacks = async () => {
       try {
         const data = await userUpdateSubscription(userId!, token!);
