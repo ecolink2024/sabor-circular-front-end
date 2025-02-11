@@ -488,6 +488,10 @@ export const userUpdateSubscription = async (
   userId: string | undefined,
   token: string | null
 ): Promise<SubscriptionInfo> => {
+  if (!userId || !token) {
+    throw new Error("UserId or Token is missing");
+  }
+
   try {
     const response = await fetch(
       `${BASE_URL}/auth/UserUpdateSubscription/${userId}`,
@@ -501,14 +505,15 @@ export const userUpdateSubscription = async (
     );
 
     if (!response.ok) {
-      throw new Error("");
+      const errorData = await response.json();
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorData.message}`
+      );
     }
 
     const data: SubscriptionResponse = await response.json();
-    console.log(data);
     return data.subscriptionInfo;
   } catch (error) {
-    console.error("Error en userUpdateSubscription:", error);
-    throw error;
+    throw new Error(`Failed to update subscription: ${error}`);
   }
 };

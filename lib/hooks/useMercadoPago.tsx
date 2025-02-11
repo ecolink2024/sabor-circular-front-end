@@ -33,7 +33,7 @@ export default function useMercadoPago() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [user?._id]);
 
   const handleActivate = () => {
     setActivated(true);

@@ -29,6 +29,7 @@ import { FaArrowLeftLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 import { PiWarningCircleDuotone } from "react-icons/pi";
 import { sendGAEvent } from "@next/third-parties/google";
+import { useRouter } from "next/navigation";
 
 export default function SignIn({
   registrationType = "casa",
@@ -36,6 +37,7 @@ export default function SignIn({
   registrationType: "admin" | "casa" | "pg";
 }) {
   const toast = useToast();
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
@@ -146,17 +148,16 @@ export default function SignIn({
     >
       {/* Button Redirect Index */}
       <IconButton
-        as={Link}
         bg={"#518a3e"}
         _hover={{ bg: "gray.300" }}
         borderRadius={"8.93px"}
         color={"white"}
         aria-label="redirect-index"
         icon={<FaArrowLeftLong />}
-        href="/"
         position={"absolute"}
         top={4}
         left={4}
+        onClick={() => router.push("/")}
       />
       <Image
         src={"/svg/logo-sabor-circular-register.svg"}
