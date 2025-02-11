@@ -33,6 +33,8 @@ export const registerUser = async (
     if (!response.ok) {
       const errorResponse = await response.json();
 
+      console.log(errorResponse);
+
       if (errorResponse.error && errorResponse.error.issues) {
         const formattedErrors = errorResponse.error.issues.map(
           (issue: Issue) => ({
