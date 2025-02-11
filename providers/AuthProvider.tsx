@@ -21,9 +21,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // State to store user data
   const [user, setUser] = useState<User | null>(null);
 
-  // Role
-  const userRole = user?.role;
-
   // State to manage loading
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -103,12 +100,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     router.push("/");
   };
 
+  // Authenticated
+  const isAuthenticated = !!token;
+
+  // Role
+  const userRole = user?.role;
+
+
   return (
     <AuthContext.Provider
       value={{
         token,
         user,
         userRole,
+        isAuthenticated,
         login,
         logout,
         refetchUserData,

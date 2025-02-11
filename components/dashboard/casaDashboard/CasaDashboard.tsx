@@ -1,36 +1,29 @@
 "use client";
-import { Text } from "@chakra-ui/react";
-import React from "react";
-import DefaultBox from "./DefaultBox";
-import { SkeletonBox } from "@/components/skeletons/Skeletons";
-import useUserPacks from "@/lib/hooks/useUserPacks";
-import ValidationBox from "./ValidationBox";
+import useUserPack from "@/lib/hooks/useUserPack";
 import Dashboard from "../Dashboard";
-import AuthorizedBox from "./AuthorizedBox";
+import { useAuth } from "@/providers/AuthProvider";
+import { isAuthorizedPack } from "@/lib/utils/utils";
+import DefaultBox from "./defaultBox/DefaultBox";
+import AuthorizedBox from "./authorizedBox/AuthorizedBox";
+import { Skeleton } from "@chakra-ui/react";
 
-export default function CasaDashboard({ id }: { id: string }) {
-  const { data, isLoading, refetch } = useUserPacks(id);
+export default function CasaDashboard() {
+  const { user, isAuthenticated } = useAuth();
+
+  const { pack, isLoading } = useUserPack(user?._id);
+  const authorized = isAuthorizedPack(isAuthenticated, pack);
 
   return (
     <Dashboard>
-      {isLoading ? (
-        <SkeletonBox />
-      ) : Array.isArray(data) && data.length === 0 ? (
-        <DefaultBox refetch={refetch} />
-      ) : data && data[0].authorizedAt !== null ? (
-        <AuthorizedBox data={data} />
-      ) : (
-        <ValidationBox />
+      {/* Unauthorized User */}
+      {!authorized.isValid && (
+        <Skeleton isLoaded={!isLoading} borderRadius={"12px"}>
+          <DefaultBox price={10500} oldPrice={23500} duration={6} />
+        </Skeleton>
       )}
 
-      <Text
-        textAlign={"center"}
-        fontWeight={700}
-        fontSize={"20px"}
-        display={"none"}
-      >
-        Usos ilimitados hasta Febrero 2025
-      </Text>
+      {/* Authorized User */}
+      {authorized.isValid && <AuthorizedBox pack={pack} />}
     </Dashboard>
   );
 }

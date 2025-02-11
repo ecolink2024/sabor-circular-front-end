@@ -1,5 +1,10 @@
 import { keyframes } from "@emotion/react";
-import { User, ValidationError, dashboardUsersRoutes } from "../types/types";
+import {
+  SubscriptionInfo,
+  User,
+  ValidationError,
+  dashboardUsersRoutes,
+} from "../types/types";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const scrollAnimation = keyframes`
@@ -78,20 +83,16 @@ export const redirectCard = (
   // validación para la primera y segunda tarjeta (usuario)
   if (card === "1" || card === "2") {
     if (user) {
-      if (userRole === "casa") {
-        return router.push(`/dashboard/casa/${user._id}`);
-      } else {
-        return router.push(`/`);
-      }
+      return router.push(`/dashboard/${userRole}/${user._id}`);
     } else {
-      return router.push(`/login`);
+      return router.push(`/activate-subscription`);
     }
   }
   // validación para la tercera tarjeta (tupper)
   else if (card === "3") {
     handleTupperClick();
   }
-  // validación para la tercera tarjeta (return-container)
+  // validación para la cuarta tarjeta (return-container)
   else {
     return router.push(`/return-container`);
   }
@@ -116,3 +117,102 @@ export function getUserType(users: string[] | undefined): string {
       return "unknown";
   }
 }
+
+export const redirectAttachedPremises = (
+  pathname: string,
+  router: AppRouterInstance
+) => {
+  if (pathname === "/") {
+    document
+      .getElementById("locales-adheridos")
+      ?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    sessionStorage.setItem("scrollToSection", "locales-adheridos");
+    router.push("/");
+  }
+};
+
+export const redirectHowItsWorks = (
+  pathname: string,
+  router: AppRouterInstance
+) => {
+  if (pathname === "/") {
+    document
+      .getElementById("how-its-work")
+      ?.scrollIntoView({ behavior: "smooth" });
+  } else {
+    sessionStorage.setItem("scrollToSection", "how-its-work");
+    router.push("/");
+  }
+};
+
+export const formatDate = (date: Date | string | null | undefined) => {
+  if (!date) return null;
+
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+
+  if (isNaN(dateObj.getTime())) {
+    return null;
+  }
+
+  return dateObj.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
+
+export const calculateExpirationDate = (
+  date: Date | null | undefined,
+  expirationMonthNumbers: number
+) => {
+  if (!date) return null;
+
+  const expirationDate = new Date(date);
+  expirationDate.setMonth(expirationDate.getMonth() + expirationMonthNumbers);
+  return expirationDate;
+};
+
+export const calculateAlertDate = (expirationDate: Date | null | undefined) => {
+  if (!expirationDate) return null;
+
+  const alertDate = new Date(expirationDate);
+  alertDate.setDate(alertDate.getDate() - 15);
+  return alertDate;
+};
+
+export function isAuthorizedPack(
+  isAuthenticated: boolean,
+  pack: SubscriptionInfo | undefined
+): { isValid: boolean } {
+  if (!isAuthenticated) {
+    return { isValid: false };
+  }
+
+  if (
+    !pack ||
+    Object.keys(pack).length === 0 ||
+    pack.code === undefined ||
+    pack.code === null
+  ) {
+    return { isValid: false };
+  }
+
+  return { isValid: true };
+}
+
+export const isExpiringOrExpired = (date: Date | null | undefined): boolean => {
+  if (!date) return false;
+
+  const currentDate = new Date("2025-07-25T00:00:00.000Z");
+
+  const expirationDate = calculateExpirationDate(date, 6);
+
+  if (!expirationDate) return false;
+
+  const timeDifference = expirationDate.getTime() - currentDate.getTime();
+
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  return daysDifference <= 15 || timeDifference < 0;
+};

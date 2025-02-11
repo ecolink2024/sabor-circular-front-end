@@ -1,9 +1,6 @@
 "use client";
-import { useUnauthorizedPacks } from "@/lib/hooks/useUnauthorizedPacks";
-import { UnauthorizedPack } from "@/lib/types/types";
-import { useAuth } from "@/providers/AuthProvider";
 import {
-  Button,
+  Box,
   Heading,
   Input,
   Skeleton,
@@ -11,163 +8,110 @@ import {
   TableContainer,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
-  Tooltip,
   Tr,
-  VStack,
-  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import ButtonViewImage from "./ButtonViewImage";
-import { authorizePack } from "@/lib/actions/actions";
+import { formatDate } from "@/lib/utils/utils";
+import { usePacksRequest } from "@/lib/hooks/usePacksRequest";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function HighTable() {
-  const toast = useToast();
   const { token } = useAuth();
-  const { packs, isLoading, refetch } = useUnauthorizedPacks(token);
+  const { packs, isLoading } = usePacksRequest(token);
   const [filter, setFilter] = useState<string>("");
-  const [isAuthorizing, setIsAuthorizing] = useState<{
-    [key: string]: boolean;
-  }>({});
+
+  const filteredPacks = packs.filter((pack) =>
+    pack?.userName?.toLowerCase().includes(filter.toLowerCase())
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
 
-  const handleAuthorize = async (packId: string) => {
-    setIsAuthorizing((prev) => ({ ...prev, [packId]: true }));
-    try {
-      await authorizePack(packId, token);
-      refetch();
-
-      toast({
-        title: "Pack autorizado",
-        description: "El pack ha sido autorizado correctamente.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Hubo un problema al autorizar el pack.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    } finally {
-      setIsAuthorizing((prev) => ({ ...prev, [packId]: false }));
-    }
-  };
-
-  const filteredPacks = packs?.filter((pack: UnauthorizedPack) =>
-    pack?.userId?.email?.toLowerCase().includes(filter.toLowerCase())
-  );
-
   return (
-    <Skeleton isLoaded={!isLoading} borderRadius={"20px"} w={"100%"}>
-      <VStack
+    <Skeleton isLoaded={!isLoading} w={"100%"} borderRadius={"xl"}>
+      <TableContainer
         w={"100%"}
-        gap={10}
-        p={10}
-        borderRadius={"20px"}
         bg={"white"}
+        borderRadius={"xl"}
         shadow={"md"}
+        px={6}
+        overflow={"hidden"}
       >
-        <Heading size={"xl"}>SOLICITUD DE PACKS</Heading>
-        {/* Input para filtrar por email */}
-        <Input
-          id="search-packs"
-          w={"100%"}
-          placeholder="Ingrese el email..."
-          value={filter}
-          onChange={handleInputChange}
-        />
+        {/* Heading Table */}
+        <Box p={0} w={"100%"} my={8}>
+          <Heading textAlign={"center"} fontSize={{ base: "2xl", lg: "4xl" }}>
+            SUSCRIPCIONES
+          </Heading>
 
-        {/* Table High */}
-        <TableContainer w={"100vw"} h={"450px"}>
-          <Table display={"block"} variant={"simple"}>
+          <Input
+            mt={6}
+            w={"100%"}
+            borderRadius={"8.93px"}
+            fontSize={"14px"}
+            placeholder="Ingrese el nombre del usuario..."
+            focusBorderColor="#518a3e"
+            value={filter}
+            onChange={handleInputChange}
+          />
+        </Box>
+
+        {/* Table */}
+        <Box
+          overflowX="auto"
+          mb={6}
+          minH={"400px"}
+          maxH={"400px"}
+          borderTopRadius={"8.93px"}
+        >
+          <Table position={"sticky"}>
             {/* Head Table  */}
-            <Thead
-              style={{ tableLayout: "fixed" }}
-              display={"table"}
-              w={"100%"}
-              minW={"900px"}
-            >
+            <Thead bg="gray.100">
               <Tr>
-                <Th>Nombre</Th>
-                <Th>Fecha Solicitud</Th>
-                <Th textAlign={"center"}>Cantidad de Tuppers</Th>
-                <Th textAlign={"center"}>Comprobante</Th>
-                <Th>Validar Comprobante</Th>
+                <Th textAlign={"center"}>Nombre</Th>
+                <Th textAlign={"center"}>Fecha Transacción</Th>
+                <Th textAlign={"center"}>Cantidad</Th>
+                <Th textAlign={"center"}>Estado</Th>
+                <Th textAlign={"center"}>N° de Transacción</Th>
               </Tr>
             </Thead>
-            {/* Body Table  */}
-            <Tbody
-              display={"block"}
-              w={"100%"}
-              minW={"900px"}
-              h={"calc(450px - 40px)"}
-              overflowY={"scroll"}
-            >
-              {filteredPacks?.map((pack: UnauthorizedPack, index) => (
-                <Tr
-                  key={index}
-                  w={"100%"}
-                  lineHeight={"17.71px"}
-                  display={"table"}
-                  sx={{
-                    tableLayout: "fixed",
-                  }}
-                  fontSize={"xs"}
-                >
-                  {/* Nombre */}
-                  <Td>{pack.userId?.name}</Td>
 
-                  {/* Fecha Solicitud */}
-                  <Td textAlign={"center"}>
-                    <Tooltip label={pack?.createdAt}>
-                      <Text
-                        isTruncated
-                        maxWidth={"13ch"}
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                        whiteSpace="nowrap"
-                      >
-                        {pack?.createdAt}
-                      </Text>
-                    </Tooltip>
-                  </Td>
+            {/* Body Table */}
+            <Tbody fontSize={{ base: "xs", lg: "sm" }}>
+              {filteredPacks?.length > 0 ? (
+                filteredPacks?.map((pack) => (
+                  <Tr key={pack?._id}>
+                    {/* User Name */}
+                    <Td textAlign={"center"}>{pack?.userName ?? "-"}</Td>
 
-                  {/* Cantidad de Tuppers */}
-                  <Td textAlign={"center"}>{pack?.tupperAmount}</Td>
+                    {/* Fecha Transacción */}
+                    <Td textAlign={"center"}>
+                      {formatDate(pack?.paymentReceiveAt) ?? "-"}
+                    </Td>
 
-                  {/* Comprobante */}
-                  <Td textAlign={"center"}>
-                    <ButtonViewImage fileUrl={pack?.fileUrl} />
-                  </Td>
+                    {/* Cantidad */}
+                    <Td textAlign={"center"}>{pack?.quantity ?? "-"}</Td>
 
-                  {/* Botón para "Alta" */}
-                  <Td>
-                    <Button
-                      w={"100%"}
-                      borderRadius={"8.93px"}
-                      bg={"#344234"}
-                      color={"white"}
-                      onClick={() => handleAuthorize(pack._id)}
-                      isLoading={isAuthorizing[pack._id]}
-                    >
-                      Alta
-                    </Button>
+                    {/* Estado */}
+                    <Td textAlign={"center"}>{pack?.action ?? "-"}</Td>
+
+                    {/* N° de Transacción */}
+                    <Td textAlign={"center"}>{pack?.paymentId ?? "-"}</Td>
+                  </Tr>
+                ))
+              ) : (
+                <Tr>
+                  <Td colSpan={5} textAlign="center">
+                    No hay resultados.
                   </Td>
                 </Tr>
-              ))}
+              )}
             </Tbody>
           </Table>
-        </TableContainer>
-      </VStack>
+        </Box>
+      </TableContainer>
     </Skeleton>
   );
 }

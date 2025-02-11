@@ -21,7 +21,11 @@ import React, { useState, useEffect } from "react";
 import { updateUser } from "@/lib/actions/actions";
 import DeleteUser from "./DeleteUser";
 import { FaEyeSlash, FaEye } from "react-icons/fa6";
-import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
+import {
+  clearFieldError,
+  getErrorMessage,
+  getUserType,
+} from "@/lib/utils/utils";
 
 export default function Profile() {
   const toast = useToast();
@@ -42,15 +46,17 @@ export default function Profile() {
     refetchUserData,
     token,
     logout,
+    userRole,
   } = useAuth();
 
   const [formData, setFormData] = useState<UpdateUser>({
-    name: "",
-    phone: "",
-    address: "",
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+    name: undefined,
+    phone: undefined,
+    address: undefined,
+    IDCard: undefined,
+    currentPassword: undefined,
+    newPassword: undefined,
+    confirmPassword: undefined,
   });
 
   useEffect(() => {
@@ -58,6 +64,7 @@ export default function Profile() {
       setFormData({
         name: user.name || "",
         address: user.address || "",
+        IDCard: user.IDCard || "",
         phone: user.phone || "",
         currentPassword: "",
         newPassword: "",
@@ -130,6 +137,8 @@ export default function Profile() {
       [field]: !prevState[field],
     }));
   };
+
+  const role = getUserType(userRole);
 
   return (
     <Stack
@@ -206,24 +215,48 @@ export default function Profile() {
               </FormControl>
 
               {/* Input Address */}
+              {role !== "casa" && role !== "admin" && (
+                <FormControl
+                  id="address"
+                  isInvalid={!!getErrorMessage("address", errors)}
+                  isRequired
+                >
+                  <FormLabel>Dirección</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Ingresa tu dirección"
+                    focusBorderColor="#518a3e"
+                    value={formData.address}
+                    onChange={(e) => {
+                      handleInputChange(e);
+                      clearFieldError("address", setErrors);
+                    }}
+                  />
+                  <FormErrorMessage>
+                    {getErrorMessage("address", errors)}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+
+              {/* Input DNI */}
               <FormControl
-                id="address"
-                isInvalid={!!getErrorMessage("address", errors)}
+                id="IDCard"
+                isInvalid={!!getErrorMessage("IDCard", errors)}
                 isRequired
               >
-                <FormLabel>Dirección</FormLabel>
+                <FormLabel>DNI</FormLabel>
                 <Input
                   type="text"
-                  placeholder="Ingresa tu dirección"
+                  placeholder="Ingresa tu dni completo"
                   focusBorderColor="#518a3e"
-                  value={formData.address}
+                  value={formData.IDCard}
                   onChange={(e) => {
                     handleInputChange(e);
-                    clearFieldError("address", setErrors);
+                    clearFieldError("IDCard", setErrors);
                   }}
                 />
                 <FormErrorMessage>
-                  {getErrorMessage("address", errors)}
+                  {getErrorMessage("IDCard", errors)}
                 </FormErrorMessage>
               </FormControl>
 

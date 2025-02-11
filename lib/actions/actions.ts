@@ -1,19 +1,22 @@
+import { PreferenceResponse } from "mercadopago/dist/clients/preference/commonTypes";
 import {
   FormUserDataInfo,
   Issue,
   LoginData,
+  PaymentResponse,
   RegisterData,
   RegisterResponse,
+  SubscriptionInfo,
+  SubscriptionResponse,
   TransactionData,
   TransactionResponse,
-  UnauthorizedPack,
   UpdateUser,
   User,
-  UserPacks,
   UserResponse,
 } from "../types/types";
+import { Items } from "mercadopago/dist/clients/commonTypes";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BASE_URL = process.env.BASE_URL;
 
 export const registerUser = async (
   data: RegisterData
@@ -149,76 +152,10 @@ export const fetchUserData = async ({
     }
 
     const data: User = await response.json();
+
     return data;
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);
-    throw error;
-  }
-};
-
-export const fetchUserPacks = async ({
-  userId,
-  userToken,
-}: {
-  userId: string;
-  userToken: string;
-}): Promise<UserPacks[] | null> => {
-  const token = `Bearer ${userToken}`;
-
-  try {
-    const response = await fetch(`${BASE_URL}/auth/packs/${userId}`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(
-        `Error: ${response.statusText}. Detalles: ${errorMessage}`
-      );
-    }
-
-    const data: UserPacks[] = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
-    return null;
-  }
-};
-
-export const submitPack = async (
-  userId: string,
-  tupperAmount: number,
-  file: Blob | File,
-  token: string | null
-) => {
-  const formData = new FormData();
-  formData.append("userId", userId);
-  formData.append("tupperAmount", tupperAmount.toString());
-  if (file) {
-    formData.append("file", file);
-  }
-
-  try {
-    const response = await fetch(`${BASE_URL}/auth/pack`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("Error en la solicitud: " + response.statusText);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al enviar el pack:", error);
     throw error;
   }
 };
@@ -357,54 +294,9 @@ export const createTransaction = async (
   }
 };
 
-export const fetchUnauthorizedPacks = async (
-  token: string | null
-): Promise<UnauthorizedPack[]> => {
+export const getUsersAndPackData = async (token: string | null) => {
   try {
-    const response = await fetch(`${BASE_URL}/auth/packs/unauthorized`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al obtener los packs no autorizados");
-    }
-
-    const data: UnauthorizedPack[] = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const authorizePack = async (packId: string, token: string | null) => {
-  try {
-    const response = await fetch(`${BASE_URL}/auth/pack/${packId}/authorize`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al autorizar el pack");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error en la solicitud de autorización:", error);
-    throw error;
-  }
-};
-
-export const getUsersData = async (token: string | null) => {
-  try {
-    const response = await fetch(`${BASE_URL}/auth/usersData`, {
+    const response = await fetch(`${BASE_URL}/auth/getUserAndPackData`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -417,9 +309,30 @@ export const getUsersData = async (token: string | null) => {
     }
 
     const data = await response.json();
+
     return data;
   } catch (error) {
-    console.error("Error en la solicitud de datos de usuarios:", error);
+    throw error;
+  }
+};
+
+export const getAllMoneyTransactions = async (token: string | null) => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/getAllMoneyTransactions`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener las transacciones de dinero");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
     throw error;
   }
 };
@@ -542,5 +455,65 @@ export const resetPassword = async (
   } catch (error) {
     console.error("Error en la solicitud POST:", error);
     throw error;
+  }
+};
+
+export const getPreferenceId = async (
+  items: Items[],
+  userId: string | undefined
+): Promise<PreferenceResponse> => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/generatePaymentLink`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items, userId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener el preferenceId");
+    }
+
+    const responseData: PaymentResponse = await response.json();
+
+    return responseData.preference;
+  } catch (error) {
+    console.error("Error al obtener el preferenceId:", error);
+    throw error;
+  }
+};
+
+export const userUpdateSubscription = async (
+  userId: string | undefined,
+  token: string | null
+): Promise<SubscriptionInfo> => {
+  if (!userId || !token) {
+    throw new Error("UserId or Token is missing");
+  }
+
+  try {
+    const response = await fetch(
+      `${BASE_URL}/auth/UserUpdateSubscription/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorData.message}`
+      );
+    }
+
+    const data: SubscriptionResponse = await response.json();
+    return data.subscriptionInfo;
+  } catch (error) {
+    throw new Error(`Failed to update subscription: ${error}`);
   }
 };

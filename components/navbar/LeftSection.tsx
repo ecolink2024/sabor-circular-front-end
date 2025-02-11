@@ -1,5 +1,9 @@
 "use client";
-import { getUserType } from "@/lib/utils/utils";
+import {
+  getUserType,
+  redirectAttachedPremises,
+  redirectHowItsWorks,
+} from "@/lib/utils/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Box,
@@ -24,37 +28,10 @@ export default function LeftSection() {
 
   const role = getUserType(userRole);
 
-  const hrefTapercito = user
-    ? role === "casa"
+  const hrefTapercito =
+    user && role === "casa"
       ? `/dashboard/casa/${user._id}`
-      : `/dashboard/admin/${user._id}`
-    : "/login";
-
-  const handleRedirect = (href: string) => {
-    router.push(href);
-  };
-
-  const redirectHowItsWorks = () => {
-    if (pathname === "/") {
-      document
-        .getElementById("how-its-work")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      sessionStorage.setItem("scrollToSection", "how-its-work");
-      router.push("/");
-    }
-  };
-
-  const redirectAttachedPremises = () => {
-    if (pathname === "/") {
-      document
-        .getElementById("locales-adheridos")
-        ?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      sessionStorage.setItem("scrollToSection", "locales-adheridos");
-      router.push("/");
-    }
-  };
+      : "/activate-subscription";
 
   return (
     <Stack
@@ -94,9 +71,7 @@ export default function LeftSection() {
           variant={"unstyled"}
           position={"relative"}
           top={-1}
-        >
-          Actions
-        </MenuButton>
+        />
         <MenuList
           borderRadius={"14px"}
           borderTopLeftRadius={"none"}
@@ -112,17 +87,12 @@ export default function LeftSection() {
             display={
               role === "punto" ||
               role === "gastronomico" ||
-              role === "admin"
+              role === "admin" ||
+              role === "hibrido"
                 ? "none"
-                : role === "casa"
-                ? user?.code === undefined ||
-                  user?.code === null ||
-                  user?.code === ""
-                  ? "block"
-                  : "none"
-                : "flex"
+                : "block"
             }
-            onClick={() => handleRedirect(hrefTapercito)}
+            onClick={() => router.push(hrefTapercito)}
           >
             ¡Quiero sumarme!
           </MenuItem>
@@ -131,7 +101,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<RiRecycleFill color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={() => handleRedirect("/return-container")}
+            onClick={() => router.push("/return-container")}
           >
             Puntos de retorno
           </MenuItem>
@@ -140,7 +110,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<MdInfo color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={redirectHowItsWorks}
+            onClick={() => redirectHowItsWorks(pathname, router)}
           >
             <Link href={"/"}>¿Cómo funciona? </Link>
           </MenuItem>
@@ -149,7 +119,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<FaShop color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={redirectAttachedPremises}
+            onClick={() => redirectAttachedPremises(pathname, router)}
           >
             <Link href={"/"}>Locales adheridos</Link>
           </MenuItem>
@@ -158,7 +128,7 @@ export default function LeftSection() {
           <MenuItem
             icon={<MdGroups color="#ea9b42" fontSize={18} />}
             _hover={{ bg: "#fee1a5", color: "#ea9b42" }}
-            onClick={() => handleRedirect("/contact")}
+            onClick={() => router.push("/contact")}
           >
             <Link href={"/"}>Quiero ser local adherido</Link>
           </MenuItem>

@@ -20,7 +20,7 @@ const WidgetWsp = ({ display }: { display: boolean }) => {
         )
       }
     >
-      <Image src="/svg/whatsapp.svg" w={"100%"} h={"100%"} />
+      <Image src="/svg/whatsapp.svg" w={"100%"} h={"100%"} alt="svg-wsp" />
     </Box>
   );
 };

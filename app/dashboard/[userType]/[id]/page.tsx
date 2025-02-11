@@ -6,15 +6,15 @@ import PuntoCircularDashboard from "@/components/dashboard/puntoCircularDashboar
 export default async function Dashboard({
   params,
 }: {
-  params: { userType: string; id: string };
+  params: { userType: string | undefined };
 }) {
-  const id = params.id;
-  const userType = params.userType;
+  const userType = params?.userType;
+
 
   const renderDashboard = () => {
     switch (userType) {
       case "casa":
-        return <CasaDashboard id={id} />;
+        return <CasaDashboard />;
       case "admin":
         return <AdminDashboard />;
       case "punto":

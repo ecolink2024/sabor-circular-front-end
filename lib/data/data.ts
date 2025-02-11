@@ -11,10 +11,10 @@ export const cardsWorks = [
   },
   {
     id: "2",
-    title: "Activá tu suscripción",
+    title: "Activá tu adhesión",
     icon: FaUserPlus,
     description:
-      " Un único pago ($9400) que te habilita un envase retornable y descuentos exclusivos",
+      "Un único pago por 6 meses que te habilita dos envases retornables y descuentos exclusivos.",
     button: "¡Quiero sumarme!",
   },
   {
@@ -113,5 +113,62 @@ export const accompany: infiniteSlider[] = [
     svg: "/svg/symbio-net-logo.svg",
     tooltip: "logo 9",
     link: "",
+  },
+];
+
+export const faq = [
+  {
+    question: "¿Cómo me sumo a la comunidad?",
+    answer:
+      "Regístrate en nuestra web y realiza el pago de la adhesión por MercadoPago. ¡Listo! Ya puedes empezar a usar los envases.",
+  },
+  {
+    question: "¿Qué incluye la adhesión?",
+    answer:
+      "Dos envases retornables y el sistema de sanitización para que siempre estén listos para usar.",
+  },
+  {
+    question: "¿Cuánto dura la adhesión y cómo se renueva?",
+    answer:
+      "Dura 6 meses y no se renueva automáticamente. Te avisaremos cuando esté por vencer para que puedas renovarla.",
+  },
+  {
+    question: "¿Cómo obtengo mi envase?",
+    answer:
+      "Luego de activar tu adhesión, se activan tus envases en el sistema. Los retiras con tu primer pedido en cualquier local adherido.",
+  },
+  {
+    question: "¿Cómo pido en envases retornables?",
+    answer:
+      "Pide en los locales adheridos como siempre y avísales que quieres recibir tu comida en envases de Sabor Circular con tu código de usuario.",
+  },
+  {
+    question: "¿Cómo devuelvo el envase?",
+    answer:
+      "Lleva el envase a la misma pizzería o a cualquier punto de retorno. Una vez devuelto, se te habilitará en el sistema para que lo uses otra vez.",
+  },
+  {
+    question: "¿Es obligatorio devolver el envase?",
+    answer:
+      "Sí. Para seguir usando el servicio, es necesario que devuelvas el envase.",
+  },
+  {
+    question: "¿Qué pasa cuando el envase llega al final de su vida útil?",
+    answer:
+      "Después de aproximadamente 150 usos, lo reciclamos para mantener el proceso verdaderamente circular.",
+  },
+  {
+    question: "¿Los envases están limpios y seguros?",
+    answer:
+      "Sí. Pasan por un proceso de sanitización gastronómica en la asociación civil Las Omas, garantizando higiene y seguridad.",
+  },
+  {
+    question: "¿Qué pasa si daño un envase?",
+    answer:
+      "Si el envase se daña y no puede reutilizarse, se te aplicará una multa.",
+  },
+  {
+    question: "¿Qué pasa si no devuelvo el envase?",
+    answer: "Se aplicará una penalización económica.",
   },
 ];

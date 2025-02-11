@@ -29,6 +29,7 @@ import { FaArrowLeftLong, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { clearFieldError, getErrorMessage } from "@/lib/utils/utils";
 import { PiWarningCircleDuotone } from "react-icons/pi";
 import { sendGAEvent } from "@next/third-parties/google";
+import { useRouter } from "next/navigation";
 
 export default function SignIn({
   registrationType = "casa",
@@ -36,12 +37,16 @@ export default function SignIn({
   registrationType: "admin" | "casa" | "pg";
 }) {
   const toast = useToast();
+  const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
   const [formData, setFormData] = useState<RegisterData>({
     name: "",
     email: "",
     phone: "",
     address: "",
+    IDCard: "",
     role:
       registrationType === "casa"
         ? ["casa"]
@@ -52,14 +57,10 @@ export default function SignIn({
     confirmPassword: "",
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [passwordVisibility, setPasswordVisibility] = useState({
     newPassword: false,
     confirmPassword: false,
   });
-
-  const [errors, setErrors] = useState<ValidationError[] | undefined>([]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -96,6 +97,7 @@ export default function SignIn({
           name: "",
           email: "",
           phone: "",
+          IDCard: "",
           address: "",
           password: "",
           confirmPassword: "",
@@ -146,17 +148,16 @@ export default function SignIn({
     >
       {/* Button Redirect Index */}
       <IconButton
-        as={Link}
         bg={"#518a3e"}
         _hover={{ bg: "gray.300" }}
         borderRadius={"8.93px"}
         color={"white"}
         aria-label="redirect-index"
         icon={<FaArrowLeftLong />}
-        href="/"
         position={"absolute"}
         top={4}
         left={4}
+        onClick={() => router.push("/")}
       />
       <Image
         src={"/svg/logo-sabor-circular-register.svg"}
@@ -208,6 +209,27 @@ export default function SignIn({
               </FormErrorMessage>
             </FormControl>
 
+            {/* Input DNI  */}
+            <FormControl
+              id="IDCard"
+              isInvalid={!!getErrorMessage("IDCard", errors)}
+            >
+              <FormLabel>DNI</FormLabel>
+              <Input
+                type="text"
+                placeholder={`Ingresa tu dni completo`}
+                value={formData.IDCard}
+                focusBorderColor="#518a3e"
+                onChange={(e) => {
+                  handleInputChange(e);
+                  clearFieldError("IDCard", setErrors);
+                }}
+              />
+              <FormErrorMessage>
+                {getErrorMessage("IDCard", errors)}
+              </FormErrorMessage>
+            </FormControl>
+
             {/* Input Email  */}
             <FormControl
               id="email"
@@ -251,25 +273,27 @@ export default function SignIn({
             </FormControl>
 
             {/* Input Address */}
-            <FormControl
-              id="address"
-              isInvalid={!!getErrorMessage("address", errors)}
-            >
-              <FormLabel>Dirección</FormLabel>
-              <Input
-                type="text"
-                placeholder="Ingresa tu dirección"
-                focusBorderColor="#518a3e"
-                value={formData.address}
-                onChange={(e) => {
-                  handleInputChange(e);
-                  clearFieldError("address", setErrors);
-                }}
-              />
-              <FormErrorMessage>
-                {getErrorMessage("address", errors)}
-              </FormErrorMessage>
-            </FormControl>
+            {registrationType === "pg" && (
+              <FormControl
+                id="address"
+                isInvalid={!!getErrorMessage("address", errors)}
+              >
+                <FormLabel>Dirección</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Ingresa tu dirección"
+                  focusBorderColor="#518a3e"
+                  value={formData.address}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    clearFieldError("address", setErrors);
+                  }}
+                />
+                <FormErrorMessage>
+                  {getErrorMessage("address", errors)}
+                </FormErrorMessage>
+              </FormControl>
+            )}
 
             {/* Select Role  */}
             {registrationType === "pg" && (
@@ -293,7 +317,7 @@ export default function SignIn({
                     clearFieldError("role", setErrors);
                   }}
                 >
-                  <option value="punto">Punto</option>
+                  <option value="recolector">Recolector</option>
                   {/* <option value="gastronomico">Gastronómico</option> */}
                   <option value="ambas">Gastronómico</option>
                 </Select>

@@ -1,20 +1,28 @@
 import { useEffect, useState, useCallback } from "react";
-import { UnauthorizedPack } from "@/lib/types/types";
-import { fetchUnauthorizedPacks } from "@/lib/actions/actions";
+import { GetAllMoneyTransaction } from "../types/types";
+import { getAllMoneyTransactions } from "../actions/actions";
 
-export const useUnauthorizedPacks = (token: string | null) => {
-  const [packs, setPacks] = useState<UnauthorizedPack[]>([]);
+export const usePacksRequest = (token: string | null) => {
+  const [packs, setPacks] = useState<GetAllMoneyTransaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
-    if (!token) return;
-    setIsLoading(true);
+    if (!token) {
+      setError("Token no disponible");
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      const data = await fetchUnauthorizedPacks(token);
-      setPacks(data);
+      setIsLoading(true);
       setError(null);
+
+      const data: GetAllMoneyTransaction[] = await getAllMoneyTransactions(
+        token
+      );
+
+      setPacks(data);
     } catch (err) {
       setError("No se pudo obtener la información");
       console.error(err);

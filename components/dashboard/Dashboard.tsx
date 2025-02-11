@@ -14,9 +14,10 @@ export default function Dashboard({ children }: { children: ReactNode }) {
     <Stack
       as={Center}
       height={"100%"}
-      p={10}
+      py={{ base: 20, lg: 16 }}
+      px={6}
       m={"auto"}
-      gap={20}
+      gap={{ base: 4, lg: 10 }}
       position={"relative"}
     >
       <Flex
@@ -27,7 +28,7 @@ export default function Dashboard({ children }: { children: ReactNode }) {
         gap={6}
       >
         <Skeleton isLoaded={!isLoading} borderRadius={"8.93px"}>
-          <Heading color={"white"} size={"2xl"}>
+          <Heading color={"white"} size={"2xl"} as={"h2"}>
             {`Hola ${user?.name.split(" ")[0]}!`}
           </Heading>
         </Skeleton>

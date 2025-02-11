@@ -40,7 +40,7 @@ export default function Login() {
         `/dashboard/${role === "hibrido" ? "gastronomico" : role}/${user._id}`
       );
     }
-  }, [user, router]);
+  }, [user, router, role]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,15 +86,14 @@ export default function Login() {
     >
       {/* Button Redirect Index */}
       <IconButton
-        as={Link}
         bg={"#518a3e"}
         _hover={{ bg: "gray.300" }}
         borderRadius={"8.93px"}
         color={"white"}
         aria-label="redirect-index"
         icon={<FaArrowLeftLong />}
-        href="/"
         position={"absolute"}
+        onClick={() => router.push("/")}
         top={4}
         left={4}
       />

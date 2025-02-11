@@ -13,19 +13,20 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { MdMail } from "react-icons/md";
 import { RiInstagramFill } from "react-icons/ri";
 
 export default function Footer() {
+  const router = useRouter();
   const { user, userRole } = useAuth();
 
   const role = getUserType(userRole);
 
-  const hrefTapercito = user
-    ? role === "casa"
+  const hrefTapercito =
+    user && role === "casa"
       ? `/dashboard/casa/${user._id}`
-      : `/dashboard/admin/${user._id}`
-    : "login";
+      : "/activate-subscription";
 
   return (
     <Stack
@@ -52,14 +53,14 @@ export default function Footer() {
           px={{ base: 3, lg: 10 }}
           align={{ base: "center", lg: "flex-start" }}
         >
-          <Link href="/">
-            <Image
-              src={"/svg/logo-sabor-circular-register.svg"}
-              alt="logo"
-              width={"200px"}
-              height={"auto"}
-            />
-          </Link>
+          <Image
+            src={"/svg/logo-sabor-circular-register.svg"}
+            alt="logo"
+            width={"200px"}
+            height={"auto"}
+            onClick={() => router.push("/")}
+            cursor={"pointer"}
+          />
           <HStack gap={4} position={"relative"} top={"5px"}>
             <Link href="https://www.instagram.com/saborcircular" isExternal>
               <Icon as={RiInstagramFill} fontSize={30} color="#344234" />
@@ -79,28 +80,32 @@ export default function Footer() {
           px={{ base: 6, lg: 10 }}
           gap={6}
         >
-          <Link
-            href={hrefTapercito}
+          <Text
             display={
               role === "punto" ||
               role === "gastronomico" ||
               role === "admin" ||
               role === "hibrido"
                 ? "none"
-                : role === "casa"
-                ? user?.code === undefined ||
-                  user?.code === null ||
-                  user?.code === ""
-                  ? "block"
-                  : "none"
-                : "flex"
+                : "block"
             }
+            cursor={"pointer"}
+            onClick={() => router.push(hrefTapercito)}
           >
             -¡Quiero sumarme!
-          </Link>
-          <Link href="/return-container">-Puntos de Recepción</Link>
-          <Link href="#how-its-work">-Como funciona?</Link>
-          <Link href="/contact">-Quiero ser local adherido</Link>
+          </Text>
+          <Text
+            cursor={"pointer"}
+            onClick={() => router.push("/return-container")}
+          >
+            -Puntos de Recepción
+          </Text>
+          <Text cursor={"pointer"} onClick={() => router.push("#how-its-work")}>
+            -Como funciona?
+          </Text>
+          <Text cursor={"pointer"} onClick={() => router.push("/contact")}>
+            -Quiero ser local adherido
+          </Text>
           <Link
             href="https://www.symbionet.tech/"
             target="_blank"
