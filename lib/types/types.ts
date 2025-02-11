@@ -164,5 +164,6 @@ export type UserAndPack = {
     code: string;
     authorizedAt: Date;
     tupperMount: number;
+    tupperCount: number;
   };
 };

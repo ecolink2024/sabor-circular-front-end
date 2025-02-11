@@ -78,7 +78,7 @@ export default function AllUsersTable() {
                 <Th>Código</Th>
                 <Th>Tipo de Usuario</Th>
                 <Th>Fecha de Suscripción</Th>
-                <Th>Cantidad de Tuppers</Th>
+                <Th>Envases</Th>
                 <Th>Email</Th>
                 <Th>Teléfono</Th>
                 <Th>Eliminar</Th>
@@ -131,7 +131,7 @@ export default function AllUsersTable() {
 
                     {/* Cantidad de Tuppers */}
                     <Td textAlign={"center"}>
-                      {user?.pack?.tupperMount ?? "-"}
+                      {user?.pack?.tupperCount ?? "-"}
                     </Td>
 
                     {/* Email */}
