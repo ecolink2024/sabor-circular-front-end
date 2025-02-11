@@ -17,10 +17,9 @@ export default function useMercadoPago() {
           {
             id: user?._id || "",
             title: "Envase Retornable",
-            description:
-              "Un envase retornable reutilizable que promueve la economía circular.",
+            description: "Envase Retornable Sabor Circular",
             quantity: 2,
-            unit_price: 1,
+            unit_price: 5250,
             picture_url:
               "https://www.saborcircular.com.ar/img/landing-page.jpg",
           },
