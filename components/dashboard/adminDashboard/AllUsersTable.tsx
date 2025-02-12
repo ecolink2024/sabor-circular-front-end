@@ -121,7 +121,10 @@ export default function AllUsersTable() {
                       textAlign={"center"}
                       color={
                         user?.role?.includes("casa") &&
-                        isExpiringOrExpired(user?.pack?.authorizedAt)
+                        (isExpiringOrExpired(user?.pack?.authorizedAt)
+                          .isExpired ||
+                          isExpiringOrExpired(user?.pack?.authorizedAt)
+                            .isExpiringSoon)
                           ? "red.500"
                           : "inherit"
                       }

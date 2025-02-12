@@ -1,5 +1,9 @@
 "use client";
-import { calculateAlertDate, formatDate } from "@/lib/utils/utils";
+import {
+  calculateExpirationDate,
+  formatDate,
+  isExpiringOrExpired,
+} from "@/lib/utils/utils";
 import {
   Alert,
   AlertDescription,
@@ -13,21 +17,18 @@ import ModalUpdateSuscription from "./ModalUpdateSuscription";
 import useMercadoPago from "@/lib/hooks/useMercadoPago";
 
 function AlertComponent({
-  expirationDate,
+  subscriptionDate,
 }: {
-  expirationDate: Date | null | undefined;
+  subscriptionDate: Date | null | undefined;
 }) {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const { handleActivate, isLoading, preference, activated } = useMercadoPago();
 
-  const currentDate = new Date();
-  const alertDate = calculateAlertDate(expirationDate);
+  //show alert
+  const { isExpired, isExpiringSoon } = isExpiringOrExpired(subscriptionDate);
 
-  const isExpired =
-    expirationDate && new Date(currentDate) >= new Date(expirationDate);
-
-  const shouldShowAlert =
-    alertDate && expirationDate && (currentDate > alertDate || isExpired);
+  //expired date
+  const expirationDate = calculateExpirationDate(subscriptionDate, 6);
 
   useEffect(() => {
     if (activated && preference && !isLoading) {
@@ -38,7 +39,7 @@ function AlertComponent({
   return (
     <>
       <Alert
-        display={shouldShowAlert ? "flex" : "none"}
+        display={isExpired || isExpiringSoon ? "flex" : "none"}
         status="error"
         variant="subtle"
         bg="red.100"
@@ -57,17 +58,17 @@ function AlertComponent({
             fontSize={{ base: "14px", lg: "15px" }}
             lineHeight={1}
           >
-            {isExpired ? "Suscripción Expirada" : "Información de Vencimiento"}
+            {isExpiringSoon
+              ? "Información de Vencimiento"
+              : "Suscripción Expirada"}
           </AlertTitle>
           <AlertDescription
             color="red.700"
             fontSize={{ base: "11px", lg: "13px" }}
           >
-            {isExpired
-              ? `Tu suscripción expiró el ${formatDate(expirationDate)}.`
-              : `Tu suscripción vencerá pronto el ${formatDate(
-                  expirationDate
-                )}`}
+            {isExpiringSoon
+              ? `Tu suscripción vencerá pronto el ${formatDate(expirationDate)}`
+              : `Tu suscripción expiró el ${formatDate(expirationDate)}.`}
           </AlertDescription>
 
           {/* Button Update Suscription */}

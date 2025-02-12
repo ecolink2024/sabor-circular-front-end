@@ -146,41 +146,6 @@ export const redirectHowItsWorks = (
   }
 };
 
-export const formatDate = (date: Date | string | null | undefined) => {
-  if (!date) return null;
-
-  const dateObj = typeof date === "string" ? new Date(date) : date;
-
-  if (isNaN(dateObj.getTime())) {
-    return null;
-  }
-
-  return dateObj.toLocaleDateString("es-ES", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-};
-
-export const calculateExpirationDate = (
-  date: Date | null | undefined,
-  expirationMonthNumbers: number
-) => {
-  if (!date) return null;
-
-  const expirationDate = new Date(date);
-  expirationDate.setMonth(expirationDate.getMonth() + expirationMonthNumbers);
-  return expirationDate;
-};
-
-export const calculateAlertDate = (expirationDate: Date | null | undefined) => {
-  if (!expirationDate) return null;
-
-  const alertDate = new Date(expirationDate);
-  alertDate.setDate(alertDate.getDate() - 15);
-  return alertDate;
-};
-
 export function isAuthorizedPack(
   isAuthenticated: boolean,
   pack: SubscriptionInfo | undefined
@@ -201,18 +166,50 @@ export function isAuthorizedPack(
   return { isValid: true };
 }
 
-export const isExpiringOrExpired = (date: Date | null | undefined): boolean => {
-  if (!date) return false;
+//Utils Dates
+export const formatDate = (date: Date | string | null | undefined) => {
+  if (!date) return null;
 
-  const currentDate = new Date("2025-07-25T00:00:00.000Z");
+  const dateObj = typeof date === "string" ? new Date(date) : date;
 
-  const expirationDate = calculateExpirationDate(date, 6);
+  if (isNaN(dateObj.getTime())) {
+    return null;
+  }
 
-  if (!expirationDate) return false;
+  return dateObj.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
 
-  const timeDifference = expirationDate.getTime() - currentDate.getTime();
+export const calculateExpirationDate = (
+  date: Date | null | undefined,
+  expirationMonthNumbers: number
+): Date | null => {
+  if (!date || isNaN(date.getTime())) return null;
 
-  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  const expirationDate = new Date(date);
+  expirationDate.setMonth(expirationDate.getMonth() + expirationMonthNumbers);
+  return expirationDate;
+};
 
-  return daysDifference <= 15 || timeDifference < 0;
+export const isExpiringOrExpired = (
+  date: Date | null | undefined
+): { isExpired: boolean; isExpiringSoon: boolean } => {
+  if (!date || isNaN(date.getTime()))
+    return { isExpired: false, isExpiringSoon: false };
+
+  const currentDate = new Date();
+
+  const expirationDate = new Date(date);
+  expirationDate.setMonth(expirationDate.getMonth() + 6);
+
+  const warningDate = new Date(expirationDate);
+  warningDate.setDate(expirationDate.getDate() - 15);
+
+  const isExpired = currentDate >= expirationDate;
+  const isExpiringSoon = currentDate >= warningDate && !isExpired;
+
+  return { isExpired, isExpiringSoon };
 };
