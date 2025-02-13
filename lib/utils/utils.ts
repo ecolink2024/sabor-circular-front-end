@@ -202,7 +202,7 @@ export const isExpiringOrExpired = (
   const currentDate = new Date();
 
   const expirationDate = new Date(date);
-  expirationDate.setMonth(expirationDate.getMonth());
+  expirationDate.setMonth(expirationDate.getMonth() + 6);
 
   const warningDate = new Date(expirationDate);
   warningDate.setDate(expirationDate.getDate() - 15);
