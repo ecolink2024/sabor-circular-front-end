@@ -28,7 +28,7 @@ function AlertComponent({
   const { isExpired, isExpiringSoon } = isExpiringOrExpired(subscriptionDate);
 
   //expired date
-  const expirationDate = calculateExpirationDate(subscriptionDate, 6);
+  const expirationDate = subscriptionDate;
 
   useEffect(() => {
     if (activated && preference && !isLoading) {
