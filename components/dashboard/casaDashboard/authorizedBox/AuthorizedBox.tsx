@@ -15,7 +15,7 @@ import AlertComponent from "./AlertComponent";
 import { FaEyeSlash, FaEye, FaCalendarDay } from "react-icons/fa6";
 import { useState } from "react";
 import { MdContentCopy } from "react-icons/md";
-import { calculateExpirationDate, formatDate } from "@/lib/utils/utils";
+import { formatDate } from "@/lib/utils/utils";
 import { SubscriptionInfo } from "@/lib/types/types";
 
 export default function AuthorizedBox({
@@ -29,8 +29,6 @@ export default function AuthorizedBox({
   const toggleCodeVisibility = () => {
     setIsCodeVisible(!isCodeVisible);
   };
-
-  const expiredDate = calculateExpirationDate(pack?.authorizedAt, 6);
 
   return (
     <Flex
@@ -134,7 +132,7 @@ export default function AuthorizedBox({
               <Icon as={FaCalendarDay} fontSize={18} color="#344234" />
               <Text fontSize="sm" color="#344234">
                 <strong>Expiracion:</strong>{" "}
-                {formatDate(expiredDate || new Date())}
+                {formatDate(pack?.authorizedAt || new Date())}
               </Text>
             </Flex>
 
