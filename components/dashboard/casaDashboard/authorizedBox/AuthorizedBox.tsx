@@ -10,11 +10,11 @@ import {
   VStack,
   useClipboard,
 } from "@chakra-ui/react";
+import BoxContainer from "./BoxContainer";
+import AlertComponent from "./AlertComponent";
 import { FaEyeSlash, FaEye, FaCalendarDay } from "react-icons/fa6";
 import { useState } from "react";
 import { MdContentCopy } from "react-icons/md";
-import BoxContainer from "./BoxContainer";
-import AlertComponent from "./AlertComponent";
 import { formatDate } from "@/lib/utils/utils";
 import { SubscriptionInfo } from "@/lib/types/types";
 
@@ -137,7 +137,7 @@ export default function AuthorizedBox({
             </Flex>
 
             {/* Alert Component */}
-            <AlertComponent expirationDate={pack?.authorizedAt} />
+            <AlertComponent subscriptionDate={pack?.authorizedAt} />
           </VStack>
         </Center>
       </BoxContainer>
