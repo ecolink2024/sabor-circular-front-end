@@ -210,5 +210,10 @@ export const isExpiringOrExpired = (
   const isExpired = currentDate >= expirationDate;
   const isExpiringSoon = currentDate >= warningDate && !isExpired;
 
+  console.log(currentDate);
+  console.log(expirationDate);
+  console.log(isExpired);
+  console.log(isExpiringSoon);
+
   return { isExpired, isExpiringSoon };
 };
