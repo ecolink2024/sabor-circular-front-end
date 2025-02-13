@@ -183,17 +183,6 @@ export const formatDate = (date: Date | string | null | undefined) => {
   });
 };
 
-export const calculateExpirationDate = (
-  date: Date | null | undefined,
-  expirationMonthNumbers: number
-): Date | null => {
-  if (!date) return null;
-
-  const expirationDate = new Date(date);
-  expirationDate.setMonth(expirationDate.getMonth() + expirationMonthNumbers);
-  return expirationDate;
-};
-
 export const isExpiringOrExpired = (
   date: Date | null | undefined
 ): { isExpired: boolean; isExpiringSoon: boolean } => {
@@ -202,18 +191,12 @@ export const isExpiringOrExpired = (
   const currentDate = new Date();
 
   const expirationDate = new Date(date);
-  // expirationDate.setMonth(expirationDate.getMonth());
 
   const warningDate = new Date(expirationDate);
   warningDate.setDate(expirationDate.getDate() - 15);
 
   const isExpired = currentDate >= expirationDate;
   const isExpiringSoon = currentDate >= warningDate && !isExpired;
-
-  console.log(currentDate);
-  console.log(expirationDate);
-  console.log(isExpired);
-  console.log(isExpiringSoon);
 
   return { isExpired, isExpiringSoon };
 };

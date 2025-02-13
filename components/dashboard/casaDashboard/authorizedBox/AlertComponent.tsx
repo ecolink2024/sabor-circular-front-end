@@ -1,9 +1,5 @@
 "use client";
-import {
-  calculateExpirationDate,
-  formatDate,
-  isExpiringOrExpired,
-} from "@/lib/utils/utils";
+import { formatDate, isExpiringOrExpired } from "@/lib/utils/utils";
 import {
   Alert,
   AlertDescription,
