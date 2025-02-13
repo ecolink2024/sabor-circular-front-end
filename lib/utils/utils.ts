@@ -172,6 +172,8 @@ export const formatDate = (date: Date | string | null | undefined) => {
 
   const dateObj = typeof date === "string" ? new Date(date) : date;
 
+  console.log(dateObj);
+
   if (isNaN(dateObj?.getTime())) {
     return null;
   }
@@ -187,7 +189,7 @@ export const calculateExpirationDate = (
   date: Date | null | undefined,
   expirationMonthNumbers: number
 ): Date | null => {
-  if (!date || isNaN(date?.getTime())) return null;
+  if (!date) return null;
 
   const expirationDate = new Date(date);
   expirationDate.setMonth(expirationDate.getMonth() + expirationMonthNumbers);
@@ -197,8 +199,7 @@ export const calculateExpirationDate = (
 export const isExpiringOrExpired = (
   date: Date | null | undefined
 ): { isExpired: boolean; isExpiringSoon: boolean } => {
-  if (!date || isNaN(date?.getTime()))
-    return { isExpired: false, isExpiringSoon: false };
+  if (!date) return { isExpired: false, isExpiringSoon: false };
 
   const currentDate = new Date();
 
