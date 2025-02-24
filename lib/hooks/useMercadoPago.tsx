@@ -19,7 +19,7 @@ export default function useMercadoPago() {
             title: "Envase Retornable",
             description: "Envase Retornable Sabor Circular",
             quantity: 2,
-            unit_price: 100,
+            unit_price: 5250,
             picture_url:
               "https://www.saborcircular.com.ar/img/landing-page.jpg",
           },
